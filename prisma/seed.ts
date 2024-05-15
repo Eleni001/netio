@@ -1,7 +1,5 @@
 // import { PrismaClient } from "@prisma/client";
 
-import { userSeed } from "./seedScripts/user";
-
 // const db = new PrismaClient();
 
 // async function main() {
@@ -42,10 +40,10 @@ import { userSeed } from "./seedScripts/user";
 //     process.exit(1);
 //   });
 
-async function main() {
-  await userSeed();
-  await userSeed();
-  await userSeed();
-  await userSeed();
-  await userSeed();
-}
+// async function main() {
+//   await userSeed();
+//   await userSeed();
+//   await userSeed();
+//   await userSeed();
+//   await userSeed();
+// }
