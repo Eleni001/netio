@@ -1,6 +1,5 @@
 import { CartItem, Product } from "@/data";
 import { useToast } from "@chakra-ui/react";
-import { PrismaClient } from "@prisma/client";
 import {
   PropsWithChildren,
   createContext,
@@ -43,18 +42,12 @@ function CartProvider(props: PropsWithChildren) {
   }, [cart, isLoaded]);
 
   // Logiken för att ändra kundvagnen ligger nära tillståndet
-  const db = new PrismaClient();
   const addToCart = async (product: Product) => {
     console.log("initial cart", cart);
     // 1. Om produkten redan finns i kundvagnen, öka antalet
     const isProductPresent = cart.find(
       (cartItem) => cartItem.id === product.id
     );
-    await db.user.create({
-      data: {
-        email: "123@mail.com",
-      },
-    });
     console.log("isProductPresent", isProductPresent);
     if (isProductPresent) {
       const newCart = cart.map((cartItem) => {
