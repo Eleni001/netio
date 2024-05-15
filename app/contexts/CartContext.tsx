@@ -49,6 +49,7 @@ function CartProvider(props: PropsWithChildren) {
     const isProductPresent = cart.find(
       (cartItem) => cartItem.id === product.id
     );
+
     console.log("isProductPresent", isProductPresent);
     if (isProductPresent) {
       const newCart = cart.map((cartItem) => {
