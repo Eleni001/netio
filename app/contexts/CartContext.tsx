@@ -42,12 +42,14 @@ function CartProvider(props: PropsWithChildren) {
   }, [cart, isLoaded]);
 
   // Logiken för att ändra kundvagnen ligger nära tillståndet
-  const addToCart = async (product: Product) => {
+
+  const addToCart = (product: Product) => {
     console.log("initial cart", cart);
     // 1. Om produkten redan finns i kundvagnen, öka antalet
     const isProductPresent = cart.find(
       (cartItem) => cartItem.id === product.id
     );
+
     console.log("isProductPresent", isProductPresent);
     if (isProductPresent) {
       const newCart = cart.map((cartItem) => {
