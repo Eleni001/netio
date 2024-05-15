@@ -15,54 +15,63 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  email     String?
-  password  String?
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
-  adress    Adress?
-  isAdmin   Boolean?
-  Order     Order?
+  isAdmin   Boolean  @default(false)
+  orders    Order[]
 }
 
 model Adress {
-  id     Int    @id @default(autoincrement())
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
+  id     Int     @id @default(autoincrement())
   street String
   zip    Int
   city   String
   email  String
+  orders Order[]
 }
 
 model Product {
-  id                Int             @id @default(autoincrement())
-  title             String
-  price             Int
-  desc              String
-  stock             Int
-  productCategory   ProductCategory @relation(fields: [productCategoryId], references: [id])
-  productCategoryId Int
-  createdAt         DateTime        @default(now())
-  archived          Boolean
+  id         Int        @id @default(autoincrement())
+  title      String
+  price      Int
+  desc       String
+  stock      Int
+  categories Category[]
+  createdAt  DateTime   @default(now())
+  archived   Boolean
+  orderRows  OrderRow[]
 }
 
-model ProductCategory {
-  id         Int        @id @default(autoincrement())
-  product    Product[]
-  categories Category[]
-}
+// model ProductCategory {
+//   id         Int        @id @default(autoincrement())
+//   product    Product[]
+//   categories Category[]
+// }
 
 model Category {
-  id                Int             @id @default(autoincrement())
-  name              String
-  productCategory   ProductCategory @relation(fields: [productCategoryId], references: [id])
-  productCategoryId Int
+  id           Int       @id @default(autoincrement())
+  categoryName String
+  products     Product[]
 }
 
 model Order {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
-  createdAt DateTime
-  // productCopy Product?
+  id             Int        @id @default(autoincrement())
+  user           User       @relation(fields: [userId], references: [id])
+  userId         Int        @unique
+  createdAt      DateTime
+  shippingAdress Adress     @relation(fields: [adressId], references: [id])
+  adressId       Int
+  orderRows      OrderRow[]
 }
 
+model OrderRow {
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int // relation scalar field (used in the `@relation` attribute above)
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int // relation scalar field (used in the `@relation` attribute above)
+  quantity  Int
+  subTotal  Decimal
+
+  @@id([orderId, productId])
+}
