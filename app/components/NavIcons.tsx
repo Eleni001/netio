@@ -1,10 +1,10 @@
 "use client";
 
-import { Circle, Flex, Icon, Link } from "@chakra-ui/react";
+import { Circle, Flex, Icon, Text} from "@chakra-ui/react";
 import NextLink from "next/link";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoPersonOutline } from "react-icons/io5";
-import { LuHeart } from "react-icons/lu";
+/* import { LuHeart } from "react-icons/lu"; */
 import { useCart } from "../contexts/CartContext";
 
 export default function NavIcons() {
@@ -32,7 +32,7 @@ export default function NavIcons() {
           <IoPersonOutline size='1.6rem' />
         </Icon>
       </NextLink>
-      <Link color='black' _hover={{ color: "brown" }} textDecor='none'>
+      <NextLink href='/register' passHref color='black' data-cy='cart-link'>
         <Icon
           fontSize='1.7rem'
           transition={"transform 0.2s ease-in-out"}
@@ -42,9 +42,10 @@ export default function NavIcons() {
             transform: "scale(1.2)",
           }}
         >
-          <LuHeart size='1.5rem' />
+          <Text>Register</Text>
+          {/* <LuHeart size='1.5rem' /> */}
         </Icon>
-      </Link>
+      </NextLink>
 
       <NextLink href='/checkout' passHref color='black' data-cy='cart-link'>
         <Icon
