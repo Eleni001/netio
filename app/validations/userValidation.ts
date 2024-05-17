@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const UserCreateSchema = Yup.object().shape({
-  userName: Yup.string().min(1).max(15).required("Required"),
+  username: Yup.string().min(1).max(15).required("Required"),
   email: Yup.string().email("Invalid Email").required("Required"),
   password: Yup.string()
     .min(6, "Too Short")
