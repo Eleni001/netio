@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Flex,
+  FormControl,
   FormErrorMessage,
   FormLabel,
   Heading,
@@ -56,7 +57,7 @@ export default function UserRegistrationForm() {
               Register
             </Heading>
             <Text fontSize={"lg"} color={"gray.600"}>
-              To update your home 
+              To update your home
             </Text>
           </Stack>
           <Box
@@ -66,33 +67,36 @@ export default function UserRegistrationForm() {
             p={8}
           >
             <Stack spacing={4}>
-              <FormLabel>Email address</FormLabel>
-              <Input {...register("email")} type="text" placeholder="Email" />
-              <FormErrorMessage>
-                {errors.email && errors.email.message}
-              </FormErrorMessage>
-              <FormLabel>Password</FormLabel>
-              <InputGroup>
-                <Input
-                  {...register("password")}
-                  placeholder="Password"
-                  type={showPassword ? "text" : "password"}
-                />
-                <InputRightElement h={"full"}>
-                  <Button
-                    variant={"ghost"}
-                    onClick={() =>
-                      setShowPassword((showPassword) => !showPassword)
-                    }
-                  >
-                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-              <FormErrorMessage>
-                {errors.password && errors.password.message}
-              </FormErrorMessage>
-
+              <FormControl isInvalid={!!errors.email}>
+                <FormLabel>Email address</FormLabel>
+                <Input {...register("email")} type="text" placeholder="Email" />
+                <FormErrorMessage>
+                  {errors.email && errors.email.message}
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={!!errors.password}>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                  <Input
+                    {...register("password")}
+                    placeholder="Password"
+                    type={showPassword ? "text" : "password"}
+                  />
+                  <InputRightElement h={"full"}>
+                    <Button
+                      variant={"ghost"}
+                      onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                      }
+                    >
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                <FormErrorMessage>
+                  {errors.password && errors.password.message}
+                </FormErrorMessage>
+              </FormControl>git
               <Stack spacing={10} pt={2}>
                 <Button
                   type="submit"
