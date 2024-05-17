@@ -1,8 +1,12 @@
 "use client";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
   Box,
   Button,
+  CloseButton,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -24,6 +28,7 @@ import { UserCreate, UserCreateSchema } from "../validations/userValidation";
 
 export default function UserRegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const {
     handleSubmit,
@@ -32,13 +37,15 @@ export default function UserRegistrationForm() {
     formState: { errors, isSubmitting },
   } = useForm<UserCreate>({ resolver: yupResolver(UserCreateSchema) });
 
-  function onSubmit(values: UserCreate) {
-    console.log(values);
-    return new Promise((resolve) => {
-      registerUser(values);
+  const onSubmit = async (values: UserCreate) => {
+    try {
+      await registerUser(values);
+      setIsRegistered(true);
       reset();
-    });
-  }
+    } catch (error) {
+      console.log("Registeration failed: ", error);
+    }
+  };
 
   return (
     <form
@@ -122,6 +129,13 @@ export default function UserRegistrationForm() {
                 >
                   Register
                 </Button>
+                {isRegistered && (
+                  <Alert status="success" mt={4}>
+                    <AlertIcon />
+                    <AlertTitle mr={2}>Registration successful!</AlertTitle>
+                    <CloseButton onClick={() => setIsRegistered(false)} />
+                  </Alert>
+                )}
               </Stack>
               <Stack pt={6}>
                 <Text align={"center"}>
