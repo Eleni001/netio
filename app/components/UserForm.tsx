@@ -67,6 +67,17 @@ export default function UserRegistrationForm() {
             p={8}
           >
             <Stack spacing={4}>
+              <FormControl isInvalid={!!errors.userName}>
+                <FormLabel>User name</FormLabel>
+                <Input
+                  {...register("userName")}
+                  type="text"
+                  placeholder="User Name"
+                />
+                <FormErrorMessage>
+                  {errors.userName && errors.userName.message}
+                </FormErrorMessage>
+              </FormControl>
               <FormControl isInvalid={!!errors.email}>
                 <FormLabel>Email address</FormLabel>
                 <Input {...register("email")} type="text" placeholder="Email" />
@@ -96,7 +107,8 @@ export default function UserRegistrationForm() {
                 <FormErrorMessage>
                   {errors.password && errors.password.message}
                 </FormErrorMessage>
-              </FormControl>git
+              </FormControl>
+              git
               <Stack spacing={10} pt={2}>
                 <Button
                   type="submit"

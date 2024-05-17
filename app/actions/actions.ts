@@ -9,6 +9,7 @@ export async function registerUser(incomingData: UserCreate) {
     const userData = await UserCreateSchema.validate(incomingData);
     const user = await db.user.create({
       data: {
+        userName: userData.userName,
         email: userData.email,
         password: userData.password,
       },

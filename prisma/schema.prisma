@@ -15,6 +15,7 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
+  userName  String
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
@@ -35,6 +36,7 @@ model Product {
   id         Int        @id @default(autoincrement())
   title      String
   price      Int
+  image      String
   desc       String
   stock      Int
   categories Category[]
