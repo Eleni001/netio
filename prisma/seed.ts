@@ -1,9 +1,12 @@
-import { PrismaClient } from "@prisma/client";
-import { createUser } from "./seedScripts/user";
+import { db } from "./db";
+import { createCategory } from "./seedScripts/category";
+import { createProducts } from "./seedScripts/products";
+import { createUser } from "./seedScripts/users";
 
-const db = new PrismaClient();
 async function main() {
-    await createUser(db);
+  await createProducts(db);
+  await createUser(db);
+  await createCategory(db);
 }
 
 main()
