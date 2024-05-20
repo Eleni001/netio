@@ -15,31 +15,36 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
+  username  String
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
   isAdmin   Boolean  @default(false)
-  orders    Order[]
+
+  orders Order[]
 }
 
 model Adress {
-  id     Int     @id @default(autoincrement())
+  id     Int    @id @default(autoincrement())
   street String
   zip    Int
   city   String
   email  String
+
   orders Order[]
 }
 
 model Product {
-  id         Int        @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   title      String
   price      Int
+  imageUrl   String
   desc       String
   stock      Int
+  createdAt  DateTime @default(now())
+  isArchived Boolean
+
   categories Category[]
-  createdAt  DateTime   @default(now())
-  archived   Boolean
   orderRows  OrderRow[]
 }
 
@@ -50,28 +55,32 @@ model Product {
 // }
 
 model Category {
-  id           Int       @id @default(autoincrement())
+  id           Int    @id @default(autoincrement())
   categoryName String
-  products     Product[]
+
+  products Product[]
 }
 
 model Order {
-  id             Int        @id @default(autoincrement())
-  user           User       @relation(fields: [userId], references: [id])
-  userId         Int        @unique
-  createdAt      DateTime
-  shippingAdress Adress     @relation(fields: [adressId], references: [id])
-  adressId       Int
-  orderRows      OrderRow[]
+  id                Int      @id @default(autoincrement())
+  userId            Int      @unique
+  createdAt         DateTime
+  shippingAddressId Int
+  total             Decimal
+
+  user            User       @relation(fields: [userId], references: [id])
+  shippingAddress Adress     @relation(fields: [shippingAddressId], references: [id])
+  orderRows       OrderRow[]
 }
 
 model OrderRow {
-  order     Order   @relation(fields: [orderId], references: [id])
   orderId   Int // relation scalar field (used in the `@relation` attribute above)
-  product   Product @relation(fields: [productId], references: [id])
   productId Int // relation scalar field (used in the `@relation` attribute above)
   quantity  Int
   subTotal  Decimal
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
 
   @@id([orderId, productId])
 }
