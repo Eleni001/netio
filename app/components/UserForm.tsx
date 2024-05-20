@@ -75,11 +75,11 @@ export default function UserRegistrationForm() {
           >
             <Stack spacing={4}>
               <FormControl isInvalid={!!errors.username}>
-                <FormLabel>User name</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <Input
                   {...register("username")}
                   type="text"
-                  placeholder="User Name"
+                  placeholder="Username"
                 />
                 <FormErrorMessage>
                   {errors.username && errors.username.message}
