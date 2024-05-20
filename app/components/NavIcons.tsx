@@ -1,6 +1,6 @@
 "use client";
 
-import { Circle, Flex, Icon, Text } from "@chakra-ui/react";
+import { Circle, Flex, Icon } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoPersonOutline } from "react-icons/io5";
