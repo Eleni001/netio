@@ -2,14 +2,9 @@
  * Beskriver en produkt som ska säljas på sidan.
  * OBS: Kan utökas men inte ändras pga cypress.
  **/
+import { Product } from "@prisma/client";
 import * as Yup from "yup";
-export interface Product {
-  id: string;
-  image: string;
-  title: string;
-  description: string;
-  price: number;
-}
+//
 
 export interface FormValues {
   email: string;

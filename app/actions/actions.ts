@@ -20,3 +20,8 @@ export async function registerUser(incomingData: UserCreate) {
     console.log(error);
   }
 }
+
+export const getAllProducts = async () => {
+  const products = await db.product.findMany({});
+  return products;
+};

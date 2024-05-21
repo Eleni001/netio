@@ -5,6 +5,7 @@ import NextLink from "next/link";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoPersonOutline } from "react-icons/io5";
 import { LuHeart } from "react-icons/lu";
+import { getAllProducts } from "../actions/actions";
 import { useCart } from "../contexts/CartContext";
 export default function NavIcons() {
   const { cartCount } = useCart();
