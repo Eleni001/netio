@@ -14,9 +14,6 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { createProduct } from "../actions/actions";
 
-import { revalidatePath } from "next/cache";
-import createRandomId from "../utils/createRandomId";
-
 interface Props {
   product?: Product;
   setImagePreview?: (imageUrl: string) => void;
@@ -25,7 +22,6 @@ interface Props {
 export default function ProductForm(props: Props) {
   const router = useRouter();
   // const isEdit = Boolean(props.product);
-  const newId = createRandomId();
 
   const handleSubmit = async (
     values: Product,
@@ -34,7 +30,7 @@ export default function ProductForm(props: Props) {
     // if (isEdit) {
     await createProduct(values);
     router.push("/admin");
-    revalidatePath("/admin");
+
     // } else {
     // addProduct(values);
     // router.push("/admin");
@@ -56,16 +52,16 @@ export default function ProductForm(props: Props) {
   return (
     <Container>
       <Formik
-        initialValues={
-          props.product || {
-            imageUrl: "",
-            title: "",
-            desc: "",
-            price: "" as any,
-            stock: "" as any,
-            isArchived: false,
-          }
-        }
+        initialValues={{
+          title: props.product?.title || "",
+          desc: props.product?.desc || "",
+          imageUrl: props.product?.imageUrl || "",
+          price: props.product?.price || 0,
+          id: props.product?.id || 0,
+          stock: props.product?.stock || 0,
+          isArchived: props.product?.isArchived || false,
+          createdAt: props.product?.createdAt || new Date(),
+        }}
         validationSchema={ProductSchema}
         onSubmit={handleSubmit}
       >

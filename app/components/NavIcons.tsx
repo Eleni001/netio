@@ -1,13 +1,19 @@
 "use client";
 
 import { Circle, Flex, Icon } from "@chakra-ui/react";
+import { Session } from "@prisma/client";
 import NextLink from "next/link";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoPersonOutline } from "react-icons/io5";
 import { LuHeart } from "react-icons/lu";
-import { getAllProducts } from "../actions/actions";
+import { RiAdminLine } from "react-icons/ri";
 import { useCart } from "../contexts/CartContext";
-export default function NavIcons() {
+import { SessionProp } from "./Header";
+
+interface Props {
+  session: Session;
+}
+export default function NavIcons({ session }: SessionProp) {
   const { cartCount } = useCart();
 
   return (
@@ -18,7 +24,24 @@ export default function NavIcons() {
       justify="center"
       align="center"
     >
-      <NextLink href="/admin" data-cy="admin-link" color="black">
+      {session?.user.isAdmin && (
+        <NextLink href="/admin" data-cy="admin-link" color="black">
+          <Icon
+            fontSize="1.7rem"
+            transition={"transform 0.2s ease-in-out"}
+            _hover={{
+              cursor: "pointer",
+              color: "brown",
+              transform: "scale(1.2)",
+            }}
+          >
+            <IoPersonOutline size="1.6rem" />
+            <RiAdminLine size="1.6rem" />
+          </Icon>
+        </NextLink>
+      )}
+
+      <NextLink href="/user" data-cy="admin-link" color="black">
         {" "}
         <Icon
           fontSize="1.7rem"

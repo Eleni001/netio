@@ -39,4 +39,5 @@ export const createProduct = async (values: any) => {
       isArchived: false,
     },
   });
+  revalidatePath("/admin");
 };
