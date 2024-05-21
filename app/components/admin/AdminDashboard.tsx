@@ -28,12 +28,11 @@ import NextLink from "next/link";
 import { useState } from "react";
 
 interface Props {
-  newProducts: Product[];
+  products: Product[];
 }
 
-export default function AdminComponents({ newProducts }: Props) {
-  console.log(newProducts);
-  const { products, removeProduct } = useAdmin();
+export default function AdminDashboard({ products: newProducts }: Props) {
+  const { removeProduct } = useAdmin();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 

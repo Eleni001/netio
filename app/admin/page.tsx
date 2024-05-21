@@ -1,8 +1,8 @@
 import { getAllProducts } from "../actions/actions";
-import AdminComponents from "../components/admin/AdminComponents";
+import AdminDashboard from "../components/admin/AdminDashboard";
 
 export default async function AdminHomePage() {
   const products = await getAllProducts();
 
-  return <AdminComponents newProducts={products} />;
+  return <AdminDashboard products={products} />;
 }
