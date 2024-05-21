@@ -92,7 +92,7 @@ export default function Home() {
                     color: "brown",
                     transform: "scale(1.2)",
                   }}
-                  onClick={() => addToCart(product)}
+                  onClick={() => addToCart(product)} // add same logic here
                   data-cy="product-buy-button"
                 >
                   <HiOutlineShoppingBag />
