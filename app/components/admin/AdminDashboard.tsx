@@ -1,7 +1,5 @@
 "use client";
 
-import { useAdmin } from "@/app/contexts/AdminContext";
-
 import {
   Button,
   Flex,
@@ -32,7 +30,6 @@ interface Props {
 }
 
 export default function AdminDashboard({ products: newProducts }: Props) {
-  const { removeProduct } = useAdmin();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -43,7 +40,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
 
   const confirmDelete = () => {
     if (selectedProduct) {
-      removeProduct(selectedProduct);
+      // removeProduct(selectedProduct);
       setSelectedProduct(null);
       onClose();
     }

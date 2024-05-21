@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/prisma/db";
+import console from "console";
 import { revalidatePath } from "next/cache";
 import { UserCreate, UserCreateSchema } from "../validations/userValidation";
 
@@ -24,4 +25,18 @@ export async function registerUser(incomingData: UserCreate) {
 export const getAllProducts = async () => {
   const products = await db.product.findMany({});
   return products;
+};
+
+export const createProduct = async (values: any) => {
+  console.log(values);
+  const product = await db.product.create({
+    data: {
+      title: values.title,
+      imageUrl: values.imageUrl,
+      desc: values.desc,
+      stock: parseInt(values.stock),
+      price: parseInt(values.price),
+      isArchived: false,
+    },
+  });
 };

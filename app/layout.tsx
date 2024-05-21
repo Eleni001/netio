@@ -18,11 +18,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <html lang='en' className={fonts.rubik.variable}>
+    <html lang="en" className={fonts.rubik.variable}>
       <body className={inter.className}>
         <Providers>
           <Header />
-          <Box minH='100vh' as='main'>
+          <Box minH="100vh" as="main">
             {children}{" "}
           </Box>
           <HomePageBottom />
