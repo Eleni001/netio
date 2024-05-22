@@ -6,7 +6,6 @@ import AdminDashboard from "../components/admin/AdminDashboard";
 export default async function AdminHomePage() {
   const products = await getAllProducts();
   const session = await auth();
-  console.log(session);
   if (!session?.user.isAdmin) {
     redirect("/");
   }
