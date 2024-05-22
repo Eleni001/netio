@@ -4,7 +4,6 @@ import { Flex, SimpleGrid } from "@chakra-ui/react";
 import BottomBanner from "./components/BottomBanner";
 import HomePageTop from "./components/HomePageTop";
 
-import { auth } from "@/auth";
 import { useCart } from "./contexts/CartContext";
 
 export default function Home() {
