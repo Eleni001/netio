@@ -27,10 +27,10 @@ export default function ProductForm(props: Props) {
     values: Product,
     formikHelpers: FormikHelpers<Product>
   ) => {
+    console.log(values);
     // if (isEdit) {
     await createProduct(values);
-    router.push("/admin");
-
+    // router.push("/admin");
     // } else {
     // addProduct(values);
     // router.push("/admin");
@@ -61,6 +61,7 @@ export default function ProductForm(props: Props) {
           stock: props.product?.stock || 0,
           isArchived: props.product?.isArchived || false,
           createdAt: props.product?.createdAt || new Date(),
+          category: props.product?.category || "",
         }}
         validationSchema={ProductSchema}
         onSubmit={handleSubmit}
@@ -102,9 +103,7 @@ export default function ProductForm(props: Props) {
                 {({ field, form }: any) => (
                   <FormControl
                     mt="2%"
-                    isInvalid={
-                      form.errors.description && form.touched.description
-                    }
+                    isInvalid={form.errors.desc && form.touched.desc}
                   >
                     <FormLabel>Description</FormLabel>
                     <Input
@@ -114,7 +113,26 @@ export default function ProductForm(props: Props) {
                       focusBorderColor="brand.400"
                     />
                     <FormErrorMessage data-cy="product-description-error">
-                      {form.errors.description}
+                      {form.errors.desc}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name="category">
+                {({ field, form }: any) => (
+                  <FormControl
+                    mt="2%"
+                    isInvalid={form.errors.category && form.touched.category}
+                  >
+                    <FormLabel>Category</FormLabel>
+                    <Input
+                      {...field}
+                      data-cy="product-description"
+                      autoComplete="desc"
+                      focusBorderColor="brand.400"
+                    />
+                    <FormErrorMessage data-cy="product-description-error">
+                      {form.errors.category}
                     </FormErrorMessage>
                   </FormControl>
                 )}
@@ -161,7 +179,7 @@ export default function ProductForm(props: Props) {
                 {({ field, form }: any) => (
                   <FormControl
                     mt="2%"
-                    isInvalid={form.errors.price && form.touched.price}
+                    isInvalid={form.errors.stock && form.touched.stock}
                   >
                     <FormLabel>Stock</FormLabel>
                     <Input

@@ -43,6 +43,7 @@ export const ProductSchema = Yup.object().shape({
     .nullable(),
   title: Yup.string().required("Please enter the product title"),
   desc: Yup.string().required("Please enter the product description"),
+  category: Yup.string().required(),
   price: Yup.number()
     .transform((value, originalValue) => {
       return originalValue === "" ? NaN : Number(originalValue);
