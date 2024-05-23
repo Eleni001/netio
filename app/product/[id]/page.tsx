@@ -16,12 +16,10 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import { MdLocalShipping } from "react-icons/md";
-import { useState } from "react";
 
 type PageProps = { params: { id: string } };
 
 export default function ProductDetail({ params }: PageProps) {
-	const [isloggedIn, setIsLoggedIn] = useState(false); // change to check with the db if user is logged in 
 	const { addToCart } = useCart();
 	const product = products.find((p) => p.id === params.id);
 
@@ -85,13 +83,7 @@ export default function ProductDetail({ params }: PageProps) {
 
 					<Button
 						data-cy="product-buy-button"
-						onClick={() => {
-							if (!isloggedIn) {
-								console.log("Please login");
-							} else {
-								addToCart(product);
-							}
-						}}
+						onClick={() => addToCart(product)}
 						rounded={"none"}
 						w={"full"}
 						mt={8}
