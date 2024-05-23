@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function AdminNewProductComp({ categorys }: Props) {
-  const [imagePreview, setImagePreview] = useState("");
+  const [imagePreview, setImagePreview] = useState<string | undefined>("");
   return (
     <div>
       <Text textAlign="center" fontSize="1.7rem" mt="2rem">

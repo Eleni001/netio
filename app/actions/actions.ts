@@ -3,6 +3,7 @@
 import { db } from "@/prisma/db";
 import console from "console";
 import { revalidatePath } from "next/cache";
+import { ProductWithCategories } from "../types";
 import { UserCreate, UserCreateSchema } from "../validations/userValidation";
 
 export async function registerUser(incomingData: UserCreate) {
@@ -50,4 +51,12 @@ export const createProduct = async (values: any) => {
     },
   });
   revalidatePath("/admin");
+};
+
+export const updateProduct = async (product: ProductWithCategories) => {
+  console.log("WAS IS DAAAAS", product);
+  const updateProducts = await db.product.update({
+    where: { id: product.id },
+    data: product,
+  });
 };

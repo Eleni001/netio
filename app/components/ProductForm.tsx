@@ -13,27 +13,32 @@ import { Category, Product } from "@prisma/client";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { createProduct } from "../actions/actions";
+import { createProduct, updateProduct } from "../actions/actions";
+import { ProductWithCategories } from "../types";
 
 interface Props {
   product?: Product;
-  categorys?: Category[];
-  setImagePreview?: (imageUrl: string) => void;
+  editProduct?: ProductWithCategories;
+  categorys?: Category[] | undefined;
+  setImagePreview?: (imageUrl: string | undefined) => void;
 }
 
 export default function ProductForm(props: Props) {
   const router = useRouter();
-  // const isEdit = Boolean(props.product);
+  const isEdit = Boolean(props.editProduct);
+  console.log(isEdit);
 
   const handleSubmit = async (
     values: Product,
-    formikHelpers: FormikHelpers<Product>
+    formikHelpers: FormikHelpers<ProductWithCategories>
   ) => {
-    console.log(values);
-    // if (isEdit) {
-    await createProduct(values);
-    router.push("/admin");
-    // } else {
+    if (isEdit) {
+      console.log("SCOOOOBYYY", values);
+      updateProduct(values);
+    } else {
+      await createProduct(values);
+      router.push("/admin");
+    }
     // addProduct(values);
     // router.push("/admin");
     // formikHelpers.resetForm({
@@ -55,14 +60,17 @@ export default function ProductForm(props: Props) {
     <Container>
       <Formik
         initialValues={{
-          title: props.product?.title || "",
-          desc: props.product?.desc || "",
-          imageUrl: props.product?.imageUrl || "",
-          price: props.product?.price || 0,
-          id: props.product?.id || 0,
-          stock: props.product?.stock || 0,
-          isArchived: props.product?.isArchived || false,
-          createdAt: props.product?.createdAt || new Date(),
+          title: props.editProduct?.title || "",
+          desc: props.editProduct?.desc || "",
+          imageUrl: props.editProduct?.imageUrl || "",
+          price: props.editProduct?.price || 0,
+          id: props.editProduct?.id || 0,
+          stock: props.editProduct?.stock || 0,
+          isArchived: props.editProduct?.isArchived || false,
+          createdAt: props.editProduct?.createdAt || new Date(),
+          categories: props.editProduct?.categories || [],
+
+          // KNOWN BUG, NEED TO SET CATEGORY HERE ON EDIT
         }}
         validationSchema={ProductSchema}
         onSubmit={handleSubmit}
@@ -77,6 +85,9 @@ export default function ProductForm(props: Props) {
               props.setImagePreview(imageUrl);
             }
           };
+          if (props.setImagePreview) {
+            props.setImagePreview(props.editProduct?.imageUrl);
+          }
           return (
             <Form data-cy="product-form">
               <Field name="title">
@@ -95,6 +106,11 @@ export default function ProductForm(props: Props) {
                     <FormErrorMessage data-cy="product-title-error">
                       {form.errors.title}
                     </FormErrorMessage>
+                    {form.errors && (
+                      <p>
+                        ALLA VALIDERINGSERRORS! {JSON.stringify(form.errors)}
+                      </p>
+                    )}
                   </FormControl>
                 )}
               </Field>
@@ -126,6 +142,33 @@ export default function ProductForm(props: Props) {
                   >
                     <FormLabel>Category</FormLabel>
                     <Select placeholder="Select option" {...field}>
+                      {/* REALLY UGLY SOLUTION */}
+                      {/* {props.editProduct ? (
+                        <>
+                          <option selected>
+                            {props.editProduct.categories[0].categoryName}
+                          </option>
+                          {props.categorys
+                            ?.filter(
+                              (category) =>
+                                category.categoryName !==
+                                props.editProduct?.categories[0].categoryName
+                            )
+                            .map((category) => (
+                              <option key={category.id}>
+                                {category.categoryName}
+                              </option>
+                            ))}
+                        </>
+                      ) : (
+                        props.categorys?.map((category) => (
+                          <option key={category.id}>
+                            {category.categoryName}
+                          </option>
+                        ))
+                      )} */}
+
+                      {/* THIS SOLUTION WORKS BUT HAS A BUG, USER NEEDS TO PUT IN CATEGORY */}
                       {props.categorys?.map((category) => (
                         <option key={category.id}>
                           {category.categoryName}
@@ -201,10 +244,9 @@ export default function ProductForm(props: Props) {
                 bg="#E4A757"
                 _hover={{ bg: "#efdbc2" }}
                 variant="solid"
-                isLoading={false}
+                isLoading={formikProps.isSubmitting}
               >
-                {/* {isEdit ? "UPDATE PRODUCT" : "ADD PRODUCT"} */}
-                ADD PRODUCT
+                {isEdit ? "UPDATE PRODUCT" : "ADD PRODUCT"}
               </Button>
             </Form>
           );
