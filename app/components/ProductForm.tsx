@@ -7,8 +7,9 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  Select,
 } from "@chakra-ui/react";
-import { Product } from "@prisma/client";
+import { Category, Product } from "@prisma/client";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -16,6 +17,7 @@ import { createProduct } from "../actions/actions";
 
 interface Props {
   product?: Product;
+  categorys?: Category[];
   setImagePreview?: (imageUrl: string) => void;
 }
 
@@ -30,7 +32,7 @@ export default function ProductForm(props: Props) {
     console.log(values);
     // if (isEdit) {
     await createProduct(values);
-    // router.push("/admin");
+    router.push("/admin");
     // } else {
     // addProduct(values);
     // router.push("/admin");
@@ -61,7 +63,6 @@ export default function ProductForm(props: Props) {
           stock: props.product?.stock || 0,
           isArchived: props.product?.isArchived || false,
           createdAt: props.product?.createdAt || new Date(),
-          category: props.product?.category || "",
         }}
         validationSchema={ProductSchema}
         onSubmit={handleSubmit}
@@ -94,7 +95,6 @@ export default function ProductForm(props: Props) {
                     <FormErrorMessage data-cy="product-title-error">
                       {form.errors.title}
                     </FormErrorMessage>
-                    {form.errors && <p>ERROR! {JSON.stringify(form.errors)}</p>}
                   </FormControl>
                 )}
               </Field>
@@ -118,19 +118,20 @@ export default function ProductForm(props: Props) {
                   </FormControl>
                 )}
               </Field>
-              <Field name="category">
+              <Field name="category" as="select">
                 {({ field, form }: any) => (
                   <FormControl
                     mt="2%"
                     isInvalid={form.errors.category && form.touched.category}
                   >
                     <FormLabel>Category</FormLabel>
-                    <Input
-                      {...field}
-                      data-cy="product-description"
-                      autoComplete="desc"
-                      focusBorderColor="brand.400"
-                    />
+                    <Select placeholder="Select option" {...field}>
+                      {props.categorys?.map((category) => (
+                        <option key={category.id}>
+                          {category.categoryName}
+                        </option>
+                      ))}
+                    </Select>
                     <FormErrorMessage data-cy="product-description-error">
                       {form.errors.category}
                     </FormErrorMessage>

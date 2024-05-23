@@ -23,8 +23,13 @@ export async function registerUser(incomingData: UserCreate) {
 }
 
 export const getAllProducts = async () => {
-  const products = await db.product.findMany({});
+  const products = await db.product.findMany({ include: { categories: true } });
   return products;
+};
+
+export const getAllCategorys = async () => {
+  const categorys = await db.category.findMany({});
+  return categorys;
 };
 
 export const createProduct = async (values: any) => {
@@ -32,7 +37,7 @@ export const createProduct = async (values: any) => {
   const doesCategoryExist = categorys.find(
     (cat) => cat.categoryName === values.category
   );
-  console.log("WHAT IS THIS?", doesCategoryExist);
+  // console.log("WHAT IS THIS?", doesCategoryExist);
   const product = await db.product.create({
     data: {
       title: values.title,
@@ -41,17 +46,7 @@ export const createProduct = async (values: any) => {
       stock: parseInt(values.stock),
       price: parseInt(values.price),
       isArchived: false,
-      categories: {
-        connectOrCreate: {
-          where: {
-            categoryName: values.categorie,
-            id: doesCategoryExist?.id,
-          },
-          create: {
-            categoryName: values.categorie,
-          },
-        },
-      },
+      categories: { connect: { id: doesCategoryExist?.id } },
     },
   });
   revalidatePath("/admin");
