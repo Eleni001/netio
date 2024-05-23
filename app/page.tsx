@@ -1,24 +1,13 @@
 "use client";
 
-import { Link } from "@chakra-ui/next-js";
-import {
-  Flex,
-  GridItem,
-  Icon,
-  Image,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
-import { HiOutlineShoppingBag } from "react-icons/hi";
-import { LuHeart } from "react-icons/lu";
+import { Flex, SimpleGrid } from "@chakra-ui/react";
 import BottomBanner from "./components/BottomBanner";
 import HomePageTop from "./components/HomePageTop";
-import { useAdmin } from "./contexts/AdminContext";
+
 import { useCart } from "./contexts/CartContext";
 
 export default function Home() {
   const { addToCart } = useCart();
-  const { products } = useAdmin();
 
   return (
     <Flex flexDir="column">
@@ -31,7 +20,7 @@ export default function Home() {
         columns={{ base: 1, md: 3, lg: 4 }}
         gap={5}
       >
-        {products.map((product) => (
+        {/* {products.map((product) => (
           <GridItem
             data-cy="product-id"
             key={product.id}
@@ -100,7 +89,7 @@ export default function Home() {
               </Flex>
             </Flex>
           </GridItem>
-        ))}
+        ))} */}
       </SimpleGrid>
       <BottomBanner />
     </Flex>

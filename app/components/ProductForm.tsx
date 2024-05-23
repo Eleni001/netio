@@ -1,5 +1,5 @@
 "use client";
-import { Product, ProductSchema } from "@/data";
+import { ProductSchema } from "@/data";
 import {
   Button,
   Container,
@@ -8,11 +8,11 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+import { Product } from "@prisma/client";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useAdmin } from "../contexts/AdminContext";
-import createRandomId from "../utils/createRandomId";
+import { createProduct } from "../actions/actions";
 
 interface Props {
   product?: Product;
@@ -20,46 +20,48 @@ interface Props {
 }
 
 export default function ProductForm(props: Props) {
-  const { addProduct, updateProduct } = useAdmin();
   const router = useRouter();
-  const isEdit = Boolean(props.product);
-  const newId = createRandomId();
+  // const isEdit = Boolean(props.product);
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: Product,
     formikHelpers: FormikHelpers<Product>
   ) => {
-    console.log(values);
-    if (isEdit) {
-      updateProduct(values.id, values);
-      router.push("/admin");
-    } else {
-      addProduct(values);
-      router.push("/admin");
-      formikHelpers.resetForm({
-        values: {
-          id: "",
-          image: "",
-          title: "",
-          description: "",
-          price: "" as any,
-        },
-      });
-    }
+    // if (isEdit) {
+    await createProduct(values);
+    router.push("/admin");
+
+    // } else {
+    // addProduct(values);
+    // router.push("/admin");
+    // formikHelpers.resetForm({
+    //   values: {
+    //     imageUrl: "",
+    //     title: "",
+    //     desc: "",
+    //     price: "" as any,
+    //     id: 0,
+    //     stock: 0,
+    //     isArchived: false,
+    //     createdAt: new Date(),
+    //   },
+    // });
+    // }
   };
 
   return (
     <Container>
       <Formik
-        initialValues={
-          props.product || {
-            id: newId,
-            image: "",
-            title: "",
-            description: "",
-            price: "" as any,
-          }
-        }
+        initialValues={{
+          title: props.product?.title || "",
+          desc: props.product?.desc || "",
+          imageUrl: props.product?.imageUrl || "",
+          price: props.product?.price || 0,
+          id: props.product?.id || 0,
+          stock: props.product?.stock || 0,
+          isArchived: props.product?.isArchived || false,
+          createdAt: props.product?.createdAt || new Date(),
+        }}
         validationSchema={ProductSchema}
         onSubmit={handleSubmit}
       >
@@ -68,53 +70,38 @@ export default function ProductForm(props: Props) {
             event: React.ChangeEvent<HTMLInputElement>
           ) => {
             const imageUrl = event.target.value;
-            formikProps.setFieldValue("image", imageUrl);
+            formikProps.setFieldValue("imageUrl", imageUrl);
             if (props.setImagePreview) {
               props.setImagePreview(imageUrl);
             }
           };
           return (
-            <Form data-cy='product-form'>
-              <Field name='title'>
+            <Form data-cy="product-form">
+              <Field name="title">
                 {({ field, form }: any) => (
                   <FormControl
-                    mt='2%'
+                    mt="2%"
                     isInvalid={form.errors.title && form.touched.title}
                   >
                     <FormLabel>Title</FormLabel>
                     <Input
                       {...field}
-                      data-cy='product-title'
-                      autoComplete='title'
-                      focusBorderColor='brand.400'
+                      data-cy="product-title"
+                      autoComplete="title"
+                      focusBorderColor="brand.400"
                     />
-                    <FormErrorMessage data-cy='product-title-error'>
+                    <FormErrorMessage data-cy="product-title-error">
                       {form.errors.title}
                     </FormErrorMessage>
+                    {form.errors && <p>ERROR! {JSON.stringify(form.errors)}</p>}
                   </FormControl>
                 )}
               </Field>
-              <Field name='id'>
+
+              <Field name="desc">
                 {({ field, form }: any) => (
                   <FormControl
-                    mt='2%'
-                    isInvalid={form.errors.id && form.touched.id}
-                  >
-                    <FormLabel>Product Id</FormLabel>
-                    <Input
-                      {...field}
-                      data-cy='product-id'
-                      autoComplete='id'
-                      focusBorderColor='brand.400'
-                    />
-                    <FormErrorMessage>{form.errors.id}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <Field name='description'>
-                {({ field, form }: any) => (
-                  <FormControl
-                    mt='2%'
+                    mt="2%"
                     isInvalid={
                       form.errors.description && form.touched.description
                     }
@@ -122,65 +109,83 @@ export default function ProductForm(props: Props) {
                     <FormLabel>Description</FormLabel>
                     <Input
                       {...field}
-                      data-cy='product-description'
-                      autoComplete='description'
-                      focusBorderColor='brand.400'
+                      data-cy="product-description"
+                      autoComplete="desc"
+                      focusBorderColor="brand.400"
                     />
-                    <FormErrorMessage data-cy='product-description-error'>
+                    <FormErrorMessage data-cy="product-description-error">
                       {form.errors.description}
                     </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
-              <Field name='image'>
+              <Field name="imageUrl">
                 {({ field, form }: any) => (
                   <FormControl
-                    mt='2%'
-                    isInvalid={form.errors.image && form.touched.image}
+                    mt="2%"
+                    isInvalid={form.errors.imageUrl && form.touched.imageUrl}
                   >
                     <FormLabel>Image</FormLabel>
                     <Input
                       {...field}
-                      data-cy='product-image'
-                      autoComplete='image'
-                      focusBorderColor='brand.400'
+                      data-cy="product-image"
+                      focusBorderColor="brand.400"
                       onChange={handleImageChange}
                     />
-                    <FormErrorMessage data-cy='product-image-error'>
-                      {form.errors.image}
+                    <FormErrorMessage data-cy="product-image-error">
+                      {form.errors.imageUrl}
                     </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
-              <Field name='price'>
+              <Field name="price">
                 {({ field, form }: any) => (
                   <FormControl
-                    mt='2%'
+                    mt="2%"
                     isInvalid={form.errors.price && form.touched.price}
                   >
                     <FormLabel>Price</FormLabel>
                     <Input
                       {...field}
-                      data-cy='product-price'
-                      autoComplete='price'
-                      focusBorderColor='brand.400'
+                      data-cy="product-price"
+                      autoComplete="price"
+                      focusBorderColor="brand.400"
                     />
-                    <FormErrorMessage data-cy='product-price-error'>
+                    <FormErrorMessage data-cy="product-price-error">
                       {form.errors.price}
                     </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
+              <Field name="stock">
+                {({ field, form }: any) => (
+                  <FormControl
+                    mt="2%"
+                    isInvalid={form.errors.price && form.touched.price}
+                  >
+                    <FormLabel>Stock</FormLabel>
+                    <Input
+                      {...field}
+                      data-cy="product-price"
+                      autoComplete="stock"
+                      focusBorderColor="brand.400"
+                    />
+                    <FormErrorMessage data-cy="product-price-error">
+                      {form.errors.stock}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
               <Button
-                mt='2rem'
-                type='submit'
-                bg='#E4A757'
+                mt="2rem"
+                type="submit"
+                bg="#E4A757"
                 _hover={{ bg: "#efdbc2" }}
-                variant='solid'
-                isLoading={formikProps.isSubmitting}
-                onClick={() => formikProps.handleSubmit()}
+                variant="solid"
+                isLoading={false}
               >
-                {isEdit ? "UPDATE PRODUCT" : "ADD PRODUCT"}
+                {/* {isEdit ? "UPDATE PRODUCT" : "ADD PRODUCT"} */}
+                ADD PRODUCT
               </Button>
             </Form>
           );

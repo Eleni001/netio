@@ -1,5 +1,6 @@
-import { CartItem, Product } from "@/data";
+import { CartItem } from "@/data";
 import { useToast } from "@chakra-ui/react";
+import { Product } from "@prisma/client";
 import {
   PropsWithChildren,
   createContext,
