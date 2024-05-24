@@ -35,7 +35,7 @@ export const getAllCategorys = async () => {
 export const createProduct = async (values: any) => {
   const categorys = await db.category.findMany({});
   const doesCategoryExist = categorys.find(
-    (cat) => cat.categoryName === values.category
+    (cat) => cat.name === values.category
   );
   // console.log("WHAT IS THIS?", doesCategoryExist);
   const product = await db.product.create({

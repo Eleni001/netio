@@ -12,7 +12,7 @@ export async function createProducts(db: PrismaClient) {
       desc: "a nice looking ceilinglamp",
       stock: 25,
       isArchived: false,
-      categories: { create: { categoryName: "Lighting" } },
+      categories: { create: { name: "Lighting", slug: "lighting" } },
     },
   });
 
@@ -27,7 +27,7 @@ export async function createProducts(db: PrismaClient) {
       desc: "A hella sharp kitchenknife",
       stock: 10,
       isArchived: false,
-      categories: { create: { categoryName: "Kitchen" } },
+      categories: { create: { name: "Kitchen", slug: "kitchen" } },
     },
   });
   const product3 = await db.product.upsert({
@@ -41,7 +41,7 @@ export async function createProducts(db: PrismaClient) {
       desc: "A hella sharp kitchenknife",
       stock: 99,
       isArchived: false,
-      categories: { create: { categoryName: "Furniture" } },
+      categories: { create: { name: "Furniture", slug: "furniture" } },
     },
   });
 }
