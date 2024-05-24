@@ -1,8 +1,8 @@
 "use client";
 
-import { Icon } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { Product } from "@prisma/client";
-import { HiOutlineShoppingBag } from "react-icons/hi";
+
 import { useCart } from "../contexts/CartContext";
 
 interface Props {
@@ -13,18 +13,23 @@ export default function AddToCartButton(props: Props) {
   const { addToCart } = useCart();
 
   return (
-    <Icon
-      fontSize="1.7rem"
-      transition={"transform 0.2s ease-in-out"}
-      _hover={{
-        cursor: "pointer",
-        color: "brown",
-        transform: "scale(1.2)",
-      }}
-      onClick={() => addToCart(props.product)}
+    <Button
       data-cy="product-buy-button"
+      onClick={() => addToCart(props.product)}
+      rounded={"none"}
+      w={"full"}
+      mt={8}
+      size={"lg"}
+      py={"7"}
+      bg="rgba(78, 199, 145, 1)"
+      color="white"
+      textTransform={"uppercase"}
+      _hover={{
+        transform: "translateY(2px)",
+        boxShadow: "lg",
+      }}
     >
-      <HiOutlineShoppingBag />
-    </Icon>
+      Add to cart
+    </Button>
   );
 }
