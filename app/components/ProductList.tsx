@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { Product } from "@prisma/client";
 import { LuHeart } from "react-icons/lu";
-import AddToCartButton from "./AddToCartButton";
+import AddToCartIcon from "./AddToCartIcon";
 
 interface Props {
   products: Product[];
@@ -77,7 +77,7 @@ export default function ProductList(props: Props) {
               >
                 <LuHeart fontSize="1.7rem" />
               </Link>
-              <AddToCartButton product={product} />
+              <AddToCartIcon product={product} />
             </Flex>
           </Flex>
         </GridItem>
