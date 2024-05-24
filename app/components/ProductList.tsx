@@ -1,26 +1,20 @@
-"use client";
-
 import {
   Flex,
   GridItem,
-  Icon,
   Image,
   Link,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
 import { Product } from "@prisma/client";
-import { HiOutlineShoppingBag } from "react-icons/hi";
 import { LuHeart } from "react-icons/lu";
-import { useCart } from "../contexts/CartContext";
+import AddToCartButton from "./AddToCartButton";
 
 interface Props {
   products: Product[];
 }
 
 export default function ProductList(props: Props) {
-  const { addToCart } = useCart();
-
   return (
     <SimpleGrid
       id="products-grid"
@@ -83,19 +77,7 @@ export default function ProductList(props: Props) {
               >
                 <LuHeart fontSize="1.7rem" />
               </Link>
-              <Icon
-                fontSize="1.7rem"
-                transition={"transform 0.2s ease-in-out"}
-                _hover={{
-                  cursor: "pointer",
-                  color: "brown",
-                  transform: "scale(1.2)",
-                }}
-                onClick={() => addToCart(product)}
-                data-cy="product-buy-button"
-              >
-                <HiOutlineShoppingBag />
-              </Icon>
+              <AddToCartButton product={product} />
             </Flex>
           </Flex>
         </GridItem>

@@ -127,9 +127,7 @@ export default function ProductForm(props: Props) {
                     <FormLabel>Category</FormLabel>
                     <Select placeholder="Select option" {...field}>
                       {props.categorys?.map((category) => (
-                        <option key={category.id}>
-                          {category.categoryName}
-                        </option>
+                        <option key={category.id}>{category.name}</option>
                       ))}
                     </Select>
                     <FormErrorMessage data-cy="product-description-error">
