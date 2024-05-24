@@ -23,7 +23,7 @@ export default function RootLayout({ children }: LayoutProps) {
         <Providers>
           <Header />
           <Box minH="100vh" as="main">
-            {children}{" "}
+            {children}
           </Box>
           <HomePageBottom />
 

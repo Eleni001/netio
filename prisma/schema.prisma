@@ -74,15 +74,16 @@ model Product {
 // }
 
 model Category {
-  id           Int    @id @default(autoincrement())
-  categoryName String
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  slug String @unique
 
   products Product[]
 }
 
 model Order {
   id                Int      @id @default(autoincrement())
-  userId            String   @unique
+  userId            String
   createdAt         DateTime
   shippingAddressId Int
   total             Decimal
