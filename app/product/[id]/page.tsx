@@ -25,7 +25,6 @@ export default function ProductDetail({ params }: PageProps) {
   if (!product) {
     return (
       <main>
-        console.log(params.id)
         <span> Product Does Not Exist - 404</span>
       </main>
     );
@@ -51,7 +50,7 @@ export default function ProductDetail({ params }: PageProps) {
         <Stack spacing={{ base: 6, md: 10 }}>
           <Box as={"header"}>
             <Heading
-              data-cy='product-title'
+              data-cy="product-title"
               lineHeight={1.1}
               fontWeight={600}
               fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
@@ -59,8 +58,8 @@ export default function ProductDetail({ params }: PageProps) {
               {product.title}
             </Heading>
             <Text
-              data-cy='product-price'
-              color='gray.900'
+              data-cy="product-price"
+              color="gray.900"
               fontWeight={300}
               fontSize={"2xl"}
             >
@@ -71,25 +70,25 @@ export default function ProductDetail({ params }: PageProps) {
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={"column"}
-            divider={<StackDivider borderColor='gray.600' />}
+            divider={<StackDivider borderColor="gray.600" />}
           >
             <VStack spacing={{ base: 4, sm: 6 }}>
-              <Text data-cy='product-description' fontSize={"lg"}>
+              <Text data-cy="product-description" fontSize={"lg"}>
                 {product.description}
               </Text>
             </VStack>
           </Stack>
 
           <Button
-            data-cy='product-buy-button'
+            data-cy="product-buy-button"
             onClick={() => addToCart(product)}
             rounded={"none"}
             w={"full"}
             mt={8}
             size={"lg"}
             py={"7"}
-            bg='rgba(78, 199, 145, 1)'
-            color='white'
+            bg="rgba(78, 199, 145, 1)"
+            color="white"
             textTransform={"uppercase"}
             _hover={{
               transform: "translateY(2px)",
@@ -99,7 +98,7 @@ export default function ProductDetail({ params }: PageProps) {
             Add to cart
           </Button>
 
-          <Stack direction='row' alignItems='center' justifyContent={"center"}>
+          <Stack direction="row" alignItems="center" justifyContent={"center"}>
             <MdLocalShipping />
             <Text>2-3 business days delivery</Text>
           </Stack>

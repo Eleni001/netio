@@ -1,3 +1,4 @@
+import { Category, Product } from "@prisma/client";
 import { ReactNode } from "react";
 
 export type PageProps = Readonly<{ params: { slug: string } }>;
@@ -7,3 +8,7 @@ export type LayoutProps = Readonly<{ children: ReactNode }>;
 //   createdAt: Date;
 //   desc: String;
 // }
+
+export interface ProductWithCategories extends Product {
+  categories: Category[];
+}

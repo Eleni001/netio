@@ -1,5 +1,6 @@
 "use client";
 
+import { ProductWithCategories } from "@/app/types";
 import {
   Button,
   Flex,
@@ -26,7 +27,7 @@ import NextLink from "next/link";
 import { useState } from "react";
 
 interface Props {
-  products: Product[];
+  products: ProductWithCategories[];
 }
 
 export default function AdminDashboard({ products: newProducts }: Props) {
@@ -99,6 +100,8 @@ export default function AdminDashboard({ products: newProducts }: Props) {
               <Th>id</Th>
               <Th>title</Th>
               <Th>description</Th>
+              <Th>categories</Th>
+              <Th>stock</Th>
               <Th>price</Th>
             </Tr>
           </Thead>
@@ -122,6 +125,12 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                   {product.desc.length > 100
                     ? `${product.desc.slice(0, 50)}...`
                     : product.desc}
+                </Td>
+
+                <Td data-cy="product-price">
+                  {product.categories
+                    .map((category) => category.categoryName)
+                    .join(", ")}
                 </Td>
                 <Td data-cy="product-price">{product.price}</Td>
                 <Td>
