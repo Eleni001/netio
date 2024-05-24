@@ -22,7 +22,6 @@ export default function AddToCartIcon(props: Props) {
         transform: "scale(1.2)",
       }}
       onClick={() => addToCart(props.product)}
-      data-cy="product-buy-button"
     >
       <HiOutlineShoppingBag />
     </Icon>

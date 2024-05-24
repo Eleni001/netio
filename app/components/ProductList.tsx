@@ -26,13 +26,12 @@ export default function ProductList(props: Props) {
     >
       {props.products.map((product) => (
         <GridItem
-          data-cy="product-id"
           key={product.id}
           boxShadow="1px 1px 2px rgba(0,0,0,0.1)"
           transition={"transform 0.2s ease-in-out"}
           _hover={{ cursor: "pointer", transform: "scale(1.05)" }}
         >
-          <Flex flexDirection="column" height="100%" data-cy="product">
+          <Flex flexDirection="column" height="100%">
             <Link
               href={`/product/${product.id}`}
               _hover={{ textDecoration: "none" }}
@@ -52,16 +51,13 @@ export default function ProductList(props: Props) {
                 mt="1.5rem"
               >
                 <Text
-                  data-cy="product-title"
                   fontWeight="semibold"
                   textTransform="capitalize"
                   _hover={{ color: "brown" }}
                 >
                   {product.title}
                 </Text>
-                <Text data-cy="product-price" _hover={{ color: "brown" }}>
-                  {product.price} kr
-                </Text>
+                <Text _hover={{ color: "brown" }}>{product.price} kr</Text>
               </Flex>
             </Link>
             <Flex gap="6" m="0.5rem" justifyContent="end" mb="1rem">
