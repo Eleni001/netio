@@ -1,3 +1,4 @@
+"use client";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Text, Image } from "@chakra-ui/react";
 
