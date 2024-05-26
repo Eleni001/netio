@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteProduct } from "@/app/actions/actions";
 import { ProductWithCategories } from "@/app/types";
 import {
   Button,
@@ -31,6 +32,8 @@ interface Props {
 }
 
 export default function AdminDashboard({ products: newProducts }: Props) {
+  const [products, setProducts] =
+    useState<ProductWithCategories[]>(newProducts);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -39,11 +42,27 @@ export default function AdminDashboard({ products: newProducts }: Props) {
     onOpen();
   };
 
-  const confirmDelete = () => {
+  // const confirmDelete = () => {
+  //   if (selectedProduct) {
+  //     // removeProduct(selectedProduct);
+  //     setSelectedProduct(null);
+  //     onClose();
+  //   }
+
+  const confirmDelete = async () => {
     if (selectedProduct) {
-      // removeProduct(selectedProduct);
-      setSelectedProduct(null);
-      onClose();
+      try {
+        await deleteProduct(selectedProduct.id);
+        setProducts(
+          products.filter((product) => product.id !== selectedProduct.id)
+        );
+        window.location.reload();
+      } catch (error) {
+        console.error("Failed to delete product");
+      } finally {
+        setSelectedProduct(null);
+        onClose();
+      }
     }
   };
 

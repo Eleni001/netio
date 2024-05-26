@@ -51,3 +51,17 @@ export const createProduct = async (values: any) => {
   });
   revalidatePath("/admin");
 };
+
+export async function deleteProduct(productId: any) {
+  try {
+    await db.product.delete({
+      where: {
+        id: productId,
+      },
+    });
+    console.log("Product deleted successfully");
+  } catch (error) {
+    console.error("Failed to delete product:", error);
+    throw error;
+  }
+}
