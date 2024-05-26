@@ -6,48 +6,72 @@ import { revalidatePath } from "next/cache";
 import { UserCreate, UserCreateSchema } from "../validations/userValidation";
 
 export async function registerUser(incomingData: UserCreate) {
-  try {
-    const userData = await UserCreateSchema.validate(incomingData);
-    const user = await db.user.create({
-      data: {
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-      },
-    });
-    revalidatePath("/");
-    return user;
-  } catch (error) {
-    console.log(error);
-  }
+	try {
+		const userData = await UserCreateSchema.validate(incomingData);
+		const user = await db.user.create({
+			data: {
+				username: userData.username,
+				email: userData.email,
+				password: userData.password,
+			},
+		});
+		revalidatePath("/");
+		return user;
+	} catch (error) {
+		console.log(error);
+	}
 }
 
 export const getAllProducts = async () => {
-  const products = await db.product.findMany({ include: { categories: true } });
-  return products;
+	const products = await db.product.findMany({ include: { categories: true } });
+	return products;
 };
 
 export const getAllCategorys = async () => {
-  const categorys = await db.category.findMany({});
-  return categorys;
+	const categorys = await db.category.findMany({});
+	return categorys;
 };
 
 export const createProduct = async (values: any) => {
-  const categorys = await db.category.findMany({});
-  const doesCategoryExist = categorys.find(
-    (cat) => cat.name === values.category
-  );
-  // console.log("WHAT IS THIS?", doesCategoryExist);
-  const product = await db.product.create({
-    data: {
-      title: values.title,
-      imageUrl: values.imageUrl,
-      desc: values.desc,
-      stock: parseInt(values.stock),
-      price: parseInt(values.price),
-      isArchived: false,
-      categories: { connect: { id: doesCategoryExist?.id } },
-    },
-  });
-  revalidatePath("/admin");
+	const categorys = await db.category.findMany({});
+	const doesCategoryExist = categorys.find(
+		(cat) => cat.name === values.category
+	);
+	// console.log("WHAT IS THIS?", doesCategoryExist);
+	const product = await db.product.create({
+		data: {
+			title: values.title,
+			imageUrl: values.imageUrl,
+			desc: values.desc,
+			stock: parseInt(values.stock),
+			price: parseInt(values.price),
+			isArchived: false,
+			categories: { connect: { id: doesCategoryExist?.id } },
+		},
+	});
+	revalidatePath("/admin");
+};
+
+export const updateStock = async (productId: number, quantity: number) => {
+	try {
+		const product = await db.product.findUnique({ where: { id: productId } });
+
+		if (!product) {
+			throw new Error("Product not found");
+		}
+
+		if (product.stock < quantity) {
+			throw new Error("Insufficient stock");
+		}
+
+		await db.product.update({
+			where: { id: productId },
+			data: { stock: product.stock - quantity },
+		});
+
+		return true;
+	} catch (error) {
+		console.error("Error updating stock:", error);
+		throw error;
+	}
 };
