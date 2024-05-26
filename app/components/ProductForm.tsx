@@ -23,17 +23,19 @@ interface Props {
 
 export default function ProductForm(props: Props) {
   const router = useRouter();
-  // const isEdit = Boolean(props.product);
+  const isEdit = Boolean(props.product);
 
   const handleSubmit = async (
     values: Product,
     formikHelpers: FormikHelpers<Product>
   ) => {
     console.log(values);
-    // if (isEdit) {
-    await createProduct(values);
-    router.push("/admin");
-    // } else {
+    if (isEdit) {
+      console.log(values);
+    } else {
+      await createProduct(values);
+      router.push("/admin");
+    }
     // addProduct(values);
     // router.push("/admin");
     // formikHelpers.resetForm({
@@ -85,6 +87,7 @@ export default function ProductForm(props: Props) {
                     mt="2%"
                     isInvalid={form.errors.title && form.touched.title}
                   >
+                    ERROR {JSON.stringify(form.errors)}
                     <FormLabel>Title</FormLabel>
                     <Input
                       {...field}
@@ -98,7 +101,6 @@ export default function ProductForm(props: Props) {
                   </FormControl>
                 )}
               </Field>
-
               <Field name="desc">
                 {({ field, form }: any) => (
                   <FormControl
@@ -201,8 +203,7 @@ export default function ProductForm(props: Props) {
                 variant="solid"
                 isLoading={false}
               >
-                {/* {isEdit ? "UPDATE PRODUCT" : "ADD PRODUCT"} */}
-                ADD PRODUCT
+                {isEdit ? "UPDATE PRODUCT" : "ADD PRODUCT"}
               </Button>
             </Form>
           );
