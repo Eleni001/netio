@@ -1,4 +1,4 @@
-import { getAllProducts } from "@/app/actions/actions";
+import { getAllCategorys, getAllProducts } from "@/app/actions/actions";
 import ProductForm from "@/app/components/ProductForm";
 import { Flex, Heading } from "@chakra-ui/react";
 
@@ -6,6 +6,7 @@ type PageProps = { params: { id: string } };
 
 export default async function AdminEditProductPage({ params }: PageProps) {
   const products = await getAllProducts();
+  const categories = await getAllCategorys();
   const param = Number(params.id);
   const product = products.find((p) => p.id === param);
   console.log(product);
@@ -33,7 +34,7 @@ export default async function AdminEditProductPage({ params }: PageProps) {
         p="1rem"
         gap={{ base: "1rem", md: "2rem" }}
       >
-        <ProductForm product={product} />
+        <ProductForm product={product} categories={categories} />
         {/* <ProductForm setImagePreview={setImagePreview} product={product} /> */}
       </Flex>
     </>

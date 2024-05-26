@@ -49,7 +49,7 @@ export default function AdminNewProductComp({ categorys }: Props) {
             ></Image>
           </Box>
         </Box>
-        <ProductForm setImagePreview={setImagePreview} categorys={categorys} />
+        <ProductForm setImagePreview={setImagePreview} categories={categorys} />
       </Flex>
     </div>
   );

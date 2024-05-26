@@ -83,7 +83,7 @@ export default function AdminEditProductComp({
         <ProductForm
           setImagePreview={setImagePreview}
           editProduct={findProduct}
-          categorys={categorys}
+          categories={categorys}
         />
       </Flex>
     </div>
