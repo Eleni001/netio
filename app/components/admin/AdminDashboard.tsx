@@ -129,7 +129,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
 
                 <Td data-cy="product-price">
                   {product.categories
-                    .map((category) => category.categoryName)
+                    .map((category) => category.name)
                     .join(", ")}
                 </Td>
                 <Td data-cy="product-price">{product.price}</Td>
