@@ -1,14 +1,14 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import { useState } from "react";
-import { DiProlog } from "react-icons/di";
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { useState } from 'react';
+import { DiProlog } from 'react-icons/di';
 
 export default function ImagePreviewComp() {
-  const [imagePreview, setImagePreview] = useState("");
+  const [imagePreview, setImagePreview] = useState('');
   return (
     <Box
       bg="#FEF0D9"
-      width={{ base: "350px", md: "400px" }}
-      height={{ base: "300px", md: "480px" }}
+      width={{ base: '350px', md: '400px' }}
+      height={{ base: '300px', md: '480px' }}
       rounded="lg"
       overflow="hidden"
       position="relative"

@@ -1,6 +1,6 @@
-import { getAllCategorys, getAllProducts } from "@/app/actions/actions";
-import ProductForm from "@/app/components/ProductForm";
-import { Flex, Heading } from "@chakra-ui/react";
+import { getAllCategorys, getAllProducts } from '@/app/actions/actions';
+import ProductForm from '@/app/components/ProductForm';
+import { Flex, Heading } from '@chakra-ui/react';
 
 type PageProps = { params: { id: string } };
 
