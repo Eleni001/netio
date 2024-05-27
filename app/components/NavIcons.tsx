@@ -5,8 +5,8 @@ import { Session } from '@prisma/client';
 import NextLink from 'next/link';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoPersonOutline } from 'react-icons/io5';
-import { LuHeart } from 'react-icons/lu';
 import { RiAdminLine } from 'react-icons/ri';
+import { VscSignIn, VscSignOut } from 'react-icons/vsc';
 import { useCart } from '../contexts/CartContext';
 import { SessionProp } from './Header';
 
@@ -25,7 +25,7 @@ export default function NavIcons({ session }: SessionProp) {
       align="center"
     >
       {session?.user.isAdmin && (
-        <NextLink href="/admin" data-cy="admin-link" color="black">
+        <NextLink href="/admin" color="black">
           <Icon
             fontSize="1.7rem"
             transition={'transform 0.2s ease-in-out'}
@@ -40,8 +40,7 @@ export default function NavIcons({ session }: SessionProp) {
           </Icon>
         </NextLink>
       )}
-
-      <NextLink href="/user" data-cy="admin-link" color="black">
+      <NextLink href="/user" color="black">
         {' '}
         <Icon
           fontSize="1.7rem"
@@ -55,7 +54,37 @@ export default function NavIcons({ session }: SessionProp) {
           <IoPersonOutline size="1.6rem" />
         </Icon>
       </NextLink>
-      <NextLink href="/register" passHref color="black" data-cy="cart-link">
+      {session ? (
+        <NextLink href="/signout" passHref color="black">
+          <Icon
+            fontSize="1.7rem"
+            transition={'transform 0.2s ease-in-out'}
+            _hover={{
+              cursor: 'pointer',
+              color: 'brown',
+              transform: 'scale(1.2)',
+            }}
+          >
+            <VscSignOut />
+          </Icon>
+        </NextLink>
+      ) : (
+        <NextLink href="/signin" passHref color="black">
+          <Icon
+            fontSize="1.7rem"
+            transition={'transform 0.2s ease-in-out'}
+            _hover={{
+              cursor: 'pointer',
+              color: 'brown',
+              transform: 'scale(1.2)',
+            }}
+          >
+            <VscSignIn />
+            {/* <VscSignOut /> */}
+          </Icon>
+        </NextLink>
+      )}
+      {/* <NextLink href="/signin" passHref color="black">
         <Icon
           fontSize="1.7rem"
           transition={'transform 0.2s ease-in-out'}
@@ -65,11 +94,11 @@ export default function NavIcons({ session }: SessionProp) {
             transform: 'scale(1.2)',
           }}
         >
-          <LuHeart size="1.5rem" /> *
+          <VscSignIn />
         </Icon>
-      </NextLink>
+      </NextLink> */}
 
-      <NextLink href="/checkout" passHref color="black" data-cy="cart-link">
+      <NextLink href="/checkout" passHref color="black">
         <Icon
           fontSize="1.7rem"
           transition={'transform 0.2s ease-in-out'}
@@ -91,7 +120,6 @@ export default function NavIcons({ session }: SessionProp) {
           position="absolute"
           top="-0.5rem"
           right="-0.5rem"
-          data-cy="cart-items-count-badge"
         >
           {cartCount}
         </Circle>

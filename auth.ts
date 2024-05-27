@@ -6,6 +6,10 @@ import { db } from "./prisma/db";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db),
   providers: [github],
+  pages: {
+    signIn: "/login",
+    signOut: "/logout",
+  },
 });
 
 declare module "next-auth" {
