@@ -51,13 +51,13 @@ export const createProduct = async (values: any) => {
 };
 
 export const updateProduct = async (values: ProductWithCategories) => {
-  const product = await db.product.update({
+  const archiveProduct = await db.product.update({
     data: {
       title: values.title,
       imageUrl: values.imageUrl,
       desc: values.desc,
-      stock: parseInt(values.stock),
-      price: parseInt(values.price),
+      stock: Number(values.stock),
+      price: Number(values.price),
       isArchived: false,
       categories: {
         connect: values.categories.map((category) => ({ name: category })),
@@ -67,5 +67,6 @@ export const updateProduct = async (values: ProductWithCategories) => {
       id: values.id,
     },
   });
+  // createProduct(values);
   revalidatePath("/admin");
 };
