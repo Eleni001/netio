@@ -8,7 +8,7 @@ import { DiProlog } from "react-icons/di";
 import ProductForm from "../ProductForm";
 
 interface Props {
-  params: string;
+  params: { id: number };
   product: Product[];
   categorys: Category[];
 }
