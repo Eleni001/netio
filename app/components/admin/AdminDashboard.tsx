@@ -25,7 +25,6 @@ import {
 } from '@chakra-ui/react';
 import { Product } from '@prisma/client';
 import Image from 'next/image';
-import NextLink from 'next/link';
 import { useState } from 'react';
 
 interface Props {
@@ -98,22 +97,17 @@ export default function AdminDashboard({ products: newProducts }: Props) {
             </ModalFooter>
           </ModalContent>
         </Modal>
-        <NextLink href="/admin/product/new" data-cy="admin-add-product">
-          <Button
-            bg="rgba(78, 199, 145, 1)"
-            color="white"
-            size="lg"
-            _hover={{
-              transform: 'translateY(2px)',
-              boxShadow: 'lg',
-            }}
+        <Flex border={'1px'} borderColor={'black'} rounded={'lg'}>
+          <Checkbox
+            onChange={() => setShowArchived(!showArchived)}
+            padding={5}
+            rounded={'lg'}
+            border={'ButtonShadow'}
+            bg={'white'}
           >
-            Add Product
-          </Button>
-        </NextLink>
-        <Checkbox onChange={() => setShowArchived(!showArchived)}>
-          Visa arkiverade
-        </Checkbox>
+            Show Archived Products
+          </Checkbox>
+        </Flex>
       </Flex>
 
       <TableContainer style={{ width: '100%', overflowX: 'auto' }}>
