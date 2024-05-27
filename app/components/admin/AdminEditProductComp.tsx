@@ -2,14 +2,14 @@
 
 import { ProductWithCategories } from "@/app/types";
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { Category, Product } from "@prisma/client";
+import { Category } from "@prisma/client";
 import { useState } from "react";
 import { DiProlog } from "react-icons/di";
 import ProductForm from "../ProductForm";
 
 interface Props {
   params: { id: number };
-  product: Product[];
+  product: ProductWithCategories[];
   categorys: Category[];
 }
 export default function AdminEditProductComp({
@@ -17,9 +17,7 @@ export default function AdminEditProductComp({
   product,
   categorys,
 }: Props) {
-  const findProduct: ProductWithCategories = product.find(
-    (p) => p.id == params.id
-  );
+  const findProduct = product.find((p) => p.id == params.id);
   const [imagePreview, setImagePreview] = useState<string | undefined>("");
 
   if (!product) {
@@ -82,7 +80,7 @@ export default function AdminEditProductComp({
         </Box>
         <ProductForm
           setImagePreview={setImagePreview}
-          editProduct={findProduct}
+          product={findProduct}
           categories={categorys}
         />
       </Flex>

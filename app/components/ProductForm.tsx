@@ -9,12 +9,12 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import { Category, Product } from "@prisma/client";
+import { Category } from "@prisma/client";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { createProduct, updateProduct } from "../actions/actions";
-import { ProductWithCategories } from "../types";
+import { ProductWithCategories, ProductWithCategoriesIds } from "../types";
 import CategoryBox from "./CategoryBox";
 
 interface Props {
@@ -28,8 +28,8 @@ export default function ProductForm(props: Props) {
   const isEdit = Boolean(props.product);
 
   const handleSubmit = async (
-    values: ProductWithCategories,
-    formikHelpers: FormikHelpers<Product>
+    values: ProductWithCategoriesIds,
+    formikHelpers: FormikHelpers<ProductWithCategoriesIds>
   ) => {
     if (isEdit) {
       console.log(values);
@@ -41,10 +41,17 @@ export default function ProductForm(props: Props) {
     }
   };
 
+  console.log(
+    props.categories,
+    props.product,
+    props.product?.categories.map((cat) => cat.id) || []
+  );
+
   return (
     <Container>
       <Formik
         initialValues={{
+          // ...props.product,
           title: props.product?.title || "",
           desc: props.product?.desc || "",
           imageUrl: props.product?.imageUrl || "",
@@ -53,7 +60,7 @@ export default function ProductForm(props: Props) {
           stock: props.product?.stock || 0,
           isArchived: props.product?.isArchived || false,
           createdAt: props.product?.createdAt || new Date(),
-          categories: props.product?.categories.map((cat) => cat.name) || [],
+          categories: props.product?.categories.map((cat) => cat.id) || [],
         }}
         validationSchema={ProductSchema}
         onSubmit={handleSubmit}
