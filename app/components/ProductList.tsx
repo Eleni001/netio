@@ -5,10 +5,10 @@ import {
   Link,
   SimpleGrid,
   Text,
-} from "@chakra-ui/react";
-import { Product } from "@prisma/client";
-import { LuHeart } from "react-icons/lu";
-import AddToCartIcon from "./AddToCartIcon";
+} from '@chakra-ui/react';
+import { Product } from '@prisma/client';
+import { LuHeart } from 'react-icons/lu';
+import AddToCartIcon from './AddToCartIcon';
 
 interface Props {
   products: Product[];
@@ -29,13 +29,13 @@ export default function ProductList(props: Props) {
           data-cy="product-id"
           key={product.id}
           boxShadow="1px 1px 2px rgba(0,0,0,0.1)"
-          transition={"transform 0.2s ease-in-out"}
-          _hover={{ cursor: "pointer", transform: "scale(1.05)" }}
+          transition={'transform 0.2s ease-in-out'}
+          _hover={{ cursor: 'pointer', transform: 'scale(1.05)' }}
         >
           <Flex flexDirection="column" height="100%" data-cy="product">
             <Link
               href={`/product/${product.id}`}
-              _hover={{ textDecoration: "none" }}
+              _hover={{ textDecoration: 'none' }}
             >
               <Image
                 src={product.imageUrl}
@@ -55,11 +55,11 @@ export default function ProductList(props: Props) {
                   data-cy="product-title"
                   fontWeight="semibold"
                   textTransform="capitalize"
-                  _hover={{ color: "brown" }}
+                  _hover={{ color: 'brown' }}
                 >
                   {product.title}
                 </Text>
-                <Text data-cy="product-price" _hover={{ color: "brown" }}>
+                <Text data-cy="product-price" _hover={{ color: 'brown' }}>
                   {product.price} kr
                 </Text>
               </Flex>
@@ -68,11 +68,11 @@ export default function ProductList(props: Props) {
               <Link
                 href="/"
                 color="black"
-                transition={"transform 0.2s ease-in-out"}
+                transition={'transform 0.2s ease-in-out'}
                 _hover={{
-                  cursor: "pointer",
-                  color: "brown",
-                  transform: "scale(1.2)",
+                  cursor: 'pointer',
+                  color: 'brown',
+                  transform: 'scale(1.2)',
                 }}
               >
                 <LuHeart fontSize="1.7rem" />

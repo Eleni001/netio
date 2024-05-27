@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { FormValues, ValidationSchema } from "@/data";
+import { FormValues, ValidationSchema } from '@/data';
 import {
   Button,
   ButtonGroup,
@@ -11,11 +11,11 @@ import {
   FormLabel,
   GridItem,
   Input,
-} from "@chakra-ui/react";
-import { Field, Form, Formik } from "formik";
-import { useRouter } from "next/navigation";
-import { useCart } from "../contexts/CartContext";
-import { useCustomer } from "../contexts/CustomerContext";
+} from '@chakra-ui/react';
+import { Field, Form, Formik } from 'formik';
+import { useRouter } from 'next/navigation';
+import { useCart } from '../contexts/CartContext';
+import { useCustomer } from '../contexts/CustomerContext';
 
 export default function CheckoutForm() {
   const router = useRouter();
@@ -26,7 +26,7 @@ export default function CheckoutForm() {
     setCustomerData(values);
     setOrderItems(cart);
     clearCartSilently();
-    router.push("/confirmation");
+    router.push('/confirmation');
   };
 
   return (
@@ -34,19 +34,19 @@ export default function CheckoutForm() {
       borderWidth="1px"
       rounded="lg"
       shadow="1px 1px 2px rgba(0,0,0,0.1)"
-      width={{ base: "90%", md: "42%" }}
+      width={{ base: '90%', md: '42%' }}
       p="5%"
       m="2rem auto"
     >
       <Formik
         initialValues={{
-          email: "",
-          firstName: "",
-          lastName: "",
-          address: "",
-          city: "",
-          phone: "",
-          postalCode: "",
+          email: '',
+          firstName: '',
+          lastName: '',
+          address: '',
+          city: '',
+          phone: '',
+          postalCode: '',
         }}
         validationSchema={ValidationSchema}
         onSubmit={handleSubmit}
@@ -120,7 +120,7 @@ export default function CheckoutForm() {
                     fontWeight="md"
                     color="gray.700"
                     _dark={{
-                      color: "gray.50",
+                      color: 'gray.50',
                     }}
                     mt="2%"
                   >
@@ -156,7 +156,7 @@ export default function CheckoutForm() {
                     fontWeight="md"
                     color="gray.700"
                     _dark={{
-                      color: "gray.50",
+                      color: 'gray.50',
                     }}
                     mt="2%"
                   >
@@ -192,7 +192,7 @@ export default function CheckoutForm() {
                     fontWeight="md"
                     color="gray.700"
                     _dark={{
-                      color: "gray.50",
+                      color: 'gray.50',
                     }}
                     mt="2%"
                   >
@@ -228,7 +228,7 @@ export default function CheckoutForm() {
                     fontWeight="md"
                     color="gray.700"
                     _dark={{
-                      color: "gray.50",
+                      color: 'gray.50',
                     }}
                     mt="2%"
                   >
@@ -258,7 +258,7 @@ export default function CheckoutForm() {
                   type="submit"
                   w="7rem"
                   bg="#E4A757"
-                  _hover={{ bg: "#efdbc2" }}
+                  _hover={{ bg: '#efdbc2' }}
                   variant="solid"
                   isLoading={props.isSubmitting}
                 >
