@@ -52,6 +52,11 @@ export const createProduct = async (values: any) => {
 
 export const updateProduct = async (values: ProductWithCategories) => {
   const archiveProduct = await db.product.update({
+    where: { id: values.id },
+    data: { isArchived: true },
+  });
+
+  const newProduct = await db.product.create({
     data: {
       title: values.title,
       imageUrl: values.imageUrl,
@@ -63,10 +68,7 @@ export const updateProduct = async (values: ProductWithCategories) => {
         connect: values.categories.map((category) => ({ name: category })),
       },
     },
-    where: {
-      id: values.id,
-    },
   });
-  // createProduct(values);
+
   revalidatePath("/admin");
 };
