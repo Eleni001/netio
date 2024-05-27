@@ -8,6 +8,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [github],
   pages: {
     signIn: "/login",
+    signOut: "/logout",
   },
 });
 
