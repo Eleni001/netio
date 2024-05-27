@@ -23,6 +23,9 @@ export default function CheckoutPage() {
     });
     return totalPrice;
   };
+
+  const handleOrder = async () => {};
+
   return (
     <>
       <Flex

@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@chakra-ui/react';
+import { Button, Text } from '@chakra-ui/react';
 import { Product } from '@prisma/client';
 
 import { useCart } from '../contexts/CartContext';
@@ -11,7 +11,13 @@ interface Props {
 
 export default function AddToCartButton(props: Props) {
   const { addToCart } = useCart();
-
+  if (props.product.stock === 0) {
+    return (
+      <>
+        <Text>Out of stock</Text>
+      </>
+    );
+  }
   return (
     <Button
       onClick={() => addToCart(props.product)}
@@ -27,6 +33,7 @@ export default function AddToCartButton(props: Props) {
         transform: 'translateY(2px)',
         boxShadow: 'lg',
       }}
+      disabled={true}
     >
       Add to cart
     </Button>

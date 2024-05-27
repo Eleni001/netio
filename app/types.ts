@@ -12,3 +12,6 @@ export type LayoutProps = Readonly<{ children: ReactNode }>;
 export interface ProductWithCategories extends Product {
   categories: Category[];
 }
+export interface ProductWithCategoriesIds extends Product {
+  categories: number[];
+}

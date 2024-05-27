@@ -4,6 +4,7 @@ import { deleteProduct } from '@/app/actions/actions';
 import { ProductWithCategories } from '@/app/types';
 import {
   Button,
+  Checkbox,
   Flex,
   Link,
   Modal,
@@ -35,6 +36,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
   const [products, setProducts] =
     useState<ProductWithCategories[]>(newProducts);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [showArchived, setShowArchived] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDeleteClick = (product: Product) => {
@@ -109,6 +111,9 @@ export default function AdminDashboard({ products: newProducts }: Props) {
             Add Product
           </Button>
         </NextLink>
+        <Checkbox onChange={() => setShowArchived(!showArchived)}>
+          Visa arkiverade
+        </Checkbox>
       </Flex>
 
       <TableContainer style={{ width: '100%', overflowX: 'auto' }}>
@@ -125,69 +130,83 @@ export default function AdminDashboard({ products: newProducts }: Props) {
             </Tr>
           </Thead>
           <Tbody>
-            {newProducts.map((product) => (
-              <Tr key={product.id} data-cy="product">
-                <Td display="flex" justifyContent="center" alignItems="center">
-                  <Image
-                    src={product.imageUrl}
-                    alt={product.title}
-                    width={80}
-                    height={80}
-                  />
-                </Td>
-                <Td data-cy="product-id">{product.id}</Td>
-                <Td data-cy="product-title">{product.title}</Td>
-                <Td
-                  style={{ whiteSpace: 'normal', width: '300px' }}
-                  data-cy="product-description"
-                >
-                  {product.desc.length > 100
-                    ? `${product.desc.slice(0, 50)}...`
-                    : product.desc}
-                </Td>
+            {/* DAVID?=??? */}
+            {newProducts.map((product) =>
+              product.isArchived && !showArchived ? (
+                <></>
+              ) : (
+                <Tr key={product.id} data-cy="product">
+                  <Td
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.title}
+                      width={80}
+                      height={80}
+                    />
+                  </Td>
+                  <Td data-cy="product-id">{product.id}</Td>
+                  <Td data-cy="product-title">{product.title}</Td>
+                  <Td
+                    style={{ whiteSpace: 'normal', width: '300px' }}
+                    data-cy="product-description"
+                  >
+                    {product.desc.length > 100
+                      ? `${product.desc.slice(0, 50)}...`
+                      : product.desc}
+                  </Td>
 
-                <Td data-cy="product-price">
-                  {product.categories
-                    .map((category) => category.categoryName)
-                    .join(', ')}
-                </Td>
-                <Td data-cy="product-price">{product.price}</Td>
-                <Td>
-                  <Flex justify="center" alignItems="center" height="100%">
-                    <Link
-                      href={`admin/product/${product.id}`}
-                      _hover={{ textDecoration: 'none' }}
-                    >
-                      <Button
-                        data-cy="admin-edit-product"
-                        bg="rgba(78, 199, 145, 1)"
-                        color="white"
-                        size="sm"
-                        mr="3px"
-                        _hover={{
-                          transform: 'translateY(2px)',
-                          boxShadow: 'lg',
-                        }}
-                      >
-                        Edit
-                      </Button>
-                    </Link>
-                    <Button
-                      data-cy="admin-remove-product"
-                      colorScheme="red"
-                      size="sm"
-                      _hover={{
-                        transform: 'translateY(2px)',
-                        boxShadow: 'lg',
-                      }}
-                      onClick={() => handleDeleteClick(product)}
-                    >
-                      Delete
-                    </Button>
-                  </Flex>
-                </Td>
-              </Tr>
-            ))}
+                  <Td data-cy="product-price">
+                    {product.categories
+                      .map((category) => category.name)
+                      .join(', ')}
+                  </Td>
+                  <Td data-cy="product-price">{product.stock}</Td>
+                  <Td data-cy="product-price">{product.price}</Td>
+                  <Td>
+                    {product.isArchived ? (
+                      <></>
+                    ) : (
+                      <Flex justify="center" alignItems="center" height="100%">
+                        <Link
+                          href={`admin/product/${product.id}`}
+                          _hover={{ textDecoration: 'none' }}
+                        >
+                          <Button
+                            data-cy="admin-edit-product"
+                            bg="rgba(78, 199, 145, 1)"
+                            color="white"
+                            size="sm"
+                            mr="3px"
+                            _hover={{
+                              transform: 'translateY(2px)',
+                              boxShadow: 'lg',
+                            }}
+                          >
+                            Edit
+                          </Button>
+                        </Link>
+                        <Button
+                          data-cy="admin-remove-product"
+                          colorScheme="red"
+                          size="sm"
+                          _hover={{
+                            transform: 'translateY(2px)',
+                            boxShadow: 'lg',
+                          }}
+                          onClick={() => handleDeleteClick(product)}
+                        >
+                          Delete
+                        </Button>
+                      </Flex>
+                    )}
+                  </Td>
+                </Tr>
+              ),
+            )}
           </Tbody>
         </Table>
       </TableContainer>
