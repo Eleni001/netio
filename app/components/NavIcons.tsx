@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Circle, Flex, Icon } from "@chakra-ui/react";
-import { Session } from "@prisma/client";
-import NextLink from "next/link";
-import { HiOutlineShoppingBag } from "react-icons/hi";
-import { IoPersonOutline } from "react-icons/io5";
-import { LuHeart } from "react-icons/lu";
-import { RiAdminLine } from "react-icons/ri";
-import { useCart } from "../contexts/CartContext";
-import { SessionProp } from "./Header";
+import { Circle, Flex, Icon } from '@chakra-ui/react';
+import { Session } from '@prisma/client';
+import NextLink from 'next/link';
+import { HiOutlineShoppingBag } from 'react-icons/hi';
+import { IoPersonOutline } from 'react-icons/io5';
+import { LuHeart } from 'react-icons/lu';
+import { RiAdminLine } from 'react-icons/ri';
+import { useCart } from '../contexts/CartContext';
+import { SessionProp } from './Header';
 
 interface Props {
   session: Session;
@@ -19,8 +19,8 @@ export default function NavIcons({ session }: SessionProp) {
   return (
     <Flex
       position="relative"
-      gap={{ base: "1.2rem", md: "2rem" }}
-      fontSize={{ base: "1.4rem", md: "1.7rem" }}
+      gap={{ base: '1.2rem', md: '2rem' }}
+      fontSize={{ base: '1.4rem', md: '1.7rem' }}
       justify="center"
       align="center"
     >
@@ -28,11 +28,11 @@ export default function NavIcons({ session }: SessionProp) {
         <NextLink href="/admin" data-cy="admin-link" color="black">
           <Icon
             fontSize="1.7rem"
-            transition={"transform 0.2s ease-in-out"}
+            transition={'transform 0.2s ease-in-out'}
             _hover={{
-              cursor: "pointer",
-              color: "brown",
-              transform: "scale(1.2)",
+              cursor: 'pointer',
+              color: 'brown',
+              transform: 'scale(1.2)',
             }}
           >
             <IoPersonOutline size="1.6rem" />
@@ -42,14 +42,14 @@ export default function NavIcons({ session }: SessionProp) {
       )}
 
       <NextLink href="/user" data-cy="admin-link" color="black">
-        {" "}
+        {' '}
         <Icon
           fontSize="1.7rem"
-          transition={"transform 0.2s ease-in-out"}
+          transition={'transform 0.2s ease-in-out'}
           _hover={{
-            cursor: "pointer",
-            color: "brown",
-            transform: "scale(1.2)",
+            cursor: 'pointer',
+            color: 'brown',
+            transform: 'scale(1.2)',
           }}
         >
           <IoPersonOutline size="1.6rem" />
@@ -58,11 +58,11 @@ export default function NavIcons({ session }: SessionProp) {
       <NextLink href="/register" passHref color="black" data-cy="cart-link">
         <Icon
           fontSize="1.7rem"
-          transition={"transform 0.2s ease-in-out"}
+          transition={'transform 0.2s ease-in-out'}
           _hover={{
-            cursor: "pointer",
-            color: "brown",
-            transform: "scale(1.2)",
+            cursor: 'pointer',
+            color: 'brown',
+            transform: 'scale(1.2)',
           }}
         >
           <LuHeart size="1.5rem" /> *
@@ -72,11 +72,11 @@ export default function NavIcons({ session }: SessionProp) {
       <NextLink href="/checkout" passHref color="black" data-cy="cart-link">
         <Icon
           fontSize="1.7rem"
-          transition={"transform 0.2s ease-in-out"}
+          transition={'transform 0.2s ease-in-out'}
           _hover={{
-            cursor: "pointer",
-            color: "brown",
-            transform: "scale(1.2)",
+            cursor: 'pointer',
+            color: 'brown',
+            transform: 'scale(1.2)',
           }}
         >
           <HiOutlineShoppingBag size="1.6rem" />

@@ -1,5 +1,5 @@
-"use client";
-import { ProductSchema } from "@/data";
+'use client';
+import { ProductSchema } from '@/data';
 import {
   Button,
   Container,
@@ -7,49 +7,45 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
-  Select,
+  Stack,
 } from "@chakra-ui/react";
-import { Category, Product } from "@prisma/client";
+import { Category } from "@prisma/client";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { createProduct } from "../actions/actions";
+import { createProduct, updateProduct } from "../actions/actions";
+import { ProductWithCategories, ProductWithCategoriesIds } from "../types";
+import CategoryBox from "./CategoryBox";
 
 interface Props {
-  product?: Product;
-  categorys?: Category[];
+  product?: ProductWithCategories;
+  categories?: Category[];
   setImagePreview?: (imageUrl: string) => void;
 }
 
 export default function ProductForm(props: Props) {
   const router = useRouter();
-  // const isEdit = Boolean(props.product);
+  const isEdit = Boolean(props.product);
 
   const handleSubmit = async (
-    values: Product,
-    formikHelpers: FormikHelpers<Product>
+    values: ProductWithCategoriesIds,
+    formikHelpers: FormikHelpers<ProductWithCategoriesIds>
   ) => {
-    console.log(values);
-    // if (isEdit) {
-    await createProduct(values);
-    router.push("/admin");
-    // } else {
-    // addProduct(values);
-    // router.push("/admin");
-    // formikHelpers.resetForm({
-    //   values: {
-    //     imageUrl: "",
-    //     title: "",
-    //     desc: "",
-    //     price: "" as any,
-    //     id: 0,
-    //     stock: 0,
-    //     isArchived: false,
-    //     createdAt: new Date(),
-    //   },
-    // });
-    // }
+    if (isEdit) {
+      console.log(values);
+      await updateProduct(values);
+      router.push("/admin");
+    } else {
+      await createProduct(values);
+      router.push("/admin");
+    }
   };
+
+  console.log(
+    props.categories,
+    props.product,
+    props.product?.categories.map((cat) => cat.id) || []
+  );
 
   return (
     <Container>
@@ -63,16 +59,17 @@ export default function ProductForm(props: Props) {
           stock: props.product?.stock || 0,
           isArchived: props.product?.isArchived || false,
           createdAt: props.product?.createdAt || new Date(),
+          categories: props.product?.categories.map((cat) => cat.id) || [],
         }}
         validationSchema={ProductSchema}
         onSubmit={handleSubmit}
       >
         {(formikProps) => {
           const handleImageChange = (
-            event: React.ChangeEvent<HTMLInputElement>
+            event: React.ChangeEvent<HTMLInputElement>,
           ) => {
             const imageUrl = event.target.value;
-            formikProps.setFieldValue("imageUrl", imageUrl);
+            formikProps.setFieldValue('imageUrl', imageUrl);
             if (props.setImagePreview) {
               props.setImagePreview(imageUrl);
             }
@@ -98,7 +95,6 @@ export default function ProductForm(props: Props) {
                   </FormControl>
                 )}
               </Field>
-
               <Field name="desc">
                 {({ field, form }: any) => (
                   <FormControl
@@ -118,20 +114,27 @@ export default function ProductForm(props: Props) {
                   </FormControl>
                 )}
               </Field>
-              <Field name="category" as="select">
+              <Field name="categories">
                 {({ field, form }: any) => (
                   <FormControl
                     mt="2%"
-                    isInvalid={form.errors.category && form.touched.category}
+                    isInvalid={
+                      form.errors.categories && form.touched.categories
+                    }
                   >
-                    <FormLabel>Category</FormLabel>
-                    <Select placeholder="Select option" {...field}>
-                      {props.categorys?.map((category) => (
-                        <option key={category.id}>{category.name}</option>
+                    <FormLabel>Categories</FormLabel>
+                    <Stack>
+                      {props.categories?.map((category) => (
+                        <CategoryBox
+                          key={category.id}
+                          category={category}
+                          field={field}
+                          form={form}
+                        />
                       ))}
-                    </Select>
-                    <FormErrorMessage data-cy="product-description-error">
-                      {form.errors.category}
+                    </Stack>
+                    <FormErrorMessage data-cy="product-categories-error">
+                      {form.errors.categories}
                     </FormErrorMessage>
                   </FormControl>
                 )}
@@ -197,12 +200,11 @@ export default function ProductForm(props: Props) {
                 mt="2rem"
                 type="submit"
                 bg="#E4A757"
-                _hover={{ bg: "#efdbc2" }}
+                _hover={{ bg: '#efdbc2' }}
                 variant="solid"
                 isLoading={false}
               >
-                {/* {isEdit ? "UPDATE PRODUCT" : "ADD PRODUCT"} */}
-                ADD PRODUCT
+                {isEdit ? "UPDATE PRODUCT" : "ADD PRODUCT"}
               </Button>
             </Form>
           );

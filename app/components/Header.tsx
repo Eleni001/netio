@@ -1,6 +1,6 @@
-import { auth } from "@/auth";
-import { Session } from "next-auth";
-import HeaderComponents from "./HeaderComponents";
+import { auth } from '@/auth';
+import { Session } from 'next-auth';
+import HeaderComponents from './HeaderComponents';
 
 export interface SessionProp {
   session: Session | null;

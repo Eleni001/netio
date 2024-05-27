@@ -13,7 +13,8 @@ Enligt uppgiftskravet ska webbshopen bestå av minst fyra stycken sidor med en s
 Startsidan presenterar alla produkter. Det är möjligt att klicka på en produkt för gå till produktsidan eller så kan man direkt lägga till produkten i varukorgen.
 
 ### Produktsida
-  Här kan användaren läsa beskrivningen om den valda produkten och lägga till den i varukorgen. 
+
+Här kan användaren läsa beskrivningen om den valda produkten och lägga till den i varukorgen.
 
 ### Kassasidan
 
@@ -23,19 +24,17 @@ Listar tillagda produkter (bild & titel) dess antal, pris, kundvagnens totalpris
 
 #### Leveransuppgifter
 
-Här fyller användaren formuläret med namn, mail, telefonnummer och adress. Fälten i formuläret går automatisk i fyllas. 
+Här fyller användaren formuläret med namn, mail, telefonnummer och adress. Fälten i formuläret går automatisk i fyllas.
 
 #### Bekräftelsesidan
 
-När användaren har fyllt i alla delar av formuläret på kassasidan och slutför köpet, kommer det en bekräftelse på köpet tillsammans med ett unikt ordernummer. 
+När användaren har fyllt i alla delar av formuläret på kassasidan och slutför köpet, kommer det en bekräftelse på köpet tillsammans med ett unikt ordernummer.
 
 Spelprojektet har utfört av [Catalina](https://github.com/CatAvadani), [Eleni](https://github.com/Eleni001) och [Tomoyo](https://github.com/toal13) som är FED23G studenter.
-
 
 ## Länk till webshoppen:
 
 [NEXT DESIGN](link)
-
 
 ### Installation
 

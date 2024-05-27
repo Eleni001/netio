@@ -1,5 +1,5 @@
-import { getAllProducts } from "@/app/actions/actions";
-import AddToCartButton from "@/app/components/AddToCartButton";
+import { getAllProducts } from '@/app/actions/actions';
+import AddToCartButton from '@/app/components/AddToCartButton';
 import {
   Box,
   Container,
@@ -11,8 +11,8 @@ import {
   StackDivider,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import { MdLocalShipping } from "react-icons/md";
+} from '@chakra-ui/react';
+import { MdLocalShipping } from 'react-icons/md';
 
 type PageProps = { params: { id: string } };
 
@@ -27,7 +27,7 @@ export default async function ProductDetail({ params }: PageProps) {
     );
   }
   return (
-    <Container maxW={"7xl"}>
+    <Container maxW={'7xl'}>
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
@@ -35,21 +35,21 @@ export default async function ProductDetail({ params }: PageProps) {
       >
         <Flex>
           <Image
-            rounded={"md"}
-            alt={"product image"}
+            rounded={'md'}
+            alt={'product image'}
             src={product.imageUrl}
-            fit={"cover"}
-            align={"center"}
-            w={"100%"}
-            h={{ base: "100%", sm: "400px", lg: "500px" }}
+            fit={'cover'}
+            align={'center'}
+            w={'100%'}
+            h={{ base: '100%', sm: '400px', lg: '500px' }}
           />
         </Flex>
         <Stack spacing={{ base: 6, md: 10 }}>
-          <Box as={"header"}>
+          <Box as={'header'}>
             <Heading
               lineHeight={1.1}
               fontWeight={600}
-              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+              fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}
             >
               {product.title}
             </Heading>
@@ -57,7 +57,7 @@ export default async function ProductDetail({ params }: PageProps) {
               data-cy="product-price"
               color="gray.900"
               fontWeight={300}
-              fontSize={"2xl"}
+              fontSize={'2xl'}
             >
               {product.price} SEK
             </Text>
@@ -65,17 +65,17 @@ export default async function ProductDetail({ params }: PageProps) {
 
           <Stack
             spacing={{ base: 4, sm: 6 }}
-            direction={"column"}
+            direction={'column'}
             divider={<StackDivider borderColor="gray.600" />}
           >
             <VStack spacing={{ base: 4, sm: 6 }}>
-              <Text data-cy="product-description" fontSize={"lg"}>
+              <Text data-cy="product-description" fontSize={'lg'}>
                 {product.desc}
               </Text>
             </VStack>
           </Stack>
           <AddToCartButton product={product} />
-          <Stack direction="row" alignItems="center" justifyContent={"center"}>
+          <Stack direction="row" alignItems="center" justifyContent={'center'}>
             <MdLocalShipping />
             <Text>2-3 business days delivery</Text>
           </Stack>

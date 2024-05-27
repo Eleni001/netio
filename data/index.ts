@@ -27,7 +27,7 @@ export const ValidationSchema = Yup.object({
   phone: Yup.string()
     .matches(
       /^\+46\d{7,9}$|0\d{1,2}-?\d{2,3} ?\d{2} ?\d{2}$|^07\d{1}-?\d{3} ?\d{2} ?\d{2}$/,
-      "Invalid phone number format"
+      "Invalid phone number format",
     )
     .required("Please enter your phone number"),
 
@@ -43,7 +43,10 @@ export const ProductSchema = Yup.object().shape({
     .nullable(),
   title: Yup.string().required("Please enter the product title"),
   desc: Yup.string().required("Please enter the product description"),
-  category: Yup.string().required("Please select a category"),
+  categories: Yup.array()
+    .of(Yup.string().required())
+    .min(1, "Please select at least one category")
+    .required("Please select at least one category"),
   price: Yup.number()
     .transform((value, originalValue) => {
       return originalValue === "" ? NaN : Number(originalValue);
@@ -52,8 +55,11 @@ export const ProductSchema = Yup.object().shape({
     .test(
       "is-greater-than-zero",
       "Price must be greater than zero",
-      (value) => value > 0
+      (value) => value > 0,
     ),
+  stock: Yup.number()
+    .required("Please enter the stock amount")
+    .min(0, "Stock cannot be negative"),
 });
 
 export interface CartItem extends Product {

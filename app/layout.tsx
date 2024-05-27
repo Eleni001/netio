@@ -1,19 +1,19 @@
-import { Box } from "@chakra-ui/react";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import HomePageBottom from "./components/HomePageBottom";
-import { fonts } from "./fonts";
-import { Providers } from "./providers";
-import { LayoutProps } from "./types";
+import { Box } from '@chakra-ui/react';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import HomePageBottom from './components/HomePageBottom';
+import { fonts } from './fonts';
+import { Providers } from './providers';
+import { LayoutProps } from './types';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 /* Beskriv din hemsida för sökmotorerna */
 export const metadata: Metadata = {
-  title: "Webbshop",
-  description: "Dina favoritprodukter online till en bra pris...",
+  title: 'Webbshop',
+  description: 'Dina favoritprodukter online till en bra pris...',
 };
 
 export default function RootLayout({ children }: LayoutProps) {
