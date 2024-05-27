@@ -16,7 +16,7 @@ export default async function Signin() {
     <form
       action={async () => {
         'use server';
-        await signIn('github', { redirectTo: '/' });
+        await signIn('github', { redirectTo: '/user' });
       }}
     >
       <Box
