@@ -14,7 +14,6 @@ export default function AddToCartButton(props: Props) {
 
   return (
     <Button
-      data-cy="product-buy-button"
       onClick={() => addToCart(props.product)}
       rounded={'none'}
       w={'full'}
