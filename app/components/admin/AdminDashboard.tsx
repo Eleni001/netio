@@ -124,11 +124,12 @@ export default function AdminDashboard({ products: newProducts }: Props) {
             </Tr>
           </Thead>
           <Tbody>
-            {/* DAVID?=??? */}
-            {newProducts.map((product) =>
-              product.isArchived && !showArchived ? (
-                <></>
-              ) : (
+            {newProducts.map((product) => {
+              if (product.isArchived && !showArchived) {
+                return null;
+              }
+
+              return (
                 <Tr key={product.id} data-cy="product">
                   <Td
                     display="flex"
@@ -152,7 +153,6 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                       ? `${product.desc.slice(0, 50)}...`
                       : product.desc}
                   </Td>
-
                   <Td data-cy="product-price">
                     {product.categories
                       .map((category) => category.name)
@@ -161,9 +161,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                   <Td data-cy="product-price">{product.stock}</Td>
                   <Td data-cy="product-price">{product.price}</Td>
                   <Td>
-                    {product.isArchived ? (
-                      <></>
-                    ) : (
+                    {!product.isArchived && (
                       <Flex justify="center" alignItems="center" height="100%">
                         <Link
                           href={`admin/product/${product.id}`}
@@ -199,8 +197,8 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                     )}
                   </Td>
                 </Tr>
-              ),
-            )}
+              );
+            })}
           </Tbody>
         </Table>
       </TableContainer>

@@ -131,8 +131,9 @@ export const createCategory = async (values: Category) => {
   const categorys = await db.category.findMany({});
   const doesCategoryExist = categorys.find((c) => c.name === values.name);
 
-  if (doesCategoryExist) throw new Error('category already exists');
-  // const category = await db.category.create({
-  //   data: { name: values.name, slug: values.slug },
-  // });
+  if (doesCategoryExist) return { status };
+
+  const category = await db.category.create({
+    data: { name: values.name, slug: values.slug },
+  });
 };

@@ -21,7 +21,7 @@ import { useFormik } from 'formik';
 import { createCategory } from '../actions/actions';
 import CustomToast from './CustomToast';
 
-export default function AddCategoryModal() {
+export default function AddCategoryButton() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -34,18 +34,34 @@ export default function AddCategoryModal() {
     validationSchema: NewCategorySchema,
     onSubmit: (values: Category, { resetForm }) => {
       console.log(values);
-      toast({
-        render: () => (
-          <CustomToast
-            toastSuccess={true}
-            toastTitle="succesfully added category"
-            toastContent="toastcontent"
-          />
-        ),
-        duration: 3000,
-        isClosable: true,
-      });
-      createCategory(values);
+
+      try {
+        createCategory(values);
+        toast({
+          render: () => (
+            <CustomToast
+              toastSuccess={true}
+              toastTitle="succesfully added category"
+              toastContent="toastcontent"
+            />
+          ),
+          duration: 3000,
+          isClosable: true,
+        });
+      } catch (error) {
+        console.log('SOME ERROR');
+        toast({
+          render: () => (
+            <CustomToast
+              toastSuccess={false}
+              toastTitle="Failed"
+              toastContent="Failed adding category, contact admin"
+            />
+          ),
+          duration: 3000,
+          isClosable: true,
+        });
+      }
       resetForm(); // Reset the form values
       onClose(); // Close the modal on form submission
     },
@@ -53,7 +69,18 @@ export default function AddCategoryModal() {
 
   return (
     <>
-      <Button onClick={onOpen}>ÖPPNA</Button>
+      <Button
+        bg="grey"
+        color="white"
+        size="md"
+        _hover={{
+          transform: 'translateY(2px)',
+          boxShadow: 'lg',
+        }}
+        onClick={onOpen}
+      >
+        Add Category
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <form onSubmit={formik.handleSubmit}>
