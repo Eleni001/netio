@@ -33,17 +33,27 @@ export const getAllCategorys = async () => {
   return categorys;
 };
 
-export const createProduct = async (values: any) => {
+export const createProduct = async (values: ProductWithCategories) => {
+  //HITTA CATEGORY SOM ÄR VALD, LÄGG MED HELA CATEGORY OBJEKT I OBJEKT
+  const categories = await db.category.findMany({});
+  const matchingCategories = categories.filter((category) =>
+    values.categories.includes(category.name)
+  );
+  const newValues = { ...values, categories: matchingCategories };
+  console.log(newValues);
   const product = await db.product.create({
     data: {
-      title: values.title,
-      imageUrl: values.imageUrl,
-      desc: values.desc,
-      stock: parseInt(values.stock),
-      price: parseInt(values.price),
+      title: newValues.title,
+      imageUrl: newValues.imageUrl,
+      desc: newValues.desc,
+      stock: Number(newValues.stock),
+      price: Number(newValues.price),
       isArchived: false,
       categories: {
-        connect: values.categories.map((category) => ({ name: category })),
+        connect: newValues.categories.map((category) => ({
+          name: category.name,
+          slug: category.slug,
+        })),
       },
     },
   });
@@ -51,21 +61,29 @@ export const createProduct = async (values: any) => {
 };
 
 export const updateProduct = async (values: ProductWithCategories) => {
+  const categories = await db.category.findMany({});
+  const matchingCategories = categories.filter((category) =>
+    values.categories.includes(category.name)
+  );
+  const newValues = { ...values, categories: matchingCategories };
   const archiveProduct = await db.product.update({
-    where: { id: values.id },
+    where: { id: newValues.id },
     data: { isArchived: true },
   });
 
   const newProduct = await db.product.create({
     data: {
-      title: values.title,
-      imageUrl: values.imageUrl,
-      desc: values.desc,
-      stock: Number(values.stock),
-      price: Number(values.price),
+      title: newValues.title,
+      imageUrl: newValues.imageUrl,
+      desc: newValues.desc,
+      stock: Number(newValues.stock),
+      price: Number(newValues.price),
       isArchived: false,
       categories: {
-        connect: values.categories.map((category) => ({ name: category })),
+        connect: newValues.categories.map((category) => ({
+          name: category.name,
+          slug: category.slug,
+        })),
       },
     },
   });
