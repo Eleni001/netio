@@ -1,11 +1,11 @@
-"use server";
+'use server';
 
+import { auth } from "@/auth";
 import { db } from "@/prisma/db";
 import console from "console";
 import { revalidatePath } from "next/cache";
 import { ProductWithCategoriesIds } from "../types";
 import { UserCreate, UserCreateSchema } from "../validations/userValidation";
-import { auth } from "@/auth";
 
 export async function registerUser(incomingData: UserCreate) {
   try {
@@ -17,7 +17,7 @@ export async function registerUser(incomingData: UserCreate) {
         password: userData.password,
       },
     });
-    revalidatePath("/");
+    revalidatePath('/');
     return user;
   } catch (error) {
     console.log(error);
@@ -58,7 +58,7 @@ export const createProduct = async (values: ProductWithCategoriesIds) => {
       },
     },
   });
-  revalidatePath("/admin");
+  revalidatePath('/admin');
 };
 
 export const updateProduct = async (values: ProductWithCategoriesIds) => {
@@ -88,3 +88,17 @@ export const updateProduct = async (values: ProductWithCategoriesIds) => {
 
   revalidatePath("/admin");
 };
+
+export async function deleteProduct(productId: any) {
+  try {
+    await db.product.delete({
+      where: {
+        id: productId,
+      },
+    });
+    console.log('Product deleted successfully');
+  } catch (error) {
+    console.error('Failed to delete product:', error);
+    throw error;
+  }
+}

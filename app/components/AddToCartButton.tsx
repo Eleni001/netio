@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Button } from "@chakra-ui/react";
-import { Product } from "@prisma/client";
+import { Button } from '@chakra-ui/react';
+import { Product } from '@prisma/client';
 
-import { useCart } from "../contexts/CartContext";
+import { useCart } from '../contexts/CartContext';
 
 interface Props {
   product: Product;
@@ -16,17 +16,17 @@ export default function AddToCartButton(props: Props) {
     <Button
       data-cy="product-buy-button"
       onClick={() => addToCart(props.product)}
-      rounded={"none"}
-      w={"full"}
+      rounded={'none'}
+      w={'full'}
       mt={8}
-      size={"lg"}
-      py={"7"}
+      size={'lg'}
+      py={'7'}
       bg="rgba(78, 199, 145, 1)"
       color="white"
-      textTransform={"uppercase"}
+      textTransform={'uppercase'}
       _hover={{
-        transform: "translateY(2px)",
-        boxShadow: "lg",
+        transform: 'translateY(2px)',
+        boxShadow: 'lg',
       }}
     >
       Add to cart

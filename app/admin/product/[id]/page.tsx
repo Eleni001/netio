@@ -25,14 +25,14 @@ export default async function AdminEditProductPage({ params }: PageProps) {
         Edit Product Form
       </Heading>
       <Flex
-        flexDir={{ base: "column", md: "row" }}
+        flexDir={{ base: 'column', md: 'row' }}
         rounded="lg"
         justify="center"
         alignItems="center"
         width="80%"
         m="2rem auto"
         p="1rem"
-        gap={{ base: "1rem", md: "2rem" }}
+        gap={{ base: '1rem', md: '2rem' }}
       >
         <ProductForm product={product} categories={categories} />
         {/* <ProductForm setImagePreview={setImagePreview} product={product} /> */}

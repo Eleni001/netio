@@ -1,6 +1,7 @@
-"use client";
+'use client';
 
-import { ProductWithCategories } from "@/app/types";
+import { deleteProduct } from '@/app/actions/actions';
+import { ProductWithCategories } from '@/app/types';
 import {
   Button,
   Checkbox,
@@ -21,17 +22,19 @@ import {
   Thead,
   Tr,
   useDisclosure,
-} from "@chakra-ui/react";
-import { Product } from "@prisma/client";
-import Image from "next/image";
-import NextLink from "next/link";
-import { useState } from "react";
+} from '@chakra-ui/react';
+import { Product } from '@prisma/client';
+import Image from 'next/image';
+import NextLink from 'next/link';
+import { useState } from 'react';
 
 interface Props {
   products: ProductWithCategories[];
 }
 
 export default function AdminDashboard({ products: newProducts }: Props) {
+  const [products, setProducts] =
+    useState<ProductWithCategories[]>(newProducts);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showArchived, setShowArchived] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,11 +44,27 @@ export default function AdminDashboard({ products: newProducts }: Props) {
     onOpen();
   };
 
-  const confirmDelete = () => {
+  // const confirmDelete = () => {
+  //   if (selectedProduct) {
+  //     // removeProduct(selectedProduct);
+  //     setSelectedProduct(null);
+  //     onClose();
+  //   }
+
+  const confirmDelete = async () => {
     if (selectedProduct) {
-      // removeProduct(selectedProduct);
-      setSelectedProduct(null);
-      onClose();
+      try {
+        await deleteProduct(selectedProduct.id);
+        setProducts(
+          products.filter((product) => product.id !== selectedProduct.id),
+        );
+        window.location.reload();
+      } catch (error) {
+        console.error('Failed to delete product');
+      } finally {
+        setSelectedProduct(null);
+        onClose();
+      }
     }
   };
 
@@ -68,7 +87,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                 bg="green.400"
                 color="white"
                 onClick={onClose}
-                _hover={{ bg: "green.300 " }}
+                _hover={{ bg: 'green.300 ' }}
                 data-cy="confirm-delete-button"
               >
                 Cancel
@@ -85,8 +104,8 @@ export default function AdminDashboard({ products: newProducts }: Props) {
             color="white"
             size="lg"
             _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
+              transform: 'translateY(2px)',
+              boxShadow: 'lg',
             }}
           >
             Add Product
@@ -97,7 +116,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
         </Checkbox>
       </Flex>
 
-      <TableContainer style={{ width: "100%", overflowX: "auto" }}>
+      <TableContainer style={{ width: '100%', overflowX: 'auto' }}>
         <Table>
           <Thead>
             <Tr>

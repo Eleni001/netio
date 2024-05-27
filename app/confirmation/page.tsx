@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Box,
@@ -17,12 +17,12 @@ import {
   Thead,
   Tr,
   UnorderedList,
-} from "@chakra-ui/react";
-import { useCustomer } from "../contexts/CustomerContext";
+} from '@chakra-ui/react';
+import { useCustomer } from '../contexts/CustomerContext';
 
 function generateRandomOrderNumber(length: number): string {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let orderNumber = "";
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let orderNumber = '';
 
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
@@ -51,7 +51,7 @@ export default function Confirmation() {
           Order Confirmation
         </Heading>
         <Text mb={6}>
-          Order Number:{" "}
+          Order Number:{' '}
           <Text as="span" fontWeight="bold">
             {orderNumber}
           </Text>
@@ -59,7 +59,7 @@ export default function Confirmation() {
         <Text>Hello</Text>
         <Text mb={4}>Thank you for choosing to shop with us.</Text>
         <Text mb={6}>
-          {" "}
+          {' '}
           We understand that you are just dying to get your new design favorite
           home, and we promise to do our best to ship your order as soon as we
           can. Our ambition is to help you create a home to love and to which

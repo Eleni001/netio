@@ -1,5 +1,5 @@
-"use client";
-import { ProductSchema } from "@/data";
+'use client';
+import { ProductSchema } from '@/data';
 import {
   Button,
   Container,
@@ -67,10 +67,10 @@ export default function ProductForm(props: Props) {
       >
         {(formikProps) => {
           const handleImageChange = (
-            event: React.ChangeEvent<HTMLInputElement>
+            event: React.ChangeEvent<HTMLInputElement>,
           ) => {
             const imageUrl = event.target.value;
-            formikProps.setFieldValue("imageUrl", imageUrl);
+            formikProps.setFieldValue('imageUrl', imageUrl);
             if (props.setImagePreview) {
               props.setImagePreview(imageUrl);
             }
@@ -202,7 +202,7 @@ export default function ProductForm(props: Props) {
                 mt="2rem"
                 type="submit"
                 bg="#E4A757"
-                _hover={{ bg: "#efdbc2" }}
+                _hover={{ bg: '#efdbc2' }}
                 variant="solid"
                 isLoading={false}
               >

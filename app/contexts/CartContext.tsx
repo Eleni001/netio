@@ -1,6 +1,6 @@
-import { CartItem } from "@/data";
-import { useToast } from "@chakra-ui/react";
-import { Product } from "@prisma/client";
+import { CartItem } from '@/data';
+import { useToast } from '@chakra-ui/react';
+import { Product } from '@prisma/client';
 import {
   PropsWithChildren,
   createContext,
@@ -8,8 +8,8 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import CustomToast from "../components/CustomToast";
+} from 'react';
+import CustomToast from '../components/CustomToast';
 
 // Skapa kontexten
 interface CartContextValue {
@@ -30,7 +30,7 @@ function CartProvider(props: PropsWithChildren) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
+    const storedCart = localStorage.getItem('cart');
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
@@ -39,19 +39,19 @@ function CartProvider(props: PropsWithChildren) {
 
   useEffect(() => {
     if (!isLoaded) return;
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart, isLoaded]);
 
   // Logiken för att ändra kundvagnen ligger nära tillståndet
 
   const addToCart = (product: Product) => {
-    console.log("initial cart", cart);
+    console.log('initial cart', cart);
     // 1. Om produkten redan finns i kundvagnen, öka antalet
     const isProductPresent = cart.find(
-      (cartItem) => cartItem.id === product.id
+      (cartItem) => cartItem.id === product.id,
     );
 
-    console.log("isProductPresent", isProductPresent);
+    console.log('isProductPresent', isProductPresent);
     if (isProductPresent) {
       const newCart = cart.map((cartItem) => {
         if (cartItem.id === product.id) {
@@ -64,7 +64,7 @@ function CartProvider(props: PropsWithChildren) {
 
       toast({
         render: () => <CustomToast />,
-        status: "success",
+        status: 'success',
         duration: 3000,
         isClosable: true,
       });
@@ -74,7 +74,7 @@ function CartProvider(props: PropsWithChildren) {
       toast({
         render: () => <CustomToast />,
 
-        status: "success",
+        status: 'success',
         duration: 3000,
         isClosable: true,
       });
@@ -94,9 +94,9 @@ function CartProvider(props: PropsWithChildren) {
         });
         setCart(newCart);
         toast({
-          title: "Item removed from cart",
-          description: "An item has been removed form your cart.",
-          status: "success",
+          title: 'Item removed from cart',
+          description: 'An item has been removed form your cart.',
+          status: 'success',
           duration: 3000,
           isClosable: true,
         });
@@ -104,9 +104,9 @@ function CartProvider(props: PropsWithChildren) {
         const newCart = cart.filter((cartItem) => cartItem.id !== product.id);
         setCart(newCart);
         toast({
-          title: "Products removed from cart",
-          description: "All items has been removed form your cart.",
-          status: "success",
+          title: 'Products removed from cart',
+          description: 'All items has been removed form your cart.',
+          status: 'success',
           duration: 3000,
           isClosable: true,
         });
@@ -118,9 +118,9 @@ function CartProvider(props: PropsWithChildren) {
     const newCart = cart.filter((cartItem) => cartItem.id !== product.id);
     setCart(newCart);
     toast({
-      title: "Product removed from cart",
-      description: "Your product has been removed form your cart.",
-      status: "success",
+      title: 'Product removed from cart',
+      description: 'Your product has been removed form your cart.',
+      status: 'success',
       duration: 3000,
       isClosable: true,
     });
@@ -133,7 +133,7 @@ function CartProvider(props: PropsWithChildren) {
   // härleda från tillstånd
   const cartCount = cart.reduce(
     (totalItems, item) => totalItems + item.quantity,
-    0
+    0,
   );
 
   return (

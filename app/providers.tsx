@@ -1,5 +1,5 @@
 // app/providers.tsx
-"use client";
+'use client';
 
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";

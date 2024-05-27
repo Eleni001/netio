@@ -1,5 +1,5 @@
-"use client";
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+'use client';
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
   Box,
   Collapse,
@@ -7,13 +7,13 @@ import {
   Heading,
   IconButton,
   useBreakpointValue,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { SessionProp } from "./Header";
-import NavIcons from "./NavIcons";
-import NavLinks from "./NavLinks";
-import SearchNav from "./SearchNav";
-import SlidingTextBanner from "./SlidingTextBanner";
+} from '@chakra-ui/react';
+import { useState } from 'react';
+import { SessionProp } from './Header';
+import NavIcons from './NavIcons';
+import NavLinks from './NavLinks';
+import SearchNav from './SearchNav';
+import SlidingTextBanner from './SlidingTextBanner';
 
 export default function HeaderComponents({ session }: SessionProp) {
   const [isOpened, setIsOpened] = useState(false);
@@ -40,11 +40,11 @@ export default function HeaderComponents({ session }: SessionProp) {
           p="0.5rem"
         >
           <Flex align="center" gap="2rem" width="30%">
-            <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
+            <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
               <IconButton
                 aria-label="Toggle menu"
                 border="none"
-                _hover={{ bg: "none", color: "brown", transform: "scale(1.2)" }}
+                _hover={{ bg: 'none', color: 'brown', transform: 'scale(1.2)' }}
                 icon={
                   isOpened ? <CloseIcon /> : <HamburgerIcon fontSize="1.6rem" />
                 }
@@ -53,7 +53,7 @@ export default function HeaderComponents({ session }: SessionProp) {
             </Box>
             <SearchNav />
           </Flex>
-          <Heading as="h1" w="30%" fontSize={{ base: "1rem", md: "1.4rem" }}>
+          <Heading as="h1" w="30%" fontSize={{ base: '1rem', md: '1.4rem' }}>
             NEXT DESIGN
           </Heading>
           <NavIcons session={session} />
