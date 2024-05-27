@@ -51,7 +51,6 @@ export default function ProductForm(props: Props) {
     <Container>
       <Formik
         initialValues={{
-          // ...props.product,
           title: props.product?.title || "",
           desc: props.product?.desc || "",
           imageUrl: props.product?.imageUrl || "",
@@ -194,7 +193,6 @@ export default function ProductForm(props: Props) {
                     <FormErrorMessage data-cy="product-price-error">
                       {form.errors.stock}
                     </FormErrorMessage>
-                    ERROR {JSON.stringify(form.errors)}
                   </FormControl>
                 )}
               </Field>

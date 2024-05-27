@@ -37,12 +37,6 @@ export const getAllCategorys = async () => {
 export const createProduct = async (values: ProductWithCategoriesIds) => {
   //HITTA CATEGORY SOM ÄR VALD, LÄGG MED HELA CATEGORY OBJEKT I OBJEKT
   const categories = await db.category.findMany({});
-  /* DAVID */
-  // const matchingCategories = categories.filter((category) =>
-  //   values.categories.includes(category.id)
-  // );
-  // const newValues = { ...values, categories: matchingCategories };
-  console.log(values);
   const product = await db.product.create({
     data: {
       title: values.title,
