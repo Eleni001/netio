@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
+import { updateStock } from '../actions/actions';
 import { useCart } from '../contexts/CartContext';
 import { useCustomer } from '../contexts/CustomerContext';
 
@@ -27,6 +28,17 @@ export default function CheckoutForm() {
     setOrderItems(cart);
     clearCartSilently();
     router.push('/confirmation');
+  };
+
+  const handleOrder = async () => {
+    try {
+      for (const item of cart) {
+        await updateStock(item.id, item.quantity);
+        return;
+      }
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (
@@ -256,6 +268,7 @@ export default function CheckoutForm() {
               <Flex w="100%" justifyContent="space-between">
                 <Button
                   type="submit"
+                  onClick={handleOrder}
                   w="7rem"
                   bg="#E4A757"
                   _hover={{ bg: '#efdbc2' }}

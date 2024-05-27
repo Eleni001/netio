@@ -82,7 +82,12 @@ export default function Confirmation() {
             <Tr key={item.id}>
               <Td>
                 <Flex alignItems="center">
-                  <Image src={item.image} alt={item.title} w="50px" h="50px" />
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.title}
+                    w="50px"
+                    h="50px"
+                  />
                   <Text ml="2">{item.title}</Text>
                 </Flex>
               </Td>

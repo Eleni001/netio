@@ -151,7 +151,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                   <Td data-cy="product-id">{product.id}</Td>
                   <Td data-cy="product-title">{product.title}</Td>
                   <Td
-                    style={{ whiteSpace: "normal", width: "300px" }}
+                    style={{ whiteSpace: 'normal', width: '300px' }}
                     data-cy="product-description"
                   >
                     {product.desc.length > 100
@@ -162,7 +162,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                   <Td data-cy="product-price">
                     {product.categories
                       .map((category) => category.name)
-                      .join(", ")}
+                      .join(', ')}
                   </Td>
                   <Td data-cy="product-price">{product.stock}</Td>
                   <Td data-cy="product-price">{product.price}</Td>
@@ -173,7 +173,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                       <Flex justify="center" alignItems="center" height="100%">
                         <Link
                           href={`admin/product/${product.id}`}
-                          _hover={{ textDecoration: "none" }}
+                          _hover={{ textDecoration: 'none' }}
                         >
                           <Button
                             data-cy="admin-edit-product"
@@ -182,8 +182,8 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                             size="sm"
                             mr="3px"
                             _hover={{
-                              transform: "translateY(2px)",
-                              boxShadow: "lg",
+                              transform: 'translateY(2px)',
+                              boxShadow: 'lg',
                             }}
                           >
                             Edit
@@ -194,8 +194,8 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                           colorScheme="red"
                           size="sm"
                           _hover={{
-                            transform: "translateY(2px)",
-                            boxShadow: "lg",
+                            transform: 'translateY(2px)',
+                            boxShadow: 'lg',
                           }}
                           onClick={() => handleDeleteClick(product)}
                         >
@@ -205,7 +205,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                     )}
                   </Td>
                 </Tr>
-              )
+              ),
             )}
           </Tbody>
         </Table>

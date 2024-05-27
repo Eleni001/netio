@@ -8,14 +8,14 @@ import {
   FormLabel,
   Input,
   Stack,
-} from "@chakra-ui/react";
-import { Category } from "@prisma/client";
-import { Field, Form, Formik, FormikHelpers } from "formik";
-import { useRouter } from "next/navigation";
-import React from "react";
-import { createProduct, updateProduct } from "../actions/actions";
-import { ProductWithCategories, ProductWithCategoriesIds } from "../types";
-import CategoryBox from "./CategoryBox";
+} from '@chakra-ui/react';
+import { Category } from '@prisma/client';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { createProduct, updateProduct } from '../actions/actions';
+import { ProductWithCategories, ProductWithCategoriesIds } from '../types';
+import CategoryBox from './CategoryBox';
 
 interface Props {
   product?: ProductWithCategories;
@@ -29,31 +29,31 @@ export default function ProductForm(props: Props) {
 
   const handleSubmit = async (
     values: ProductWithCategoriesIds,
-    formikHelpers: FormikHelpers<ProductWithCategoriesIds>
+    formikHelpers: FormikHelpers<ProductWithCategoriesIds>,
   ) => {
     if (isEdit) {
       console.log(values);
       await updateProduct(values);
-      router.push("/admin");
+      router.push('/admin');
     } else {
       await createProduct(values);
-      router.push("/admin");
+      router.push('/admin');
     }
   };
 
   console.log(
     props.categories,
     props.product,
-    props.product?.categories.map((cat) => cat.id) || []
+    props.product?.categories.map((cat) => cat.id) || [],
   );
 
   return (
     <Container>
       <Formik
         initialValues={{
-          title: props.product?.title || "",
-          desc: props.product?.desc || "",
-          imageUrl: props.product?.imageUrl || "",
+          title: props.product?.title || '',
+          desc: props.product?.desc || '',
+          imageUrl: props.product?.imageUrl || '',
           price: props.product?.price || 0,
           id: props.product?.id || 0,
           stock: props.product?.stock || 0,
@@ -204,7 +204,7 @@ export default function ProductForm(props: Props) {
                 variant="solid"
                 isLoading={false}
               >
-                {isEdit ? "UPDATE PRODUCT" : "ADD PRODUCT"}
+                {isEdit ? 'UPDATE PRODUCT' : 'ADD PRODUCT'}
               </Button>
             </Form>
           );

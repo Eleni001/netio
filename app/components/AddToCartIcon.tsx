@@ -11,6 +11,9 @@ interface Props {
 
 export default function AddToCartIcon(props: Props) {
   const { addToCart } = useCart();
+  if (props.product.stock === 0) {
+    return;
+  }
 
   return (
     <Icon

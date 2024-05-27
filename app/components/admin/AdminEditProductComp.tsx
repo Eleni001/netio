@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { ProductWithCategories } from "@/app/types";
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { Category } from "@prisma/client";
-import { useState } from "react";
-import { DiProlog } from "react-icons/di";
-import ProductForm from "../ProductForm";
+import { ProductWithCategories } from '@/app/types';
+import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { Category } from '@prisma/client';
+import { useState } from 'react';
+import { DiProlog } from 'react-icons/di';
+import ProductForm from '../ProductForm';
 
 interface Props {
   params: { id: number };
@@ -18,7 +18,7 @@ export default function AdminEditProductComp({
   categorys,
 }: Props) {
   const findProduct = product.find((p) => p.id == params.id);
-  const [imagePreview, setImagePreview] = useState<string | undefined>("");
+  const [imagePreview, setImagePreview] = useState<string | undefined>('');
 
   if (!product) {
     return (
@@ -34,19 +34,19 @@ export default function AdminEditProductComp({
         Edit Product Form
       </Heading>
       <Flex
-        flexDir={{ base: "column", md: "row" }}
+        flexDir={{ base: 'column', md: 'row' }}
         rounded="lg"
         justify="center"
         alignItems="center"
         width="80%"
         m="2rem auto"
         p="1rem"
-        gap={{ base: "1rem", md: "2rem" }}
+        gap={{ base: '1rem', md: '2rem' }}
       >
         <Box
           bg="#FEF0D9"
-          width={{ base: "350px", md: "400px" }}
-          height={{ base: "300px", md: "480px" }}
+          width={{ base: '350px', md: '400px' }}
+          height={{ base: '300px', md: '480px' }}
           rounded="lg"
           overflow="hidden"
           position="relative"

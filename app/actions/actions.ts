@@ -1,11 +1,11 @@
 'use server';
 
-import { auth } from "@/auth";
-import { db } from "@/prisma/db";
-import console from "console";
-import { revalidatePath } from "next/cache";
-import { ProductWithCategoriesIds } from "../types";
-import { UserCreate, UserCreateSchema } from "../validations/userValidation";
+import { auth } from '@/auth';
+import { db } from '@/prisma/db';
+import console from 'console';
+import { revalidatePath } from 'next/cache';
+import { ProductWithCategoriesIds } from '../types';
+import { UserCreate, UserCreateSchema } from '../validations/userValidation';
 
 export async function registerUser(incomingData: UserCreate) {
   try {
@@ -80,7 +80,7 @@ export const updateProduct = async (values: ProductWithCategoriesIds) => {
     },
   });
 
-  revalidatePath("/admin");
+  revalidatePath('/admin');
 };
 
 export async function deleteProduct(productId: any) {
@@ -96,3 +96,27 @@ export async function deleteProduct(productId: any) {
     throw error;
   }
 }
+
+export const updateStock = async (productId: number, quantity: number) => {
+  try {
+    const product = await db.product.findUnique({ where: { id: productId } });
+
+    if (!product) {
+      throw new Error('Product not found');
+    }
+
+    if (product.stock < quantity) {
+      throw new Error('Insufficient stock');
+    }
+
+    await db.product.update({
+      where: { id: productId },
+      data: { stock: product.stock - quantity },
+    });
+
+    return true;
+  } catch (error) {
+    console.error('Error updating stock:', error);
+    throw error;
+  }
+};

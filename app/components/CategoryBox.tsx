@@ -1,5 +1,5 @@
-import { Checkbox } from "@chakra-ui/react";
-import { Category } from "@prisma/client";
+import { Checkbox } from '@chakra-ui/react';
+import { Category } from '@prisma/client';
 
 interface Props {
   category: Category;
