@@ -13,7 +13,7 @@ import { Category, Product } from "@prisma/client";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { createProduct } from "../actions/actions";
+import { createProduct, updateProduct } from "../actions/actions";
 import { ProductWithCategories } from "../types";
 import CategoryBox from "./CategoryBox";
 
@@ -33,6 +33,8 @@ export default function ProductForm(props: Props) {
   ) => {
     if (isEdit) {
       console.log(values);
+      await updateProduct(values);
+      router.push("/admin");
     } else {
       await createProduct(values);
       router.push("/admin");
@@ -51,7 +53,7 @@ export default function ProductForm(props: Props) {
           stock: props.product?.stock || 0,
           isArchived: props.product?.isArchived || false,
           createdAt: props.product?.createdAt || new Date(),
-          categories: props.product?.categories.map((cat) => cat.name) || [], // Array of category names
+          categories: props.product?.categories.map((cat) => cat.name) || [],
         }}
         validationSchema={ProductSchema}
         onSubmit={handleSubmit}

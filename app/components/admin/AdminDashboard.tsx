@@ -132,6 +132,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                     .map((category) => category.name)
                     .join(", ")}
                 </Td>
+                <Td data-cy="product-price">{product.stock}</Td>
                 <Td data-cy="product-price">{product.price}</Td>
                 <Td>
                   <Flex justify="center" alignItems="center" height="100%">

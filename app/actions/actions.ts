@@ -3,6 +3,7 @@
 import { db } from "@/prisma/db";
 import console from "console";
 import { revalidatePath } from "next/cache";
+import { ProductWithCategories } from "../types";
 import { UserCreate, UserCreateSchema } from "../validations/userValidation";
 
 export async function registerUser(incomingData: UserCreate) {
@@ -33,10 +34,6 @@ export const getAllCategorys = async () => {
 };
 
 export const createProduct = async (values: any) => {
-  const categorys = await db.category.findMany({});
-  const doesCategoryExist = categorys.find(
-    (cat) => cat.name === values.category
-  );
   const product = await db.product.create({
     data: {
       title: values.title,
@@ -45,7 +42,29 @@ export const createProduct = async (values: any) => {
       stock: parseInt(values.stock),
       price: parseInt(values.price),
       isArchived: false,
-      categories: { connect: { id: doesCategoryExist?.id } },
+      categories: {
+        connect: values.categories.map((category) => ({ name: category })),
+      },
+    },
+  });
+  revalidatePath("/admin");
+};
+
+export const updateProduct = async (values: ProductWithCategories) => {
+  const product = await db.product.update({
+    data: {
+      title: values.title,
+      imageUrl: values.imageUrl,
+      desc: values.desc,
+      stock: parseInt(values.stock),
+      price: parseInt(values.price),
+      isArchived: false,
+      categories: {
+        connect: values.categories.map((category) => ({ name: category })),
+      },
+    },
+    where: {
+      id: values.id,
     },
   });
   revalidatePath("/admin");
