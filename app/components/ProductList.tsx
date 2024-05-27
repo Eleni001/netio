@@ -62,7 +62,11 @@ export default function ProductList(props: Props) {
 								<Text data-cy="product-price" _hover={{ color: "brown" }}>
 									{product.price} kr
 								</Text>
-								<Text>Qty: {product.stock}</Text>
+								{product.stock === 0 ? (
+									<Text>Out of stock </Text>
+								) : (
+									<Text>Qty: {product.stock} </Text>
+								)}
 							</Flex>
 						</Link>
 						<Flex gap="6" m="0.5rem" justifyContent="end" mb="1rem">
