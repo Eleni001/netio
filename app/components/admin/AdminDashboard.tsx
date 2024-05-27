@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { deleteProduct } from "@/app/actions/actions";
-import { ProductWithCategories } from "@/app/types";
+import { deleteProduct } from '@/app/actions/actions';
+import { ProductWithCategories } from '@/app/types';
 import {
   Button,
   Flex,
@@ -21,11 +21,11 @@ import {
   Thead,
   Tr,
   useDisclosure,
-} from "@chakra-ui/react";
-import { Product } from "@prisma/client";
-import Image from "next/image";
-import NextLink from "next/link";
-import { useState } from "react";
+} from '@chakra-ui/react';
+import { Product } from '@prisma/client';
+import Image from 'next/image';
+import NextLink from 'next/link';
+import { useState } from 'react';
 
 interface Props {
   products: ProductWithCategories[];
@@ -54,11 +54,11 @@ export default function AdminDashboard({ products: newProducts }: Props) {
       try {
         await deleteProduct(selectedProduct.id);
         setProducts(
-          products.filter((product) => product.id !== selectedProduct.id)
+          products.filter((product) => product.id !== selectedProduct.id),
         );
         window.location.reload();
       } catch (error) {
-        console.error("Failed to delete product");
+        console.error('Failed to delete product');
       } finally {
         setSelectedProduct(null);
         onClose();
@@ -85,7 +85,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                 bg="green.400"
                 color="white"
                 onClick={onClose}
-                _hover={{ bg: "green.300 " }}
+                _hover={{ bg: 'green.300 ' }}
                 data-cy="confirm-delete-button"
               >
                 Cancel
@@ -102,8 +102,8 @@ export default function AdminDashboard({ products: newProducts }: Props) {
             color="white"
             size="lg"
             _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
+              transform: 'translateY(2px)',
+              boxShadow: 'lg',
             }}
           >
             Add Product
@@ -111,7 +111,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
         </NextLink>
       </Flex>
 
-      <TableContainer style={{ width: "100%", overflowX: "auto" }}>
+      <TableContainer style={{ width: '100%', overflowX: 'auto' }}>
         <Table>
           <Thead>
             <Tr>
@@ -138,7 +138,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                 <Td data-cy="product-id">{product.id}</Td>
                 <Td data-cy="product-title">{product.title}</Td>
                 <Td
-                  style={{ whiteSpace: "normal", width: "300px" }}
+                  style={{ whiteSpace: 'normal', width: '300px' }}
                   data-cy="product-description"
                 >
                   {product.desc.length > 100
@@ -149,14 +149,14 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                 <Td data-cy="product-price">
                   {product.categories
                     .map((category) => category.categoryName)
-                    .join(", ")}
+                    .join(', ')}
                 </Td>
                 <Td data-cy="product-price">{product.price}</Td>
                 <Td>
                   <Flex justify="center" alignItems="center" height="100%">
                     <Link
                       href={`admin/product/${product.id}`}
-                      _hover={{ textDecoration: "none" }}
+                      _hover={{ textDecoration: 'none' }}
                     >
                       <Button
                         data-cy="admin-edit-product"
@@ -165,8 +165,8 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                         size="sm"
                         mr="3px"
                         _hover={{
-                          transform: "translateY(2px)",
-                          boxShadow: "lg",
+                          transform: 'translateY(2px)',
+                          boxShadow: 'lg',
                         }}
                       >
                         Edit
@@ -177,8 +177,8 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                       colorScheme="red"
                       size="sm"
                       _hover={{
-                        transform: "translateY(2px)",
-                        boxShadow: "lg",
+                        transform: 'translateY(2px)',
+                        boxShadow: 'lg',
                       }}
                       onClick={() => handleDeleteClick(product)}
                     >

@@ -1,6 +1,6 @@
-"use client";
-import { Link } from "@chakra-ui/next-js";
-import { Flex } from "@chakra-ui/react";
+'use client';
+import { Link } from '@chakra-ui/next-js';
+import { Flex } from '@chakra-ui/react';
 export default function NavLinks() {
   return (
     <Flex
@@ -10,13 +10,13 @@ export default function NavLinks() {
       gap="2rem"
       borderTop="1px solid #e1dcd6"
       fontSize="1.2rem"
-      flexDir={{ base: "column", md: "row" }}
-      textAlign={{ base: "left", md: "center" }}
-      padding={{ base: "0.5rem", md: "0.5rem" }}
+      flexDir={{ base: 'column', md: 'row' }}
+      textAlign={{ base: 'left', md: 'center' }}
+      padding={{ base: '0.5rem', md: '0.5rem' }}
     >
       <Link
         href="/"
-        _hover={{ color: "brown" }}
+        _hover={{ color: 'brown' }}
         textDecor="none"
         paddingLeft="1rem"
       >
@@ -25,7 +25,7 @@ export default function NavLinks() {
 
       <Link
         href="/inspiration"
-        _hover={{ color: "brown" }}
+        _hover={{ color: 'brown' }}
         textDecor="none"
         paddingLeft="1rem"
       >
@@ -33,7 +33,7 @@ export default function NavLinks() {
       </Link>
       <Link
         href="/about"
-        _hover={{ color: "brown" }}
+        _hover={{ color: 'brown' }}
         textDecor="none"
         paddingLeft="1rem"
       >
@@ -41,7 +41,7 @@ export default function NavLinks() {
       </Link>
       <Link
         href="/register"
-        _hover={{ color: "brown" }}
+        _hover={{ color: 'brown' }}
         textDecor="none"
         paddingLeft="1rem"
       >

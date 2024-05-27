@@ -1,5 +1,5 @@
-"use client";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+'use client';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
   Alert,
   AlertIcon,
@@ -19,12 +19,12 @@ import {
   Stack,
   Text,
   useColorModeValue,
-} from "@chakra-ui/react";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { registerUser } from "../actions/actions";
-import { UserCreate, UserCreateSchema } from "../validations/userValidation";
+} from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { registerUser } from '../actions/actions';
+import { UserCreate, UserCreateSchema } from '../validations/userValidation';
 
 export default function UserRegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -43,7 +43,7 @@ export default function UserRegistrationForm() {
       setIsRegistered(true);
       reset();
     } catch (error) {
-      console.log("Registeration failed: ", error);
+      console.log('Registeration failed: ', error);
     }
   };
 
@@ -53,31 +53,31 @@ export default function UserRegistrationForm() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Flex
-        minH={"100vh"}
-        align={"center"}
-        justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
+        minH={'100vh'}
+        align={'center'}
+        justify={'center'}
+        bg={useColorModeValue('gray.50', 'gray.800')}
       >
-        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-          <Stack align={"center"}>
-            <Heading fontSize={"4xl"} textAlign={"center"}>
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+          <Stack align={'center'}>
+            <Heading fontSize={'4xl'} textAlign={'center'}>
               Register
             </Heading>
-            <Text fontSize={"lg"} color={"gray.600"}>
+            <Text fontSize={'lg'} color={'gray.600'}>
               To update your home
             </Text>
           </Stack>
           <Box
-            rounded={"lg"}
-            bg={useColorModeValue("white", "gray.700")}
-            boxShadow={"lg"}
+            rounded={'lg'}
+            bg={useColorModeValue('white', 'gray.700')}
+            boxShadow={'lg'}
             p={8}
           >
             <Stack spacing={4}>
               <FormControl isInvalid={!!errors.username}>
                 <FormLabel>User name</FormLabel>
                 <Input
-                  {...register("username")}
+                  {...register('username')}
                   type="text"
                   placeholder="User Name"
                 />
@@ -87,7 +87,7 @@ export default function UserRegistrationForm() {
               </FormControl>
               <FormControl isInvalid={!!errors.email}>
                 <FormLabel>Email address</FormLabel>
-                <Input {...register("email")} type="text" placeholder="Email" />
+                <Input {...register('email')} type="text" placeholder="Email" />
                 <FormErrorMessage>
                   {errors.email && errors.email.message}
                 </FormErrorMessage>
@@ -96,13 +96,13 @@ export default function UserRegistrationForm() {
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                   <Input
-                    {...register("password")}
+                    {...register('password')}
                     placeholder="Password"
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                   />
-                  <InputRightElement h={"full"}>
+                  <InputRightElement h={'full'}>
                     <Button
-                      variant={"ghost"}
+                      variant={'ghost'}
                       onClick={() =>
                         setShowPassword((showPassword) => !showPassword)
                       }
@@ -122,9 +122,9 @@ export default function UserRegistrationForm() {
                   loadingText="Submitting"
                   size="lg"
                   bg="rgba(78, 199, 145, 1)"
-                  color={"white"}
+                  color={'white'}
                   _hover={{
-                    bg: "green.700",
+                    bg: 'green.700',
                   }}
                 >
                   Register
@@ -138,8 +138,8 @@ export default function UserRegistrationForm() {
                 )}
               </Stack>
               <Stack pt={6}>
-                <Text align={"center"}>
-                  Already a user? <Link color={"blue.400"}>Login</Link>
+                <Text align={'center'}>
+                  Already a user? <Link color={'blue.400'}>Login</Link>
                 </Text>
               </Stack>
             </Stack>

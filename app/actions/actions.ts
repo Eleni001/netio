@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { db } from "@/prisma/db";
-import console from "console";
-import { revalidatePath } from "next/cache";
-import { UserCreate, UserCreateSchema } from "../validations/userValidation";
+import { db } from '@/prisma/db';
+import console from 'console';
+import { revalidatePath } from 'next/cache';
+import { UserCreate, UserCreateSchema } from '../validations/userValidation';
 
 export async function registerUser(incomingData: UserCreate) {
   try {
@@ -15,7 +15,7 @@ export async function registerUser(incomingData: UserCreate) {
         password: userData.password,
       },
     });
-    revalidatePath("/");
+    revalidatePath('/');
     return user;
   } catch (error) {
     console.log(error);
@@ -35,7 +35,7 @@ export const getAllCategorys = async () => {
 export const createProduct = async (values: any) => {
   const categorys = await db.category.findMany({});
   const doesCategoryExist = categorys.find(
-    (cat) => cat.name === values.category
+    (cat) => cat.name === values.category,
   );
   // console.log("WHAT IS THIS?", doesCategoryExist);
   const product = await db.product.create({
@@ -49,7 +49,7 @@ export const createProduct = async (values: any) => {
       categories: { connect: { id: doesCategoryExist?.id } },
     },
   });
-  revalidatePath("/admin");
+  revalidatePath('/admin');
 };
 
 export async function deleteProduct(productId: any) {
@@ -59,9 +59,9 @@ export async function deleteProduct(productId: any) {
         id: productId,
       },
     });
-    console.log("Product deleted successfully");
+    console.log('Product deleted successfully');
   } catch (error) {
-    console.error("Failed to delete product:", error);
+    console.error('Failed to delete product:', error);
     throw error;
   }
 }

@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import ProductForm from "@/app/components/ProductForm";
-import { useAdmin } from "@/app/contexts/AdminContext";
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { useState } from "react";
-import { DiProlog } from "react-icons/di";
+import ProductForm from '@/app/components/ProductForm';
+import { useAdmin } from '@/app/contexts/AdminContext';
+import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { useState } from 'react';
+import { DiProlog } from 'react-icons/di';
 
 type PageProps = { params: { id: string } };
 
 export default function AdminEditProductPage({ params }: PageProps) {
   const { products } = useAdmin();
   const product = products.find((p) => p.id === params.id);
-  const [imagePreview, setImagePreview] = useState("");
+  const [imagePreview, setImagePreview] = useState('');
 
   if (!product) {
     return (
@@ -28,19 +28,19 @@ export default function AdminEditProductPage({ params }: PageProps) {
         Edit Product Form
       </Heading>
       <Flex
-        flexDir={{ base: "column", md: "row" }}
+        flexDir={{ base: 'column', md: 'row' }}
         rounded="lg"
         justify="center"
         alignItems="center"
         width="80%"
         m="2rem auto"
         p="1rem"
-        gap={{ base: "1rem", md: "2rem" }}
+        gap={{ base: '1rem', md: '2rem' }}
       >
         <Box
           bg="#FEF0D9"
-          width={{ base: "350px", md: "400px" }}
-          height={{ base: "300px", md: "480px" }}
+          width={{ base: '350px', md: '400px' }}
+          height={{ base: '300px', md: '480px' }}
           rounded="lg"
           overflow="hidden"
           position="relative"

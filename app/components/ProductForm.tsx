@@ -1,5 +1,5 @@
-"use client";
-import { ProductSchema } from "@/data";
+'use client';
+import { ProductSchema } from '@/data';
 import {
   Button,
   Container,
@@ -8,12 +8,12 @@ import {
   FormLabel,
   Input,
   Select,
-} from "@chakra-ui/react";
-import { Category, Product } from "@prisma/client";
-import { Field, Form, Formik, FormikHelpers } from "formik";
-import { useRouter } from "next/navigation";
-import React from "react";
-import { createProduct } from "../actions/actions";
+} from '@chakra-ui/react';
+import { Category, Product } from '@prisma/client';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { createProduct } from '../actions/actions';
 
 interface Props {
   product?: Product;
@@ -27,12 +27,12 @@ export default function ProductForm(props: Props) {
 
   const handleSubmit = async (
     values: Product,
-    formikHelpers: FormikHelpers<Product>
+    formikHelpers: FormikHelpers<Product>,
   ) => {
     console.log(values);
     // if (isEdit) {
     await createProduct(values);
-    router.push("/admin");
+    router.push('/admin');
     // } else {
     // addProduct(values);
     // router.push("/admin");
@@ -55,9 +55,9 @@ export default function ProductForm(props: Props) {
     <Container>
       <Formik
         initialValues={{
-          title: props.product?.title || "",
-          desc: props.product?.desc || "",
-          imageUrl: props.product?.imageUrl || "",
+          title: props.product?.title || '',
+          desc: props.product?.desc || '',
+          imageUrl: props.product?.imageUrl || '',
           price: props.product?.price || 0,
           id: props.product?.id || 0,
           stock: props.product?.stock || 0,
@@ -69,10 +69,10 @@ export default function ProductForm(props: Props) {
       >
         {(formikProps) => {
           const handleImageChange = (
-            event: React.ChangeEvent<HTMLInputElement>
+            event: React.ChangeEvent<HTMLInputElement>,
           ) => {
             const imageUrl = event.target.value;
-            formikProps.setFieldValue("imageUrl", imageUrl);
+            formikProps.setFieldValue('imageUrl', imageUrl);
             if (props.setImagePreview) {
               props.setImagePreview(imageUrl);
             }
@@ -197,7 +197,7 @@ export default function ProductForm(props: Props) {
                 mt="2rem"
                 type="submit"
                 bg="#E4A757"
-                _hover={{ bg: "#efdbc2" }}
+                _hover={{ bg: '#efdbc2' }}
                 variant="solid"
                 isLoading={false}
               >

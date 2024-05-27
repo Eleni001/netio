@@ -1,4 +1,4 @@
-import { CartItem } from "@/data";
+import { CartItem } from '@/data';
 import {
   Dispatch,
   PropsWithChildren,
@@ -6,7 +6,7 @@ import {
   createContext,
   useContext,
   useState,
-} from "react";
+} from 'react';
 
 interface CustomerData {
   email: string;
@@ -30,13 +30,13 @@ const CustomerContext = createContext({} as CustomerContextValue);
 function CustomerContextProvider(props: PropsWithChildren) {
   const [orderItems, setOrderItems] = useState<CartItem[]>([]);
   const [customerData, setCustomerData] = useState<CustomerData>({
-    email: "",
-    firstName: "",
-    lastName: "",
-    address: "",
-    city: "",
-    phone: "",
-    postalCode: "",
+    email: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    city: '',
+    phone: '',
+    postalCode: '',
   });
 
   return (

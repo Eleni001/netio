@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   AbsoluteCenter,
   Box,
@@ -6,11 +6,11 @@ import {
   Divider,
   Flex,
   Text,
-} from "@chakra-ui/react";
-import { HiOutlineShoppingBag } from "react-icons/hi";
-import CartItem from "../components/CartItem";
-import CheckoutForm from "../components/CheckoutForm";
-import { useCart } from "../contexts/CartContext";
+} from '@chakra-ui/react';
+import { HiOutlineShoppingBag } from 'react-icons/hi';
+import CartItem from '../components/CartItem';
+import CheckoutForm from '../components/CheckoutForm';
+import { useCart } from '../contexts/CartContext';
 
 export default function CheckoutPage() {
   const { cart } = useCart();
@@ -26,17 +26,17 @@ export default function CheckoutPage() {
   return (
     <>
       <Flex
-        width={{ base: "95%", md: "70%" }}
-        flexDir='column'
-        justify='center'
-        alignItems='center'
-        m='16px auto'
-        gap='1rem'
-        mt='2rem'
+        width={{ base: '95%', md: '70%' }}
+        flexDir="column"
+        justify="center"
+        alignItems="center"
+        m="16px auto"
+        gap="1rem"
+        mt="2rem"
       >
-        <HiOutlineShoppingBag fontSize='3rem' fontWeight='bold' />
+        <HiOutlineShoppingBag fontSize="3rem" fontWeight="bold" />
 
-        <Text fontSize={{ base: "1.5rem", md: "2.4rem" }}></Text>
+        <Text fontSize={{ base: '1.5rem', md: '2.4rem' }}></Text>
         {cart.length === 0 ? (
           <p>Your shopping bag is empty</p>
         ) : (
@@ -47,24 +47,24 @@ export default function CheckoutPage() {
           </>
         )}
         <Card
-          w={{ base: "100%", md: "60%" }}
-          h='4rem'
-          bg='#f4f2f2'
-          width='inherit'
-          display='flex'
-          justifyContent='center'
-          alignItems='end'
-          p='1.5rem'
+          w={{ base: '100%', md: '60%' }}
+          h="4rem"
+          bg="#f4f2f2"
+          width="inherit"
+          display="flex"
+          justifyContent="center"
+          alignItems="end"
+          p="1.5rem"
         >
-          <Text fontSize='1.5rem' data-cy='total-price'>
+          <Text fontSize="1.5rem" data-cy="total-price">
             Total: {calculateTotalPrice()}kr
           </Text>
         </Card>
       </Flex>
-      <Box position='relative' padding='10' mt='2rem'>
+      <Box position="relative" padding="10" mt="2rem">
         <Divider />
-        <AbsoluteCenter bg='white' px='4'>
-          <Text fontSize={{ base: "1.4rem", md: "2rem" }}>
+        <AbsoluteCenter bg="white" px="4">
+          <Text fontSize={{ base: '1.4rem', md: '2rem' }}>
             Customer Information
           </Text>
         </AbsoluteCenter>
