@@ -16,6 +16,7 @@ import { Field, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { useCart } from "../contexts/CartContext";
 import { useCustomer } from "../contexts/CustomerContext";
+import { updateStock } from "../actions/actions";
 
 export default function CheckoutForm() {
 	const router = useRouter();
@@ -29,13 +30,16 @@ export default function CheckoutForm() {
 		router.push("/confirmation");
 	};
 
-	// const handleOrder = async () => {
-	//   try {
-	//     for (const item of cart) {
-	//       await updateStock(item.id, item.quantity);
-	//     }
-	//   }
-	// }
+	const handleOrder = async () => {
+		try {
+			for (const item of cart) {
+				await updateStock(item.id, item.quantity);
+				return;
+			}
+		} catch (error) {
+			throw error;
+		}
+	};
 
 	return (
 		<Container
@@ -264,7 +268,7 @@ export default function CheckoutForm() {
 							<Flex w="100%" justifyContent="space-between">
 								<Button
 									type="submit"
-									//onClick={}
+									onClick={handleOrder}
 									w="7rem"
 									bg="#E4A757"
 									_hover={{ bg: "#efdbc2" }}
