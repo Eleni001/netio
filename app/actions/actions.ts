@@ -120,3 +120,38 @@ export const updateStock = async (productId: number, quantity: number) => {
     throw error;
   }
 };
+
+export const createOrder = async (userId: string, cart: any[]) => {
+  try {
+    const totalPrice = cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
+
+    const order = await db.order.create({
+      data: {
+        userId: userId,
+        createdAt: new Date(),
+        total: totalPrice,
+        shippingAddressId: shippingAddressId,
+      },
+    });
+    for (const item of cart) {
+      await db.orderRow.create({
+        data: {
+          orderId: order.id,
+          productId: item.id,
+          quantity: item.quantity,
+          subTotal: item.price * item.quantity,
+        },
+      });
+
+      await updateStock(item.id, item.quantity);
+    }
+
+    return order;
+  } catch (error) {
+    console.error('Error creating order:', error);
+    throw error;
+  }
+};
