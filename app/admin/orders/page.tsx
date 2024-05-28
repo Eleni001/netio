@@ -4,7 +4,11 @@ import { Flex, Text } from '@chakra-ui/react';
 
 export default async function OrdersPage() {
   const orders = await db.order.findMany({
-    include: { user: true, shippingAddress: true, orderRows: true },
+    include: {
+      user: true,
+      shippingAddress: true,
+      orderRows: { include: { product: true } },
+    },
   });
 
   return (

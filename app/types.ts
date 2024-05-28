@@ -25,6 +25,6 @@ export interface ProductWithCategoriesIds extends Product {
 
 export interface OrderWithInformation extends Order {
   user: User;
-  shippingadress: Adress;
+  shippingAddress: Adress;
   orderrows: OrderRow;
 }

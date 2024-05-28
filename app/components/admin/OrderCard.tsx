@@ -1,5 +1,6 @@
 import { OrderWithInformation } from '@/app/types';
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -9,13 +10,14 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
+import Image from 'next/image';
 
 interface Props {
   order: OrderWithInformation;
 }
 
 export default function OrderCard(props: Props) {
-  console.log(props.order.shippingAddress);
+  console.log(props.order);
 
   return (
     <Card
@@ -23,14 +25,6 @@ export default function OrderCard(props: Props) {
       overflow="hidden"
       variant="outline"
     >
-      {/* <Image
-        objectFit="fill"
-        height={200}
-        width={200}
-        src={props.order.orderrows.productId}
-        alt="Caffe Latte"
-      /> */}
-
       <Stack>
         <CardBody>
           <Flex direction={'row'} justifyContent={'space-between'}>
@@ -39,16 +33,34 @@ export default function OrderCard(props: Props) {
             </Heading>
             <Text>Created at: {JSON.stringify(props.order.createdAt)}</Text>
           </Flex>
-          <Text py="2">Name: {props.order.user.name}</Text>
-          <Text py="2">
-            Caffè latte is a coffee beverage of Italian origin made with
-            espresso and steamed milk.
-          </Text>
+
           <Flex direction={'column'}>
+            <Text py="2">Name: {props.order.user.name}</Text>
             <Text>{props.order.shippingAddress.street}</Text>
             <Text>{props.order.shippingAddress.zip}</Text>
-            <Text>{props.order.shippingAddress.City}</Text>
+            <Text>{props.order.shippingAddress.city}</Text>
             <Text>{props.order.shippingAddress.email}</Text>
+            <Text>{JSON.stringify(props.order.total)}kr</Text>
+
+            {props.order.orderRows.map((orderRow, index) => (
+              <Box
+                key={index}
+                mt={4}
+                p={2}
+                border="1px solid"
+                borderRadius="md"
+              >
+                <Image
+                  src={orderRow.product.imageUrl}
+                  width={50}
+                  height={50}
+                  alt="image"
+                />
+                <Text>Product Name: {orderRow.product.title}</Text>
+                <Text>Quantity: {orderRow.quantity}</Text>
+                <Text>Price: {orderRow.product.price} kr</Text>
+              </Box>
+            ))}
           </Flex>
         </CardBody>
 
