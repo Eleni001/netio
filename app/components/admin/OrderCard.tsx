@@ -11,14 +11,13 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Image from 'next/image';
+import OrderSentButton from './OrderSentButton';
 
 interface Props {
   order: OrderWithInformation;
 }
 
 export default function OrderCard(props: Props) {
-  console.log(props.order);
-
   return (
     <Card
       direction={{ base: 'column', sm: 'row' }}
@@ -33,6 +32,8 @@ export default function OrderCard(props: Props) {
             </Heading>
             <Text>Created at: {JSON.stringify(props.order.createdAt)}</Text>
           </Flex>
+          {/* DAVID!!!! only plain objects can be passed to prisma.....> */}
+          <OrderSentButton order={props.order} />
 
           <Flex direction={'column'}>
             <Text py="2">Name: {props.order.user.name}</Text>
@@ -65,15 +66,15 @@ export default function OrderCard(props: Props) {
         </CardBody>
 
         <CardFooter justifyContent={'space-between'}>
-          <Button variant="solid" colorScheme="blue">
+          {/* <Button variant="solid" colorScheme="blue">
             Show details
-          </Button>
+          </Button> */}
           <Button variant="solid" colorScheme="red">
             Delete order
           </Button>
-          <Button variant="solid" colorScheme="yellow">
+          {/* <Button variant="solid" colorScheme="yellow">
             Change shipping status
-          </Button>
+          </Button> */}
         </CardFooter>
       </Stack>
     </Card>

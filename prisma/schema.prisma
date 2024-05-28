@@ -87,6 +87,7 @@ model Order {
   createdAt         DateTime
   shippingAddressId Int
   total             Decimal
+  sentStatus        Boolean  @default(false)
 
   user            User       @relation(fields: [userId], references: [id])
   shippingAddress Adress     @relation(fields: [shippingAddressId], references: [id])
