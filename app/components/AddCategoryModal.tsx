@@ -34,7 +34,7 @@ export default function AddCategoryButton() {
     validationSchema: NewCategorySchema,
     onSubmit: (values: Category, { resetForm }) => {
       console.log(values);
-
+      // ADD SO THERE IS ADD / EDIT / DELETE CATEGORY
       try {
         createCategory(values);
         toast({

@@ -11,7 +11,7 @@ export default function Layout({ children }: Props) {
     <>
       <Flex padding={10} gap={8}>
         <AddCategoryButton />
-        <NextLink href="/admin/product/new" data-cy="admin-add-product">
+        <NextLink href="/admin/product/new">
           <Button
             bg="grey"
             color="white"
@@ -24,17 +24,32 @@ export default function Layout({ children }: Props) {
             Add Product
           </Button>
         </NextLink>
-        <Button
-          bg="grey"
-          color="white"
-          size="md"
-          _hover={{
-            transform: 'translateY(2px)',
-            boxShadow: 'lg',
-          }}
-        >
-          Orders
-        </Button>
+        <NextLink href="/admin/orders">
+          <Button
+            bg="grey"
+            color="white"
+            size="md"
+            _hover={{
+              transform: 'translateY(2px)',
+              boxShadow: 'lg',
+            }}
+          >
+            Show all order
+          </Button>
+        </NextLink>
+        <NextLink href="/admin/products">
+          <Button
+            bg="grey"
+            color="white"
+            size="md"
+            _hover={{
+              transform: 'translateY(2px)',
+              boxShadow: 'lg',
+            }}
+          >
+            Show all products
+          </Button>
+        </NextLink>
       </Flex>
       {children}
     </>
