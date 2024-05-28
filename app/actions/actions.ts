@@ -7,23 +7,6 @@ import { revalidatePath } from 'next/cache';
 import { ProductWithCategoriesIds } from '../types';
 import { UserCreate, UserCreateSchema } from '../validations/userValidation';
 
-export async function registerUser(incomingData: UserCreate) {
-  try {
-    const userData = await UserCreateSchema.validate(incomingData);
-    const user = await db.user.create({
-      data: {
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-      },
-    });
-    revalidatePath('/');
-    return user;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export const getAllProducts = async () => {
   const products = await db.product.findMany({ include: { categories: true } });
   return products;
@@ -33,6 +16,15 @@ export const getAllCategorys = async () => {
   const categorys = await db.category.findMany({});
   return categorys;
 };
+
+export async function getProductsByCategorySlug(slug: string) {
+  const category = await db.category.findUnique({ where: { slug: slug } });
+  const products = await db.product.findMany({
+    where: { categories: { some: { id: category?.id } } },
+    include: { categories: true },
+  });
+  return products;
+}
 
 export const createProduct = async (values: ProductWithCategoriesIds) => {
   //HITTA CATEGORY SOM ÄR VALD, LÄGG MED HELA CATEGORY OBJEKT I OBJEKT
