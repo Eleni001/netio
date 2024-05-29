@@ -10,6 +10,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import OrderSentButton from './OrderSentButton';
 
 interface Props {
@@ -94,7 +95,7 @@ export default function OrderCard(props: Props) {
         <Tbody>
           <Tr>
             <Td>
-              <OrderSentButton order={props.order}/>
+              <OrderSentButton order={props.order} />
             </Td>
             <Td>{props.order.id}</Td>
             <Td>{JSON.stringify(props.order.createdAt)}</Td>
@@ -103,18 +104,20 @@ export default function OrderCard(props: Props) {
             <Td>{JSON.stringify(props.order.total)}kr</Td>
             <Td></Td>
             <Td isNumeric>
-              <Button
-                bg="rgba(78, 199, 145, 1)"
-                color="white"
-                size="sm"
-                mr="3px"
-                _hover={{
-                  transform: 'translateY(2px)',
-                  boxShadow: 'lg',
-                }}
-              >
-                Details
-              </Button>
+              <Link href={`/admin/orders/details/${props.order.id}`}>
+                <Button
+                  bg="rgba(78, 199, 145, 1)"
+                  color="white"
+                  size="sm"
+                  mr="3px"
+                  _hover={{
+                    transform: 'translateY(2px)',
+                    boxShadow: 'lg',
+                  }}
+                >
+                  Details
+                </Button>
+              </Link>
               <Button
                 colorScheme="red"
                 size="sm"
