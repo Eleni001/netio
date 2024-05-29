@@ -1,11 +1,9 @@
 import { auth } from '@/auth';
-import { Session } from 'next-auth';
+import { getAllCategorys } from '../actions/actions';
 import HeaderComponents from './HeaderComponents';
 
-export interface SessionProp {
-  session: Session | null;
-}
 export default async function Header() {
   const session = await auth();
-  return <HeaderComponents session={session} />;
+  const categories = await getAllCategorys();
+  return <HeaderComponents session={session} categories={categories} />;
 }
