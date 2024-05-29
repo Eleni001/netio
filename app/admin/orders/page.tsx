@@ -16,7 +16,7 @@ export default async function OrdersPage() {
       <Text fontSize={25}>Orderpage</Text>
       {orders.map((order) => (
         <>
-          <OrderCard order={order} />
+          <OrderCard order={order} key={order.id} />
         </>
       ))}
     </Flex>
