@@ -1,4 +1,4 @@
-import { Link } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import { getProductsByCategorySlug } from '../../../actions/actions';
 
 export default async function CategoryPage({ params }: any) {
@@ -11,9 +11,9 @@ export default async function CategoryPage({ params }: any) {
         {products.map((p) => {
           const categorySlug = p.categories[0]?.slug;
           return (
-            <Link href={`/product/${p.id}`} key={p.id}>
-              <a>{p.title}</a>
-            </Link>
+            <NextLink href={`/product/${p.id}`} key={p.id}>
+              {p.title}
+            </NextLink>
           );
         })}
       </div>
