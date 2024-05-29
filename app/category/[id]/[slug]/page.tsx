@@ -1,22 +1,107 @@
+import AddToCartIcon from '@/app/components/AddToCartIcon';
+import {
+  Box,
+  Flex,
+  GridItem,
+  Heading,
+  Image,
+  SimpleGrid,
+  Text,
+} from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { LuHeart } from 'react-icons/lu';
 import { getProductsByCategorySlug } from '../../../actions/actions';
 
 export default async function CategoryPage({ params }: any) {
   const products = await getProductsByCategorySlug(params.slug);
 
   return (
-    <main className="flex min-h-screen flex-col">
+    <SimpleGrid
+      id="products-grid"
+      width="80%"
+      m="2rem auto"
+      mt="5rem"
+      columns={{ base: 1, md: 3, lg: 4 }}
+      gap={5}
+    >
+      <Heading>Category - {params.slug}</Heading>
+      {products.map((product) => (
+        <GridItem
+          data-cy="product-id"
+          key={product.id}
+          boxShadow="1px 1px 2px rgba(0,0,0,0.1)"
+          transition={'transform 0.2s ease-in-out'}
+          _hover={{ cursor: 'pointer', transform: 'scale(1.05)' }}
+        >
+          <Flex flexDirection="column" height="100%">
+            <NextLink href={`/product/${product.id}`} key={product.id}>
+              <Box _hover={{ textDecoration: 'none' }}>
+                <Image
+                  src={product.imageUrl}
+                  alt={product.title}
+                  objectFit="cover"
+                  width="100%"
+                  height="200px"
+                />
+
+                <Flex
+                  justifyContent="flex-start"
+                  alignContent="center"
+                  flexDirection="column"
+                  mt="1.5rem"
+                >
+                  <Text
+                    data-cy="product-title"
+                    fontWeight="semibold"
+                    textTransform="capitalize"
+                    _hover={{ color: 'brown' }}
+                  >
+                    {product.title}
+                  </Text>
+                  <Text data-cy="product-price" _hover={{ color: 'brown' }}>
+                    {product.price} kr
+                  </Text>
+                  {product.stock === 0 ? (
+                    <Text>Out of stock </Text>
+                  ) : (
+                    <Text>Qty: {product.stock} </Text>
+                  )}
+                </Flex>
+              </Box>
+            </NextLink>
+            <Flex gap="6" m="0.5rem" justifyContent="end" mb="1rem">
+              <NextLink href="/">
+                <Box
+                  color="black"
+                  transition={'transform 0.2s ease-in-out'}
+                  _hover={{
+                    cursor: 'pointer',
+                    color: 'brown',
+                    transform: 'scale(1.2)',
+                  }}
+                >
+                  <LuHeart fontSize="1.7rem" />
+                </Box>
+              </NextLink>
+              <AddToCartIcon product={product} />
+            </Flex>
+          </Flex>
+        </GridItem>
+      ))}
+    </SimpleGrid>
+  );
+}
+/*  <main className="flex min-h-screen flex-col">
       <div className="bg-yellow-400 h-40">
-        <h1>Category - {params.slug}</h1>
+        {/* add a header for every category 
+      /*   <h1>Category - {params.slug}</h1>
         {products.map((p) => {
-          const categorySlug = p.categories[0]?.slug;
           return (
             <NextLink href={`/product/${p.id}`} key={p.id}>
               {p.title}
             </NextLink>
           );
         })}
+        
       </div>
-    </main>
-  );
-}
+    </main>  */
