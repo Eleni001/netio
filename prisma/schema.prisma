@@ -86,7 +86,8 @@ model Order {
   userId            String
   createdAt         DateTime
   shippingAddressId Int
-  total             Decimal
+  total             Float
+  sentStatus        Boolean  @default(false)
 
   user            User       @relation(fields: [userId], references: [id])
   shippingAddress Adress     @relation(fields: [shippingAddressId], references: [id])
@@ -97,7 +98,7 @@ model OrderRow {
   orderId   Int // relation scalar field (used in the `@relation` attribute above)
   productId Int // relation scalar field (used in the `@relation` attribute above)
   quantity  Int
-  subTotal  Decimal
+  subTotal  Float
 
   order   Order   @relation(fields: [orderId], references: [id])
   product Product @relation(fields: [productId], references: [id])
