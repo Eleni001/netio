@@ -2,9 +2,10 @@
 
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
+import { Category } from '@prisma/client';
 import console from 'console';
 import { revalidatePath } from 'next/cache';
-import { ProductWithCategoriesIds } from '../types';
+import { OrderWithInformation, ProductWithCategoriesIds } from '../types';
 import { UserCreate, UserCreateSchema } from '../validations/userValidation';
 
 export async function registerUser(incomingData: UserCreate) {
@@ -52,7 +53,7 @@ export const createProduct = async (values: ProductWithCategoriesIds) => {
       },
     },
   });
-  revalidatePath('/admin');
+  revalidatePath('/admin/products');
 };
 
 export const updateProduct = async (values: ProductWithCategoriesIds) => {
@@ -119,6 +120,33 @@ export const updateStock = async (productId: number, quantity: number) => {
     console.error('Error updating stock:', error);
     throw error;
   }
+};
+
+export const createCategory = async (values: Category) => {
+  const session = await auth();
+  if (!session?.user.isAdmin) return null;
+
+  console.log('test');
+
+  const categorys = await db.category.findMany({});
+  const doesCategoryExist = categorys.find((c) => c.name === values.name);
+
+  if (doesCategoryExist) return { status };
+
+  const category = await db.category.create({
+    data: { name: values.name, slug: values.slug },
+  });
+};
+
+export const editSendStatus = async (values: OrderWithInformation) => {
+  const session = await auth();
+  if (!session?.user.isAdmin) return null;
+  const findOrder = await db.order.findFirst({ where: { id: values.id } });
+  const order = await db.order.update({
+    where: { id: values.id },
+    data: { sentStatus: !findOrder?.sentStatus },
+  });
+  revalidatePath('/admin/orders');
 };
 
 export const saveAddress = async (adressData: any) => {

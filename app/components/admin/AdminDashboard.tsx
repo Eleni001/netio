@@ -25,7 +25,6 @@ import {
 } from '@chakra-ui/react';
 import { Product } from '@prisma/client';
 import Image from 'next/image';
-import NextLink from 'next/link';
 import { useState } from 'react';
 
 interface Props {
@@ -98,22 +97,17 @@ export default function AdminDashboard({ products: newProducts }: Props) {
             </ModalFooter>
           </ModalContent>
         </Modal>
-        <NextLink href="/admin/product/new" data-cy="admin-add-product">
-          <Button
-            bg="rgba(78, 199, 145, 1)"
-            color="white"
-            size="lg"
-            _hover={{
-              transform: 'translateY(2px)',
-              boxShadow: 'lg',
-            }}
+        <Flex border={'1px'} borderColor={'black'} rounded={'lg'}>
+          <Checkbox
+            onChange={() => setShowArchived(!showArchived)}
+            padding={5}
+            rounded={'lg'}
+            border={'ButtonShadow'}
+            bg={'white'}
           >
-            Add Product
-          </Button>
-        </NextLink>
-        <Checkbox onChange={() => setShowArchived(!showArchived)}>
-          Visa arkiverade
-        </Checkbox>
+            Show Archived Products
+          </Checkbox>
+        </Flex>
       </Flex>
 
       <TableContainer style={{ width: '100%', overflowX: 'auto' }}>
@@ -130,11 +124,12 @@ export default function AdminDashboard({ products: newProducts }: Props) {
             </Tr>
           </Thead>
           <Tbody>
-            {/* DAVID?=??? */}
-            {newProducts.map((product) =>
-              product.isArchived && !showArchived ? (
-                <></>
-              ) : (
+            {newProducts.map((product) => {
+              if (product.isArchived && !showArchived) {
+                return null;
+              }
+
+              return (
                 <Tr key={product.id} data-cy="product">
                   <Td
                     display="flex"
@@ -158,7 +153,6 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                       ? `${product.desc.slice(0, 50)}...`
                       : product.desc}
                   </Td>
-
                   <Td data-cy="product-price">
                     {product.categories
                       .map((category) => category.name)
@@ -167,9 +161,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                   <Td data-cy="product-price">{product.stock}</Td>
                   <Td data-cy="product-price">{product.price}</Td>
                   <Td>
-                    {product.isArchived ? (
-                      <></>
-                    ) : (
+                    {!product.isArchived && (
                       <Flex justify="center" alignItems="center" height="100%">
                         <Link
                           href={`admin/product/${product.id}`}
@@ -205,8 +197,8 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                     )}
                   </Td>
                 </Tr>
-              ),
-            )}
+              );
+            })}
           </Tbody>
         </Table>
       </TableContainer>
