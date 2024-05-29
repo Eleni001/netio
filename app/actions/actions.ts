@@ -148,3 +148,23 @@ export const editSendStatus = async (values: OrderWithInformation) => {
   });
   revalidatePath('/admin/orders');
 };
+
+export const saveAddress = async (adressData: any) => {
+  const session = await auth();
+  if (!session?.user) return null;
+
+  try {
+    const address = await db.adress.create({
+      data: {
+        street: adressData.street,
+        zip: adressData.zip,
+        city: adressData.city,
+        email: adressData.email,
+      },
+    });
+    return address.id;
+  } catch (error) {
+    console.error('Error saving address:', error);
+    throw error;
+  }
+};

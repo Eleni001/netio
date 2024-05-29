@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
-import { updateStock } from '../actions/actions';
+import { saveAddress, updateStock } from '../actions/actions';
 import { useCart } from '../contexts/CartContext';
 import { useCustomer } from '../contexts/CustomerContext';
 
@@ -22,22 +22,39 @@ export default function CheckoutForm() {
   const router = useRouter();
   const { setCustomerData, setOrderItems } = useCustomer();
   const { clearCartSilently, cart } = useCart();
-  const handleSubmit = (values: FormValues) => {
-    console.log(values);
-    setCustomerData(values);
-    setOrderItems(cart);
-    clearCartSilently();
-    router.push('/confirmation');
+
+  const handleSubmit = async (values: FormValues, { setSubmitting }: any) => {
+    try {
+      const zip = parseInt(values.postalCode, 10);
+      for (const item of cart) {
+        await updateStock(item.id, item.quantity);
+      }
+
+      const shippingAddressId = await saveAddress({
+        street: values.address,
+        zip: zip,
+        city: values.city,
+        email: values.email,
+      });
+
+      setCustomerData(values);
+      setOrderItems(cart);
+      clearCartSilently();
+      router.push('/confirmation');
+    } catch (error) {
+      console.error('Error handling submit:', error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleOrder = async () => {
     try {
       for (const item of cart) {
         await updateStock(item.id, item.quantity);
-        return;
       }
     } catch (error) {
-      throw error;
+      console.error('Error handling order:', error);
     }
   };
 
