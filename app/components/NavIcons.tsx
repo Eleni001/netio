@@ -1,7 +1,6 @@
 'use client';
 
 import { Circle, Flex, Icon } from '@chakra-ui/react';
-import { Session } from '@prisma/client';
 import { signIn } from 'next-auth/react';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -15,7 +14,7 @@ import { Session } from 'next-auth';
 interface Props {
   session: Session | null;
 }
-export default function NavIcons({ session }: Props) {
+export default function NavIcons({ session }: Props)  {
   const { cartCount } = useCart();
   const pathname = usePathname();
 
@@ -83,7 +82,7 @@ export default function NavIcons({ session }: Props) {
           onClick={() => signIn(undefined, { callbackUrl: pathname })}
         >
           <VscSignIn />
-          {/* <VscSignOut /> */}
+      
         </Icon>
       )}
 

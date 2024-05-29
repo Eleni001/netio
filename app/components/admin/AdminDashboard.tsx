@@ -164,7 +164,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                     {!product.isArchived && (
                       <Flex justify="center" alignItems="center" height="100%">
                         <Link
-                          href={`admin/product/${product.id}`}
+                          href={`product/${product.id}`}
                           _hover={{ textDecoration: 'none' }}
                         >
                           <Button
