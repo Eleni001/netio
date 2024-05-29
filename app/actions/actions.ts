@@ -5,7 +5,6 @@ import { db } from '@/prisma/db';
 import console from 'console';
 import { revalidatePath } from 'next/cache';
 import { ProductWithCategoriesIds } from '../types';
-import { UserCreate, UserCreateSchema } from '../validations/userValidation';
 
 export const getAllProducts = async () => {
   const products = await db.product.findMany({ include: { categories: true } });
