@@ -21,7 +21,7 @@ export default function NavLinks(props: Props) {
       padding={{ base: '0.5rem', md: '0.5rem' }}
     >
       {props.categories.map((c) => (
-        <NextLink key={c.id} href={`/category/${c.id}/${c.name}`}>
+        <NextLink key={c.id} href={`/category/${c.id}/${c.slug}`}>
           <Text _hover={{ color: 'brown' }} textDecor="none">
             {c.name}
           </Text>
