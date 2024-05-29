@@ -1,5 +1,6 @@
 'use client';
-import { Box, Button, Flex, HStack, Image, Link, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Image, Text } from '@chakra-ui/react';
+import NextLink from "next/link";
 interface Props {
   username: string;
 }
@@ -49,7 +50,7 @@ export default function HomePageTop(props: Props) {
           collection and find the perfect pieces for your style. Your journey to
           a new home begins here.
         </Text>
-        <Link href="/category/0/lighting">
+        <NextLink href="/category/0/lighting">
           <Button
             width="fit-content"
             fontSize="1.5rem"
@@ -59,7 +60,7 @@ export default function HomePageTop(props: Props) {
           >
             Explore our collection
           </Button>
-        </Link>
+        </NextLink>
       </Flex>
       <Box width={{ base: '100%', md: '50%' }} height="80vh">
         <Image

@@ -1,12 +1,14 @@
 import {
+  Box,
   Flex,
   GridItem,
+  Icon,
   Image,
-  Link,
   SimpleGrid,
   Text,
 } from '@chakra-ui/react';
 import { Product } from '@prisma/client';
+import NextLink from 'next/link';
 import { LuHeart } from 'react-icons/lu';
 import AddToCartIcon from './AddToCartIcon';
 
@@ -32,56 +34,56 @@ export default function ProductList(props: Props) {
           transition={'transform 0.2s ease-in-out'}
           _hover={{ cursor: 'pointer', transform: 'scale(1.05)' }}
         >
-          <Flex flexDirection="column" height="100%" data-cy="product">
-            <Link
-              href={`/product/${product.id}`}
-              _hover={{ textDecoration: 'none' }}
-            >
-              <Image
-                src={product.imageUrl}
-                alt={product.title}
-                objectFit="cover"
-                width="100%"
-                height="200px"
-              />
+          <Flex flexDirection="column" height="100%">
+            <NextLink href={`/product/${product.id}`}>
+              <Box _hover={{ textDecoration: 'none' }}>
+                <Image
+                  src={product.imageUrl}
+                  alt={product.title}
+                  objectFit="cover"
+                  width="100%"
+                  height="200px"
+                />
 
-              <Flex
-                justifyContent="flex-start"
-                alignContent="center"
-                flexDirection="column"
-                mt="1.5rem"
-              >
-                <Text
-                  data-cy="product-title"
-                  fontWeight="semibold"
-                  textTransform="capitalize"
-                  _hover={{ color: 'brown' }}
+                <Flex
+                  justifyContent="flex-start"
+                  alignContent="center"
+                  flexDirection="column"
+                  mt="1.5rem"
                 >
-                  {product.title}
-                </Text>
-                <Text data-cy="product-price" _hover={{ color: 'brown' }}>
-                  {product.price} kr
-                </Text>
-                {product.stock === 0 ? (
-                  <Text>Out of stock </Text>
-                ) : (
-                  <Text>Qty: {product.stock} </Text>
-                )}
-              </Flex>
-            </Link>
+                  <Text
+                    data-cy="product-title"
+                    fontWeight="semibold"
+                    textTransform="capitalize"
+                    _hover={{ color: 'brown' }}
+                  >
+                    {product.title}
+                  </Text>
+                  <Text data-cy="product-price" _hover={{ color: 'brown' }}>
+                    {product.price} kr
+                  </Text>
+                  {product.stock === 0 ? (
+                    <Text>Out of stock </Text>
+                  ) : (
+                    <Text>Qty: {product.stock} </Text>
+                  )}
+                </Flex>
+              </Box>
+            </NextLink>
             <Flex gap="6" m="0.5rem" justifyContent="end" mb="1rem">
-              <Link
-                href="/"
-                color="black"
-                transition={'transform 0.2s ease-in-out'}
-                _hover={{
-                  cursor: 'pointer',
-                  color: 'brown',
-                  transform: 'scale(1.2)',
-                }}
-              >
-                <LuHeart fontSize="1.7rem" />
-              </Link>
+              <NextLink href="/">
+                <Box
+                  color="black"
+                  transition={'transform 0.2s ease-in-out'}
+                  _hover={{
+                    cursor: 'pointer',
+                    color: 'brown',
+                    transform: 'scale(1.2)',
+                  }}
+                >
+                  <LuHeart fontSize="1.7rem" />
+                </Box>
+              </NextLink>
               <AddToCartIcon product={product} />
             </Flex>
           </Flex>
