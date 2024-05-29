@@ -1,4 +1,11 @@
-import { Category, Product } from '@prisma/client';
+import {
+  Adress,
+  Category,
+  Order,
+  OrderRow,
+  Product,
+  User,
+} from '@prisma/client';
 import { ReactNode } from 'react';
 
 export type PageProps = Readonly<{ params: { slug: string } }>;
@@ -14,4 +21,10 @@ export interface ProductWithCategories extends Product {
 }
 export interface ProductWithCategoriesIds extends Product {
   categories: number[];
+}
+
+export interface OrderWithInformation extends Order {
+  user: User;
+  shippingAddress: Adress;
+  orderRows: OrderRow[];
 }

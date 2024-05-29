@@ -1,17 +1,23 @@
-import { Box, Icon, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
-export default function CustomToast() {
+interface Props {
+  toastTitle: string;
+  toastContent: string;
+  toastSuccess: boolean;
+}
+
+export default function CustomToast(props: Props) {
   return (
     <Box
       data-cy="added-to-cart-toast"
-      bg="green.500"
+      bg={props.toastSuccess ? 'green.500' : 'red.500'}
       color="white"
       p={3}
       borderRadius="md"
       boxShadow="lg"
     >
-      <Text fontWeight="bold">Added to cart</Text>
-      <Text>Your product has been added to your cart.</Text>
+      <Text fontWeight="bold">{props.toastTitle}</Text>
+      <Text>{props.toastContent}</Text>
     </Box>
   );
 }

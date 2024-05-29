@@ -1,7 +1,10 @@
 'use client';
 
 import { Circle, Flex, Icon } from '@chakra-ui/react';
+import { Session } from '@prisma/client';
+import { signIn } from 'next-auth/react';
 import NextLink from 'next/link';
+import { usePathname } from 'next/navigation';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoPersonOutline } from 'react-icons/io5';
 import { RiAdminLine } from 'react-icons/ri';
@@ -14,6 +17,7 @@ interface Props {
 }
 export default function NavIcons({ session }: Props) {
   const { cartCount } = useCart();
+  const pathname = usePathname();
 
   return (
     <Flex
@@ -68,19 +72,19 @@ export default function NavIcons({ session }: Props) {
           </Icon>
         </NextLink>
       ) : (
-        <NextLink href="/signin" passHref color="black">
-          <Icon
-            fontSize="1.7rem"
-            transition={'transform 0.2s ease-in-out'}
-            _hover={{
-              cursor: 'pointer',
-              color: 'brown',
-              transform: 'scale(1.2)',
-            }}
-          >
-            <VscSignIn />
-          </Icon>
-        </NextLink>
+        <Icon
+          fontSize="1.7rem"
+          transition={'transform 0.2s ease-in-out'}
+          _hover={{
+            cursor: 'pointer',
+            color: 'brown',
+            transform: 'scale(1.2)',
+          }}
+          onClick={() => signIn(undefined, { callbackUrl: pathname })}
+        >
+          <VscSignIn />
+          {/* <VscSignOut /> */}
+        </Icon>
       )}
 
       <NextLink href="/checkout" passHref color="black">
