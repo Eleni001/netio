@@ -6,7 +6,9 @@ import {
   SimpleGrid,
   Stack,
   Tag,
+  Text,
 } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 export function MiddleFooter() {
   return (
@@ -53,7 +55,16 @@ export function MiddleFooter() {
               <Heading fontWeight="bold" fontSize={'xl'} mb={2}>
                 INSPIRATIONS
               </Heading>
-              <Box>Inspiration</Box>
+              <NextLink href="/inspiration">
+                <Text
+                  _hover={{ color: 'brown' }}
+                  textDecor="none"
+                  /* paddingLeft="1rem" */
+                >
+                  Inspiration
+                </Text>
+              </NextLink>
+              {/* <Box>Inspiration</Box> */}
               <Box>Trademarks</Box>
               <Box>Designers</Box>
               <Box>Promotions</Box>
@@ -63,7 +74,12 @@ export function MiddleFooter() {
               <Heading fontWeight="bold" fontSize={'xl'} mb={2}>
                 ABOUT NEXT DESIGN
               </Heading>
-              <Box>About us</Box>
+              <NextLink href="/about">
+                <Text _hover={{ color: 'brown' }} textDecor="none">
+                  About Us
+                </Text>
+              </NextLink>
+              {/* <Box>About us</Box> */}
               <Box>Reviews</Box>
               <Box>Work with us</Box>
               <Box>Press</Box>
