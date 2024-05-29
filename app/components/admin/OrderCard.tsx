@@ -94,7 +94,7 @@ export default function OrderCard(props: Props) {
         <Tbody>
           <Tr>
             <Td>
-              <OrderSentButton />
+              <OrderSentButton order={props.order}/>
             </Td>
             <Td>{props.order.id}</Td>
             <Td>{JSON.stringify(props.order.createdAt)}</Td>

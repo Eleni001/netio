@@ -27,7 +27,7 @@ export const ValidationSchema = Yup.object({
   phone: Yup.string()
     .matches(
       /^\+46\d{7,9}$|0\d{1,2}-?\d{2,3} ?\d{2} ?\d{2}$|^07\d{1}-?\d{3} ?\d{2} ?\d{2}$/,
-      "Invalid phone number format"
+      "Invalid phone number format",
     )
     .required("Please enter your phone number"),
 
@@ -55,7 +55,7 @@ export const ProductSchema = Yup.object().shape({
     .test(
       "is-greater-than-zero",
       "Price must be greater than zero",
-      (value) => value > 0
+      (value) => value > 0,
     ),
   stock: Yup.number()
     .required("Please enter the stock amount")

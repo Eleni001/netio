@@ -1,5 +1,3 @@
 export default function OderDetails() {
-    return (
-
-    )
+  return <div></div>;
 }
