@@ -6,16 +6,23 @@ import {
   Flex,
   Heading,
   IconButton,
+  Link,
   useBreakpointValue,
 } from '@chakra-ui/react';
+import { Category } from '@prisma/client';
+import { Session } from 'next-auth';
 import { useState } from 'react';
-import { SessionProp } from './Header';
 import NavIcons from './NavIcons';
 import NavLinks from './NavLinks';
 import SearchNav from './SearchNav';
 import SlidingTextBanner from './SlidingTextBanner';
 
-export default function HeaderComponents({ session }: SessionProp) {
+interface Props {
+  session: Session | null;
+  categories: Category[];
+}
+
+export default function HeaderComponents({ session, categories }: Props) {
   const [isOpened, setIsOpened] = useState(false);
   const isLargeScreen = useBreakpointValue({ base: false, md: true });
 
@@ -53,17 +60,19 @@ export default function HeaderComponents({ session }: SessionProp) {
             </Box>
             <SearchNav />
           </Flex>
-          <Heading as="h1" w="30%" fontSize={{ base: '1rem', md: '1.4rem' }}>
-            NEXT DESIGN
-          </Heading>
+          <Link href="/" _hover={{ color: 'brown' }} textDecor="none" w="30%">
+            <Heading as="h1" w="30%" fontSize={{ base: '1rem', md: '1.4rem' }}>
+              NETIO
+            </Heading>
+          </Link>
           <NavIcons session={session} />
         </Flex>
 
-        {isLargeScreen && <NavLinks />}
+        {isLargeScreen && <NavLinks categories={categories} />}
 
         {!isLargeScreen && (
           <Collapse in={isOpened}>
-            <NavLinks />
+            <NavLinks categories={categories} />
           </Collapse>
         )}
         <Box w="100%" h="1.5rem" bg="#E4A757">

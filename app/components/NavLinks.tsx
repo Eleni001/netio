@@ -1,7 +1,13 @@
-'use client';
-import { Link } from '@chakra-ui/next-js';
-import { Flex } from '@chakra-ui/react';
-export default function NavLinks() {
+import { Flex, Text } from '@chakra-ui/react';
+import { Category } from '@prisma/client';
+import NextLink from 'next/link';
+
+interface Props {
+  categories: Category[];
+}
+export default function NavLinks(props: Props) {
+  console.log(props.categories);
+  props.categories.map((c) => console.log('HÄR?', c.id));
   return (
     <Flex
       justify="center"
@@ -14,39 +20,13 @@ export default function NavLinks() {
       textAlign={{ base: 'left', md: 'center' }}
       padding={{ base: '0.5rem', md: '0.5rem' }}
     >
-      <Link
-        href="/"
-        _hover={{ color: 'brown' }}
-        textDecor="none"
-        paddingLeft="1rem"
-      >
-        Home
-      </Link>
-
-      <Link
-        href="/inspiration"
-        _hover={{ color: 'brown' }}
-        textDecor="none"
-        paddingLeft="1rem"
-      >
-        Inspiration
-      </Link>
-      <Link
-        href="/about"
-        _hover={{ color: 'brown' }}
-        textDecor="none"
-        paddingLeft="1rem"
-      >
-        About Us
-      </Link>
-      <Link
-        href="/register"
-        _hover={{ color: 'brown' }}
-        textDecor="none"
-        paddingLeft="1rem"
-      >
-        Registration
-      </Link>
+      {props.categories.map((c) => (
+        <NextLink key={c.id} href={`/category/${c.id}/${c.name}`}>
+          <Text _hover={{ color: 'brown' }} textDecor="none">
+            {c.name}
+          </Text>
+        </NextLink>
+      ))}
     </Flex>
   );
 }
