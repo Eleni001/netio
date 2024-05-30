@@ -12,8 +12,8 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import CartItem from '../components/CartItem';
 import CheckoutForm from '../components/CheckoutForm';
 import { useCart } from '../contexts/CartContext';
-import { useSession } from 'next-auth/react';
-import NextLink from 'next/link';
+import { signIn, useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 
 export default function CheckoutPage() {
   const { cart } = useCart();
@@ -27,6 +27,7 @@ export default function CheckoutPage() {
   };
 
   const { data: session } = useSession();
+  const pathname = usePathname();
 
   return (
     <>
@@ -85,17 +86,16 @@ export default function CheckoutPage() {
           mt="2rem"
         >
           <Text>Please sign in to continue</Text>
-          <NextLink href="/signin">
-            <Button
-              bg="rgba(78, 199, 145, 1)"
-              color={'white'}
-              _hover={{
-                bg: 'rgba(60, 150, 110, 1)',
-              }}
-            >
-              SignIn
-            </Button>
-          </NextLink>
+          <Button
+            onClick={() => signIn(undefined, { callbackUrl: pathname })}
+            bg="rgba(78, 199, 145, 1)"
+            color={'white'}
+            _hover={{
+              bg: 'rgba(60, 150, 110, 1)',
+            }}
+          >
+            SignIn
+          </Button>
         </Flex>
       ) : (
         <CheckoutForm />
