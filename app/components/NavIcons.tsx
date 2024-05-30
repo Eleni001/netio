@@ -1,20 +1,22 @@
 'use client';
 
 import { Circle, Flex, Icon } from '@chakra-ui/react';
-import { Session } from '@prisma/client';
+import { Session } from 'next-auth';
+import { signIn } from 'next-auth/react';
 import NextLink from 'next/link';
+import { usePathname } from 'next/navigation';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoPersonOutline } from 'react-icons/io5';
 import { RiAdminLine } from 'react-icons/ri';
 import { VscSignIn, VscSignOut } from 'react-icons/vsc';
 import { useCart } from '../contexts/CartContext';
-import { SessionProp } from './Header';
 
 interface Props {
-  session: Session;
+  session: Session | null;
 }
-export default function NavIcons({ session }: SessionProp) {
+export default function NavIcons({ session }: Props) {
   const { cartCount } = useCart();
+  const pathname = usePathname();
 
   return (
     <Flex
@@ -69,22 +71,6 @@ export default function NavIcons({ session }: SessionProp) {
           </Icon>
         </NextLink>
       ) : (
-        <NextLink href="/signin" passHref color="black">
-          <Icon
-            fontSize="1.7rem"
-            transition={'transform 0.2s ease-in-out'}
-            _hover={{
-              cursor: 'pointer',
-              color: 'brown',
-              transform: 'scale(1.2)',
-            }}
-          >
-            <VscSignIn />
-            {/* <VscSignOut /> */}
-          </Icon>
-        </NextLink>
-      )}
-      {/* <NextLink href="/signin" passHref color="black">
         <Icon
           fontSize="1.7rem"
           transition={'transform 0.2s ease-in-out'}
@@ -93,10 +79,11 @@ export default function NavIcons({ session }: SessionProp) {
             color: 'brown',
             transform: 'scale(1.2)',
           }}
+          onClick={() => signIn(undefined, { callbackUrl: pathname })}
         >
           <VscSignIn />
         </Icon>
-      </NextLink> */}
+      )}
 
       <NextLink href="/checkout" passHref color="black">
         <Icon

@@ -62,6 +62,11 @@ export const ProductSchema = Yup.object().shape({
     .min(0, "Stock cannot be negative"),
 });
 
+export const NewCategorySchema = Yup.object().shape({
+  name: Yup.string().required("Category name is required"),
+  slug: Yup.string().required("Category slug is required"),
+});
+
 export interface CartItem extends Product {
   quantity: number;
 }

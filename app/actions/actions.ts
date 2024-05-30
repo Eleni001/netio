@@ -2,27 +2,10 @@
 
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
+import { Category } from '@prisma/client';
 import console from 'console';
 import { revalidatePath } from 'next/cache';
-import { ProductWithCategoriesIds } from '../types';
-import { UserCreate, UserCreateSchema } from '../validations/userValidation';
-
-export async function registerUser(incomingData: UserCreate) {
-  try {
-    const userData = await UserCreateSchema.validate(incomingData);
-    const user = await db.user.create({
-      data: {
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-      },
-    });
-    revalidatePath('/');
-    return user;
-  } catch (error) {
-    console.log(error);
-  }
-}
+import { OrderWithInformation, ProductWithCategoriesIds } from '../types';
 
 export const getAllProducts = async () => {
   const products = await db.product.findMany({ include: { categories: true } });
@@ -33,6 +16,15 @@ export const getAllCategorys = async () => {
   const categorys = await db.category.findMany({});
   return categorys;
 };
+
+export async function getProductsByCategorySlug(slug: string) {
+  const category = await db.category.findUnique({ where: { slug: slug } });
+  const products = await db.product.findMany({
+    where: { categories: { some: { id: category?.id } } },
+    include: { categories: true },
+  });
+  return products;
+}
 
 export const createProduct = async (values: ProductWithCategoriesIds) => {
   //HITTA CATEGORY SOM ÄR VALD, LÄGG MED HELA CATEGORY OBJEKT I OBJEKT
@@ -52,7 +44,7 @@ export const createProduct = async (values: ProductWithCategoriesIds) => {
       },
     },
   });
-  revalidatePath('/admin');
+  revalidatePath('/admin/products');
 };
 
 export const updateProduct = async (values: ProductWithCategoriesIds) => {
@@ -117,6 +109,53 @@ export const updateStock = async (productId: number, quantity: number) => {
     return true;
   } catch (error) {
     console.error('Error updating stock:', error);
+    throw error;
+  }
+};
+
+export const createCategory = async (values: Category) => {
+  const session = await auth();
+  if (!session?.user.isAdmin) return null;
+
+  console.log('test');
+
+  const categorys = await db.category.findMany({});
+  const doesCategoryExist = categorys.find((c) => c.name === values.name);
+
+  if (doesCategoryExist) return { status };
+
+  const category = await db.category.create({
+    data: { name: values.name, slug: values.slug },
+  });
+};
+
+export const editSendStatus = async (values: OrderWithInformation) => {
+  const session = await auth();
+  if (!session?.user.isAdmin) return null;
+  const findOrder = await db.order.findFirst({ where: { id: values.id } });
+  const order = await db.order.update({
+    where: { id: values.id },
+    data: { sentStatus: !findOrder?.sentStatus },
+  });
+  revalidatePath('/admin/orders');
+};
+
+export const saveAddress = async (adressData: any) => {
+  const session = await auth();
+  if (!session?.user) return null;
+
+  try {
+    const address = await db.adress.create({
+      data: {
+        street: adressData.street,
+        zip: adressData.zip,
+        city: adressData.city,
+        email: adressData.email,
+      },
+    });
+    return address.id;
+  } catch (error) {
+    console.error('Error saving address:', error);
     throw error;
   }
 };

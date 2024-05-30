@@ -11,12 +11,16 @@ import {
 import { AiFillCrown } from 'react-icons/ai';
 import { DiProlog, DiYii } from 'react-icons/di';
 
-export default async function Signin() {
+interface Props {
+  searchParams: { [key: string]: string };
+}
+
+export default async function Signin({ searchParams }: Props) {
   return (
     <form
       action={async () => {
         'use server';
-        await signIn('github', { redirectTo: '/user' });
+        await signIn('github', { redirectTo: searchParams.callbackUrl });
       }}
     >
       <Box

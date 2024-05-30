@@ -2,6 +2,7 @@
 import {
   AbsoluteCenter,
   Box,
+  Button,
   Card,
   Divider,
   Flex,
@@ -11,11 +12,12 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import CartItem from '../components/CartItem';
 import CheckoutForm from '../components/CheckoutForm';
 import { useCart } from '../contexts/CartContext';
+import { signIn, useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 
 export default function CheckoutPage() {
   const { cart } = useCart();
   console.log(cart);
-
   const calculateTotalPrice = () => {
     let totalPrice: number = 0; // Specify the type of totalPrice as number
     cart.forEach((item) => {
@@ -24,7 +26,8 @@ export default function CheckoutPage() {
     return totalPrice;
   };
 
-  const handleOrder = async () => {};
+  const { data: session } = useSession();
+  const pathname = usePathname();
 
   return (
     <>
@@ -72,7 +75,31 @@ export default function CheckoutPage() {
           </Text>
         </AbsoluteCenter>
       </Box>
-      <CheckoutForm />
+      {session === null ? (
+        <Flex
+          width={{ base: '95%', md: '70%' }}
+          flexDir="column"
+          justify="center"
+          alignItems="center"
+          m="16px auto"
+          gap="1rem"
+          mt="2rem"
+        >
+          <Text>Please sign in to continue</Text>
+          <Button
+            onClick={() => signIn(undefined, { callbackUrl: pathname })}
+            bg="rgba(78, 199, 145, 1)"
+            color={'white'}
+            _hover={{
+              bg: 'rgba(60, 150, 110, 1)',
+            }}
+          >
+            SignIn
+          </Button>
+        </Flex>
+      ) : (
+        <CheckoutForm />
+      )}
     </>
   );
 }

@@ -45,13 +45,10 @@ function CartProvider(props: PropsWithChildren) {
   // Logiken för att ändra kundvagnen ligger nära tillståndet
 
   const addToCart = (product: Product) => {
-    console.log('initial cart', cart);
     // 1. Om produkten redan finns i kundvagnen, öka antalet
     const isProductPresent = cart.find(
       (cartItem) => cartItem.id === product.id,
     );
-
-    console.log('isProductPresent', isProductPresent);
     if (isProductPresent) {
       const newCart = cart.map((cartItem) => {
         if (cartItem.id === product.id) {
@@ -63,7 +60,13 @@ function CartProvider(props: PropsWithChildren) {
       setCart(newCart);
 
       toast({
-        render: () => <CustomToast />,
+        render: () => (
+          <CustomToast
+            toastTitle="Your product has been added to your cart"
+            toastContent="Added to cart"
+            toastSuccess={true}
+          />
+        ),
         status: 'success',
         duration: 3000,
         isClosable: true,
@@ -72,7 +75,13 @@ function CartProvider(props: PropsWithChildren) {
       // 2. Annars, lägg till produkten i kundvagnen med antal 1
       setCart([...cart, { ...product, quantity: 1 }]);
       toast({
-        render: () => <CustomToast />,
+        render: () => (
+          <CustomToast
+            toastTitle="Your product has been added to your cart"
+            toastContent="Added to cart"
+            toastSuccess={true}
+          />
+        ),
 
         status: 'success',
         duration: 3000,
