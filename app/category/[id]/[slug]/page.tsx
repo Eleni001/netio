@@ -15,24 +15,34 @@ import NextLink from 'next/link';
 import { LuHeart } from 'react-icons/lu';
 import { getProductsByCategorySlug } from '../../../actions/actions';
 
-export default async function CategoryPage({ params }: any) {
-  const products = await getProductsByCategorySlug(params.slug);
+interface Props {
+  params: { slug: string };
+}
+export default async function CategoryPage(props: Props) {
+  const { category, products } = await getProductsByCategorySlug(
+    props.params.slug,
+  );
 
   return (
     <Box>
-      <Heading bg="#FEE0B3" width="80%" ml="10%" mt={8} p={6}>
-        {params.slug}
+      <Heading
+        backgroundImage={category?.imageUrl ?? undefined}
+        color="White"
+        width="80%"
+        ml="10%"
+        mt={8}
+        p={6}
+      >
+        {category?.name}
       </Heading>
       {products.length > 0 ? (
         <SimpleGrid
           id="products-grid"
           width="80%"
           m="2rem auto"
-          /* mt="5rem" */
           columns={{ base: 1, md: 3, lg: 4 }}
           gap={5}
         >
-          {/* <Heading width="80%">Category - {params.slug}</Heading> */}
           {products.map((product) => (
             <GridItem
               data-cy="product-id"
@@ -51,7 +61,6 @@ export default async function CategoryPage({ params }: any) {
                       width="100%"
                       height="200px"
                     />
-
                     <Flex
                       justifyContent="flex-start"
                       alignContent="center"
@@ -103,15 +112,18 @@ export default async function CategoryPage({ params }: any) {
           ml="10%"
           mt={8}
           p={6}
-          status='info'
+          status="info"
           variant="subtle"
           flexDirection="column"
           alignItems="center"
           justifyContent="center"
           textAlign="center"
           height="200px"
+          bg="white"
+          border="1px"
+          borderColor="#E4A757"
         >
-          <AlertIcon boxSize="40px" mr={0} />
+          <AlertIcon boxSize="40px" mr={0} color="#E4A757" />
           <AlertTitle mt={4} mb={1} fontSize="lg">
             No products found in this category
           </AlertTitle>
