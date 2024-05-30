@@ -19,7 +19,9 @@ export default async function EditProductPage({ params }: Props) {
   });
   const param = Number(params.id);
   const order = orders.find((p) => p.id === param);
-  console.log(order);
+  const total =
+    order?.orderRows?.reduce((sum, row) => sum + row.product.price, 0) || 0;
+
   if (!order) {
     return (
       <Center h="100vh" bg="gray.50">
@@ -118,7 +120,7 @@ export default async function EditProductPage({ params }: Props) {
         color="teal.600"
       >
         <OrderSentButton order={order} />
-        Total Price: {order?.total} kr
+        Total Price: {total} kr
       </Text>
     </Flex>
   );
