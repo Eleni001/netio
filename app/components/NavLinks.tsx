@@ -6,8 +6,6 @@ interface Props {
   categories: Category[];
 }
 export default function NavLinks(props: Props) {
-  console.log(props.categories);
-  props.categories.map((c) => console.log('HÄR?', c.id));
   return (
     <Flex
       justify="center"

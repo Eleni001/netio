@@ -1,10 +1,12 @@
 'use client';
 import { NewCategorySchema } from '@/data';
+import { AddIcon } from '@chakra-ui/icons';
 import {
-  Button,
+  Box,
   FormControl,
   FormHelperText,
   FormLabel,
+  Icon,
   Input,
   Modal,
   ModalBody,
@@ -32,24 +34,21 @@ export default function AddCategoryButton() {
       id: 0,
     },
     validationSchema: NewCategorySchema,
-    onSubmit: (values: Category, { resetForm }) => {
-      console.log(values);
-      // ADD SO THERE IS ADD / EDIT / DELETE CATEGORY
+    onSubmit: async (values: Category, { resetForm }) => {
       try {
-        createCategory(values);
+        await createCategory(values);
         toast({
           render: () => (
             <CustomToast
               toastSuccess={true}
-              toastTitle="succesfully added category"
-              toastContent="toastcontent"
+              toastTitle="Successfully added category"
+              toastContent="The category has been added successfully."
             />
           ),
           duration: 3000,
           isClosable: true,
         });
       } catch (error) {
-        console.log('SOME ERROR');
         toast({
           render: () => (
             <CustomToast
@@ -69,23 +68,30 @@ export default function AddCategoryButton() {
 
   return (
     <>
-      <Button
-        bg="grey"
+      <Box
+        as="button"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        bg="gray.700"
         color="white"
-        size="md"
+        borderRadius="md"
+        padding="4"
         _hover={{
-          transform: 'translateY(2px)',
+          bg: 'gray.600',
+          transform: 'translateY(-2px)',
           boxShadow: 'lg',
         }}
         onClick={onOpen}
       >
+        <Icon as={AddIcon} marginRight="2" />
         Add Category
-      </Button>
+      </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <form onSubmit={formik.handleSubmit}>
           <ModalContent>
-            <ModalHeader>Add category</ModalHeader>
+            <ModalHeader>Add Category</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <FormControl
@@ -106,7 +112,7 @@ export default function AddCategoryButton() {
                   </FormHelperText>
                 ) : (
                   <FormHelperText>
-                    Examples: Furniture, lighting, kitchen....
+                    Examples: Furniture, lighting, kitchen...
                   </FormHelperText>
                 )}
               </FormControl>
@@ -132,12 +138,37 @@ export default function AddCategoryButton() {
               </FormControl>
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="red" onClick={onClose}>
+              <Box
+                as="button"
+                bg="red.500"
+                color="white"
+                borderRadius="md"
+                padding="2"
+                _hover={{
+                  bg: 'red.400',
+                  transform: 'translateY(-2px)',
+                  boxShadow: 'lg',
+                }}
+                onClick={onClose}
+              >
                 Cancel
-              </Button>
-              <Button colorScheme="green" ml={3} type="submit">
+              </Box>
+              <Box
+                as="button"
+                bg="green.500"
+                color="white"
+                borderRadius="md"
+                padding="2"
+                ml={3}
+                _hover={{
+                  bg: 'green.400',
+                  transform: 'translateY(-2px)',
+                  boxShadow: 'lg',
+                }}
+                type="submit"
+              >
                 ADD
-              </Button>
+              </Box>
             </ModalFooter>
           </ModalContent>
         </form>

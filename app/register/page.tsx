@@ -1,7 +1,7 @@
-'use client';
+// 'use client';
 
-import UserRegistrationForm from '../components/UserForm';
+// import UserRegistrationForm from '../components/UserForm';
 
-export default function Register() {
-  return <UserRegistrationForm />;
-}
+// export default function Register() {
+//   return <UserRegistrationForm />;
+// }
