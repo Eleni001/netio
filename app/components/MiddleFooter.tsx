@@ -12,7 +12,7 @@ import NextLink from 'next/link';
 
 export function MiddleFooter() {
   return (
-    <Center as="footer" bg="#FEE0B3">
+    <Center bg="#FEE0B3">
       <Box color="black">
         <center>
           <Heading
@@ -59,12 +59,14 @@ export function MiddleFooter() {
                 <Text
                   _hover={{ color: 'brown' }}
                   textDecor="none"
-                  /* paddingLeft="1rem" */
+                  bg="#E4A757"
+                  p={1}
+                  borderRadius="md"
                 >
                   Inspiration
                 </Text>
               </NextLink>
-              {/* <Box>Inspiration</Box> */}
+
               <Box>Trademarks</Box>
               <Box>Designers</Box>
               <Box>Promotions</Box>
@@ -75,11 +77,17 @@ export function MiddleFooter() {
                 ABOUT NEXT DESIGN
               </Heading>
               <NextLink href="/about">
-                <Text _hover={{ color: 'brown' }} textDecor="none">
+                <Text
+                  _hover={{ color: 'brown' }}
+                  textDecor="none"
+                  bg="#E4A757"
+                  p={1}
+                  borderRadius="md"
+                >
                   About Us
                 </Text>
               </NextLink>
-              {/* <Box>About us</Box> */}
+
               <Box>Reviews</Box>
               <Box>Work with us</Box>
               <Box>Press</Box>
