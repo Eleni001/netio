@@ -27,6 +27,9 @@ export default async function CategoryPage(props: Props) {
     <Box>
       <Heading
         backgroundImage={category?.imageUrl ?? undefined}
+        backgroundSize="cover"
+        backgroundRepeat="no-repeat"
+        height="40"
         color="White"
         width="80%"
         ml="10%"
