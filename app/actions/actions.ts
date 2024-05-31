@@ -146,7 +146,7 @@ export const saveAddress = async (adressData: any) => {
   if (!session?.user) return null;
 
   try {
-    const address = await db.adress.create({¢
+    const address = await db.adress.create({
       data: {
         street: adressData.street,
         zip: adressData.zip,
