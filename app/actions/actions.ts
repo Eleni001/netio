@@ -2,9 +2,10 @@
 
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
-import { Category } from '@prisma/client';
+import { Category, Product } from '@prisma/client';
 import console from 'console';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { OrderWithInformation, ProductWithCategoriesIds } from '../types';
 
 export const getAllProducts = async () => {
@@ -159,3 +160,79 @@ export const saveAddress = async (adressData: any) => {
     throw error;
   }
 };
+
+export const createOrder = async (
+  cart: (Product & { quantity: number })[],
+  shippingAddressId: number,
+) => {
+  const session = await auth();
+
+  if (!session) return redirect('/signin');
+
+  try {
+    const totalPrice = cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
+
+    const order = await db.order.create({
+      data: {
+        userId: session.user.id,
+        createdAt: new Date(),
+        total: totalPrice,
+        shippingAddressId: shippingAddressId,
+        orderRows: {
+          create: cart.map((item) => ({
+            productId: item.id,
+            quantity: item.quantity,
+            subTotal: item.price * item.quantity,
+          })),
+        },
+      },
+    });
+
+    await Promise.all(cart.map((item) => updateStock(item.id, item.quantity))); // parallelt
+
+    return order;
+  } catch (error) {
+    console.error('Error creating order:', error);
+    throw error;
+  }
+};
+
+// export const createOrderRow = async (
+//   orderId: number,
+//   productId: number,
+//   quantity: number,
+//   subTotal: number,
+// ) => {
+//   return runAction(async () => {
+//     const orderRow = await db.orderRow.create({
+//       data: {
+//         orderId: orderId,
+//         productId: productId,
+//         quantity: quantity,
+//         subTotal: subTotal,
+//       },
+//       include: {
+//         order: true,
+//         product: true,
+//       },
+//     });
+//     return orderRow;
+//   })
+// };
+
+// function runAction<T>(
+//   callback: () => Promise<T>,
+// ) {
+//   try {
+//     return callback();
+//   } catch (error: unknown) {
+//     // if (error instanceof z.ZodError)
+//     // Pinga Discord/Slack
+//     // process.env.NODE_ENV === 'development'
+//     console.error(error);
+//     throw error;
+//   }
+// }
