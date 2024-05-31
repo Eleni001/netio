@@ -293,7 +293,7 @@ export default function CheckoutForm() {
                   bg="#E4A757"
                   _hover={{ bg: '#efdbc2' }}
                   variant="solid"
-                  // isLoading={props.isSubmitting}
+                  isLoading={props.isSubmitting}
                 >
                   Submit
                 </Button>
