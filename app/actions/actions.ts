@@ -2,9 +2,10 @@
 
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
-import { Category, OrderRow } from '@prisma/client';
+import { Category, OrderRow, Product } from '@prisma/client';
 import console from 'console';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { OrderWithInformation, ProductWithCategoriesIds } from '../types';
 
 export const getAllProducts = async () => {
@@ -160,37 +161,36 @@ export const saveAddress = async (adressData: any) => {
   }
 };
 
-export const createOrder = async ( cart: any[], shippingAddressId:number) => {
+export const createOrder = async ( cart: (Product & { quantity: number })[], shippingAddressId:number) => {
   const session = await auth();
+
+  if (!session) return redirect("/signin");
+
   try {
-    console.log("starting order creation");
+    
     const totalPrice = cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0,
     );
-    console.log("ÄR DETTA SESSION USER ID ????",typeof session?.user.id )
+    
     const order = await db.order.create({
       data: {
-        userId: session?.user.id!,
+        userId: session.user.id,
         createdAt: new Date(),
         total: totalPrice,
         shippingAddressId: shippingAddressId,
+        orderRows: {
+          create: cart.map(item =>
+            ({
+              productId: item.id,
+              quantity: item.quantity,
+              subTotal: item.price * item.quantity,
+            }),
+        )},
       },
     });
-    console.log('Order created:', order);
-    for (const item of cart) {
-      console.log('Creating order row for item:', item);
-      await db.orderRow.create({
-        data: {
-          orderId: order.id,
-          productId: item.id,
-          quantity: item.quantity,
-          subTotal: item.price * item.quantity,
-        },
-      });
-
-      await updateStock(item.id, item.quantity);
-    }
+    
+    await Promise.all(cart.map((item) => updateStock(item.id, item.quantity))); // parallelt
 
     return order;
   } catch (error) {
