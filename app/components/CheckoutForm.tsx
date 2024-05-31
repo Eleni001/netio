@@ -23,25 +23,26 @@ export default function CheckoutForm() {
   const router = useRouter();
   const { setCustomerData, setOrderItems } = useCustomer();
   const { clearCartSilently, cart } = useCart();
-  const session = useSession()
+  const session = useSession();
 
-  const handleSubmit =  async (values: FormValues, { setSubmitting }: any) => {
-    console.log("SESSION PÅ FRONTEND: ", session)
+  const handleSubmit = async (values: FormValues, { setSubmitting }: any) => {
+    console.log('SESSION PÅ FRONTEND: ', session);
     try {
-      const zip = parseInt(values.postalCode || "0", 10); 
+      const zip = parseInt(values.postalCode || '0', 10);
 
-      const shippingAddressId = await saveAddress({
-        street: values.address,
-        zip: zip,
-        city: values.city,
-        email: values.email,
-      })|| 0;
-      
+      const shippingAddressId =
+        (await saveAddress({
+          street: values.address,
+          zip: zip,
+          city: values.city,
+          email: values.email,
+        })) || 0;
+
       setCustomerData(values);
       setOrderItems(cart);
 
-      await createOrder( cart, shippingAddressId)
-      
+      await createOrder(cart, shippingAddressId);
+
       clearCartSilently();
       router.push('/confirmation');
     } catch (error) {
@@ -288,7 +289,7 @@ export default function CheckoutForm() {
               <Flex w="100%" justifyContent="space-between">
                 <Button
                   type="submit"
-                 // onClick={handleOrder}
+                  // onClick={handleOrder}
                   w="7rem"
                   bg="#E4A757"
                   _hover={{ bg: '#efdbc2' }}
