@@ -2,7 +2,7 @@
 
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
-import { Category } from '@prisma/client';
+import { Category, OrderRow } from '@prisma/client';
 import console from 'console';
 import { revalidatePath } from 'next/cache';
 import { OrderWithInformation, ProductWithCategoriesIds } from '../types';
@@ -160,22 +160,26 @@ export const saveAddress = async (adressData: any) => {
   }
 };
 
-export const createOrder = async (userId: string, cart: any[]) => {
+export const createOrder = async ( cart: any[], shippingAddressId:number) => {
+  const session = await auth();
   try {
+    console.log("starting order creation");
     const totalPrice = cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0,
     );
-
+    console.log("ÄR DETTA SESSION USER ID ????",typeof session?.user.id )
     const order = await db.order.create({
       data: {
-        userId: userId,
+        userId: session?.user.id!,
         createdAt: new Date(),
         total: totalPrice,
         shippingAddressId: shippingAddressId,
       },
     });
+    console.log('Order created:', order);
     for (const item of cart) {
+      console.log('Creating order row for item:', item);
       await db.orderRow.create({
         data: {
           orderId: order.id,
@@ -193,4 +197,25 @@ export const createOrder = async (userId: string, cart: any[]) => {
     console.error('Error creating order:', error);
     throw error;
   }
+};
+
+export const createOrderRow = async(orderId: number, productId: number, quantity: number, subTotal: number): Promise <OrderRow | null > => {
+  try {
+    const orderRow= await db.orderRow.create({
+    data: {
+      orderId: orderId,
+      productId: productId,
+      quantity: quantity,
+      subTotal: subTotal,
+    }, 
+    include: {
+      order: true,
+      product: true,
+    },
+  });
+  return orderRow;
+} catch (error) {
+  console.error("Error creating order row", error);
+  return null;
+}
 };
