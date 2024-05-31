@@ -1,4 +1,4 @@
-import {
+/* import {
   Box,
   Flex,
   GridItem,
@@ -92,3 +92,4 @@ export default function ProductList(props: Props) {
     </SimpleGrid>
   );
 }
+ */
