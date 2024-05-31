@@ -23,7 +23,7 @@ export async function getProductsByCategorySlug(slug: string) {
     where: { categories: { some: { id: category?.id } } },
     include: { categories: true },
   });
-  return {category, products}; 
+  return { category, products };
 }
 
 export const createProduct = async (values: ProductWithCategoriesIds) => {

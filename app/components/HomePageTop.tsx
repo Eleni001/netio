@@ -1,6 +1,6 @@
 'use client';
 import { Box, Button, Flex, HStack, Image, Text } from '@chakra-ui/react';
-import NextLink from "next/link";
+import NextLink from 'next/link';
 interface Props {
   username: string;
 }
