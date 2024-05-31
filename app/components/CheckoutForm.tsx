@@ -13,8 +13,9 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { saveAddress, updateStock } from '../actions/actions';
+import { createOrder, saveAddress } from '../actions/actions';
 import { useCart } from '../contexts/CartContext';
 import { useCustomer } from '../contexts/CustomerContext';
 
@@ -22,23 +23,26 @@ export default function CheckoutForm() {
   const router = useRouter();
   const { setCustomerData, setOrderItems } = useCustomer();
   const { clearCartSilently, cart } = useCart();
+  const session = useSession();
 
   const handleSubmit = async (values: FormValues, { setSubmitting }: any) => {
+    console.log('SESSION PÅ FRONTEND: ', session);
     try {
-      const zip = parseInt(values.postalCode, 10);
-      for (const item of cart) {
-        await updateStock(item.id, item.quantity);
-      }
+      const zip = parseInt(values.postalCode || '0', 10);
 
-      const shippingAddressId = await saveAddress({
-        street: values.address,
-        zip: zip,
-        city: values.city,
-        email: values.email,
-      });
+      const shippingAddressId =
+        (await saveAddress({
+          street: values.address,
+          zip: zip,
+          city: values.city,
+          email: values.email,
+        })) || 0;
 
       setCustomerData(values);
       setOrderItems(cart);
+
+      await createOrder(cart, shippingAddressId);
+
       clearCartSilently();
       router.push('/confirmation');
     } catch (error) {
@@ -48,15 +52,15 @@ export default function CheckoutForm() {
     }
   };
 
-  const handleOrder = async () => {
-    try {
-      for (const item of cart) {
-        await updateStock(item.id, item.quantity);
-      }
-    } catch (error) {
-      console.error('Error handling order:', error);
-    }
-  };
+  // const handleOrder = async () => {
+  //   try {
+  //     for (const item of cart) {
+  //       await updateStock(item.id, item.quantity);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error handling order:', error);
+  //   }
+  // };
 
   return (
     <Container
@@ -285,7 +289,7 @@ export default function CheckoutForm() {
               <Flex w="100%" justifyContent="space-between">
                 <Button
                   type="submit"
-                  onClick={handleOrder}
+                  // onClick={handleOrder}
                   w="7rem"
                   bg="#E4A757"
                   _hover={{ bg: '#efdbc2' }}
