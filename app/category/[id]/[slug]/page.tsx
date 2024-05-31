@@ -26,15 +26,18 @@ export default async function CategoryPage(props: Props) {
   return (
     <Box>
       <Heading
-        backgroundImage={category?.imageUrl ?? undefined}
+        backgroundImage={
+          category?.imageUrl ? `url(${category.imageUrl})` : undefined
+        }
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
+        backgroundColor={category?.imageUrl ? 'transparent' : '#FEE0B3'}
         height="40"
-        color="White"
+        color={category?.imageUrl ? 'white' : 'black'}
         width="80%"
         ml="10%"
         mt={8}
-        p={6}
+        p={10}
       >
         {category?.name}
       </Heading>
