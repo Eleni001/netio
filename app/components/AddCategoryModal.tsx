@@ -32,9 +32,11 @@ export default function AddCategoryButton() {
       name: '',
       slug: '',
       id: 0,
+      imageUrl: '',
     },
     validationSchema: NewCategorySchema,
     onSubmit: async (values: Category, { resetForm }) => {
+      console.log(values);
       try {
         await createCategory(values);
         toast({
@@ -65,6 +67,8 @@ export default function AddCategoryButton() {
       onClose(); // Close the modal on form submission
     },
   });
+
+  console.log(formik.values.imageUrl);
 
   return (
     <>
@@ -131,6 +135,26 @@ export default function AddCategoryButton() {
                 {formik.touched.slug && formik.errors.slug ? (
                   <FormHelperText color="red.500">
                     {formik.errors.slug}
+                  </FormHelperText>
+                ) : (
+                  <FormHelperText></FormHelperText>
+                )}
+              </FormControl>
+              <FormControl
+                isInvalid={formik.touched.imageUrl && !!formik.errors.imageUrl}
+              >
+                <FormLabel htmlFor="imageUrl">Image</FormLabel>
+                <Input
+                  type="text"
+                  id="imageUrl"
+                  name="imageUrl"
+                  value={formik.values.imageUrl || ''}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.imageUrl && formik.errors.imageUrl ? (
+                  <FormHelperText color="red.500">
+                    {formik.errors.imageUrl}
                   </FormHelperText>
                 ) : (
                   <FormHelperText></FormHelperText>

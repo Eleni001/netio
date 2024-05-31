@@ -65,6 +65,7 @@ export const ProductSchema = Yup.object().shape({
 export const NewCategorySchema = Yup.object().shape({
   name: Yup.string().required("Category name is required"),
   slug: Yup.string().required("Category slug is required"),
+  imageUrl: Yup.string()
 });
 
 export interface CartItem extends Product {

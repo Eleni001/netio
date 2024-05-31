@@ -125,7 +125,7 @@ export const createCategory = async (values: Category) => {
   if (doesCategoryExist) return { status };
 
   const category = await db.category.create({
-    data: { name: values.name, slug: values.slug },
+    data: values,
   });
 };
 
