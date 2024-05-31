@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-import { createCategory } from "./seedScripts/category";
-import { createProducts } from "./seedScripts/products";
-import { createUser } from "./seedScripts/users";
+import { PrismaClient } from '@prisma/client';
+import { createCategory } from './seedScripts/category';
+import { createProducts } from './seedScripts/products';
+import { createUser } from './seedScripts/users';
 
 const db = new PrismaClient();
 async function main() {

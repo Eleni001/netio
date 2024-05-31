@@ -61,7 +61,12 @@ export default function HeaderComponents({ session, categories }: Props) {
             <SearchNav />
           </Flex>
           <Link href="/" _hover={{ color: 'brown' }} textDecor="none" w="30%">
-            <Heading as="h1" w="30%" fontSize={{ base: '1rem', md: '1.4rem' }}>
+            <Heading
+              as="h1"
+              w="30%"
+              fontSize={{ base: '1rem', md: '1.4rem' }}
+              whiteSpace="nowrap"
+            >
               NETIO
             </Heading>
           </Link>

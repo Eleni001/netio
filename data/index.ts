@@ -2,8 +2,8 @@
  * Beskriver en produkt som ska säljas på sidan.
  * OBS: Kan utökas men inte ändras pga cypress.
  **/
-import { Product } from "@prisma/client";
-import * as Yup from "yup";
+import { Product } from '@prisma/client';
+import * as Yup from 'yup';
 //
 
 export interface FormValues {
@@ -18,53 +18,54 @@ export interface FormValues {
 
 export const ValidationSchema = Yup.object({
   email: Yup.string()
-    .email("Invalid email address")
-    .required("Please enter your email"),
-  firstName: Yup.string().required("Please enter your first name"),
+    .email('Invalid email address')
+    .required('Please enter your email'),
+  firstName: Yup.string().required('Please enter your first name'),
   //   lastName: Yup.string().required("Please enter your last name"),
-  address: Yup.string().required("Please enter your address"),
-  city: Yup.string().required("Please enter your city"),
+  address: Yup.string().required('Please enter your address'),
+  city: Yup.string().required('Please enter your city'),
   phone: Yup.string()
     .matches(
       /^\+46\d{7,9}$|0\d{1,2}-?\d{2,3} ?\d{2} ?\d{2}$|^07\d{1}-?\d{3} ?\d{2} ?\d{2}$/,
-      "Invalid phone number format",
+      'Invalid phone number format',
     )
-    .required("Please enter your phone number"),
+    .required('Please enter your phone number'),
 
   postalCode: Yup.string()
-    .matches(/^(\d{3} \d{2}|\d{5})$/, "Invalid postal code format")
-    .required("Please enter your postal code"),
+    .matches(/^(\d{3} \d{2}|\d{5})$/, 'Invalid postal code format')
+    .required('Please enter your postal code'),
 });
 
 export const ProductSchema = Yup.object().shape({
   imageUrl: Yup.string()
-    .required("Please enter the image url")
+    .required('Please enter the image url')
     .url()
     .nullable(),
-  title: Yup.string().required("Please enter the product title"),
-  desc: Yup.string().required("Please enter the product description"),
+  title: Yup.string().required('Please enter the product title'),
+  desc: Yup.string().required('Please enter the product description'),
   categories: Yup.array()
     .of(Yup.string().required())
-    .min(1, "Please select at least one category")
-    .required("Please select at least one category"),
+    .min(1, 'Please select at least one category')
+    .required('Please select at least one category'),
   price: Yup.number()
     .transform((value, originalValue) => {
-      return originalValue === "" ? NaN : Number(originalValue);
+      return originalValue === '' ? NaN : Number(originalValue);
     })
-    .required("Please enter the product price")
+    .required('Please enter the product price')
     .test(
-      "is-greater-than-zero",
-      "Price must be greater than zero",
+      'is-greater-than-zero',
+      'Price must be greater than zero',
       (value) => value > 0,
     ),
   stock: Yup.number()
-    .required("Please enter the stock amount")
-    .min(0, "Stock cannot be negative"),
+    .required('Please enter the stock amount')
+    .min(0, 'Stock cannot be negative'),
 });
 
 export const NewCategorySchema = Yup.object().shape({
-  name: Yup.string().required("Category name is required"),
-  slug: Yup.string().required("Category slug is required"),
+  name: Yup.string().required('Category name is required'),
+  slug: Yup.string().required('Category slug is required'),
+  imageUrl: Yup.string(),
 });
 
 export interface CartItem extends Product {

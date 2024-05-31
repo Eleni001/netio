@@ -6,11 +6,11 @@ interface Props {
   categories: Category[];
 }
 export default function NavLinks(props: Props) {
+  props.categories.map((c) => c.id);
   return (
     <Flex
       justify="center"
       p="0.3rem"
-      //   bg='#f3f1ed'
       gap="2rem"
       borderTop="1px solid #e1dcd6"
       fontSize="1.2rem"

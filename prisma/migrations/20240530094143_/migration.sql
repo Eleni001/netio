@@ -42,7 +42,9 @@ CREATE TABLE "Product" (
 -- CreateTable
 CREATE TABLE "Category" (
     "id" SERIAL NOT NULL,
-    "categoryName" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
+    "imageUrl" TEXT,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
@@ -53,7 +55,8 @@ CREATE TABLE "Order" (
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL,
     "shippingAddressId" INTEGER NOT NULL,
-    "total" DECIMAL(65,30) NOT NULL,
+    "total" DOUBLE PRECISION NOT NULL,
+    "sentStatus" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
 );
@@ -63,7 +66,7 @@ CREATE TABLE "OrderRow" (
     "orderId" INTEGER NOT NULL,
     "productId" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
-    "subTotal" DECIMAL(65,30) NOT NULL,
+    "subTotal" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "OrderRow_pkey" PRIMARY KEY ("orderId","productId")
 );
@@ -115,7 +118,10 @@ CREATE TABLE "_CategoryToProduct" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Order_userId_key" ON "Order"("userId");
+CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Category_slug_key" ON "Category"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");

@@ -24,7 +24,7 @@ export async function getProductsByCategorySlug(slug: string) {
     where: { categories: { some: { id: category?.id } } },
     include: { categories: true },
   });
-  return products;
+  return { category, products };
 }
 
 export const createProduct = async (values: ProductWithCategoriesIds) => {
@@ -126,7 +126,7 @@ export const createCategory = async (values: Category) => {
   if (doesCategoryExist) return { status };
 
   const category = await db.category.create({
-    data: { name: values.name, slug: values.slug },
+    data: values,
   });
 };
 
