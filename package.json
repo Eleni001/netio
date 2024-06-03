@@ -13,7 +13,11 @@
     "studio": "prisma studio",
     "seed": "prisma db seed",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "postinstall": "prisma generate",
+    "vercel-build" : "prisma migrate deploy && next build",
+    "types": "tsc --noEmit"
+
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -28,7 +32,8 @@
     "@hookform/resolvers": "^3.4.0",
     "@neondatabase/serverless": "^0.9.3",
     "@prisma/adapter-neon": "^5.14.0",
-    "@prisma/client": "^5.13.0",
+    "@prisma/client": "^5.14.0",
+    "@prisma/extension-accelerate": "^1.1.0",
     "formik": "^2.4.5",
     "framer-motion": "^11.0.8",
     "next": "14.1.1",
