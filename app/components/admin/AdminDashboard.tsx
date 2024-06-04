@@ -87,7 +87,6 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                 color="white"
                 onClick={onClose}
                 _hover={{ bg: 'green.300 ' }}
-                data-cy="confirm-delete-button"
               >
                 Cancel
               </Button>
@@ -130,7 +129,7 @@ export default function AdminDashboard({ products: newProducts }: Props) {
               }
 
               return (
-                <Tr key={product.id} data-cy="product">
+                <Tr key={product.id}>
                   <Td
                     display="flex"
                     justifyContent="center"
@@ -143,23 +142,20 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                       height={80}
                     />
                   </Td>
-                  <Td data-cy="product-id">{product.id}</Td>
-                  <Td data-cy="product-title">{product.title}</Td>
-                  <Td
-                    style={{ whiteSpace: 'normal', width: '300px' }}
-                    data-cy="product-description"
-                  >
+                  <Td>{product.id}</Td>
+                  <Td>{product.title}</Td>
+                  <Td style={{ whiteSpace: 'normal', width: '300px' }}>
                     {product.desc.length > 100
                       ? `${product.desc.slice(0, 50)}...`
                       : product.desc}
                   </Td>
-                  <Td data-cy="product-price">
+                  <Td>
                     {product.categories
                       .map((category) => category.name)
                       .join(', ')}
                   </Td>
-                  <Td data-cy="product-price">{product.stock}</Td>
-                  <Td data-cy="product-price">{product.price}</Td>
+                  <Td>{product.stock}</Td>
+                  <Td>{product.price}</Td>
                   <Td>
                     {!product.isArchived && (
                       <Flex justify="center" alignItems="center" height="100%">
@@ -168,7 +164,6 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                           _hover={{ textDecoration: 'none' }}
                         >
                           <Button
-                            data-cy="admin-edit-product"
                             bg="rgba(78, 199, 145, 1)"
                             color="white"
                             size="sm"
@@ -182,7 +177,6 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                           </Button>
                         </Link>
                         <Button
-                          data-cy="admin-remove-product"
                           colorScheme="red"
                           size="sm"
                           _hover={{

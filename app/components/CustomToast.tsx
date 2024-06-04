@@ -9,7 +9,6 @@ interface Props {
 export default function CustomToast(props: Props) {
   return (
     <Box
-      data-cy="added-to-cart-toast"
       bg={props.toastSuccess ? 'green.500' : 'red.500'}
       color="white"
       p={3}

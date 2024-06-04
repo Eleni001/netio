@@ -36,7 +36,6 @@ export default function AddCategoryButton() {
     },
     validationSchema: NewCategorySchema,
     onSubmit: async (values: Category, { resetForm }) => {
-      console.log(values);
       try {
         await createCategory(values);
         toast({
@@ -63,12 +62,10 @@ export default function AddCategoryButton() {
           isClosable: true,
         });
       }
-      resetForm(); // Reset the form values
-      onClose(); // Close the modal on form submission
+      resetForm();
+      onClose();
     },
   });
-
-  console.log(formik.values.imageUrl);
 
   return (
     <>
