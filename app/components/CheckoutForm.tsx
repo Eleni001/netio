@@ -13,7 +13,6 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { createOrder, saveAddress } from '../actions/actions';
 import { useCart } from '../contexts/CartContext';
@@ -23,10 +22,9 @@ export default function CheckoutForm() {
   const router = useRouter();
   const { setCustomerData, setOrderItems } = useCustomer();
   const { clearCartSilently, cart } = useCart();
-  const session = useSession();
 
+  // DAVID
   const handleSubmit = async (values: FormValues, { setSubmitting }: any) => {
-    console.log('SESSION PÅ FRONTEND: ', session);
     try {
       const zip = parseInt(values.postalCode || '0', 10);
 
@@ -38,10 +36,11 @@ export default function CheckoutForm() {
           email: values.email,
         })) || 0;
 
-      setCustomerData(values);
       setOrderItems(cart);
 
-      await createOrder(cart, shippingAddressId);
+      const order = await createOrder(cart, shippingAddressId);
+      const valueWithOrder = { ...values, order: order };
+      setCustomerData(valueWithOrder);
 
       clearCartSilently();
       router.push('/confirmation');
@@ -51,16 +50,6 @@ export default function CheckoutForm() {
       setSubmitting(false);
     }
   };
-
-  // const handleOrder = async () => {
-  //   try {
-  //     for (const item of cart) {
-  //       await updateStock(item.id, item.quantity);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error handling order:', error);
-  //   }
-  // };
 
   return (
     <Container
@@ -85,7 +74,7 @@ export default function CheckoutForm() {
         onSubmit={handleSubmit}
       >
         {(props) => (
-          <Form data-cy="customer-form">
+          <Form>
             <Field name="email">
               {({ field, form }: any) => (
                 <FormControl
@@ -95,13 +84,10 @@ export default function CheckoutForm() {
                   <FormLabel>Email address</FormLabel>
                   <Input
                     {...field}
-                    data-cy="customer-email"
                     autoComplete="email"
                     focusBorderColor="brand.400"
                   />
-                  <FormErrorMessage data-cy="customer-email-error">
-                    {form.errors.email}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -115,13 +101,10 @@ export default function CheckoutForm() {
                     <FormLabel>First Name</FormLabel>
                     <Input
                       {...field}
-                      data-cy="customer-name"
                       autoComplete="name"
                       focusBorderColor="brand.400"
                     />
-                    <FormErrorMessage data-cy="customer-name-error">
-                      {form.errors.firstName}
-                    </FormErrorMessage>
+                    <FormErrorMessage>{form.errors.firstName}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -169,11 +152,8 @@ export default function CheckoutForm() {
                     w="full"
                     h="2.5rem"
                     rounded="md"
-                    data-cy="customer-city"
                   />
-                  <FormErrorMessage data-cy="customer-city-error">
-                    {form.errors.city}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{form.errors.city}</FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -205,11 +185,8 @@ export default function CheckoutForm() {
                     w="full"
                     h="2.5rem"
                     rounded="md"
-                    data-cy="customer-address"
                   />
-                  <FormErrorMessage data-cy="customer-address-error">
-                    {form.errors.address}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{form.errors.address}</FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -241,11 +218,8 @@ export default function CheckoutForm() {
                     w="full"
                     h="2.5rem"
                     rounded="md"
-                    data-cy="customer-phone"
                   />
-                  <FormErrorMessage data-cy="customer-phone-error">
-                    {form.errors.phone}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{form.errors.phone}</FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -277,11 +251,8 @@ export default function CheckoutForm() {
                     w="full"
                     h="2.5rem"
                     rounded="md"
-                    data-cy="customer-zipcode"
                   />
-                  <FormErrorMessage data-cy="customer-zipcode-error">
-                    {form.errors.postalCode}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{form.errors.postalCode}</FormErrorMessage>
                 </FormControl>
               )}
             </Field>

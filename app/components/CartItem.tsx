@@ -28,7 +28,6 @@ export default function CartItem({ item }: CartItemProps) {
 
   return (
     <Card
-      data-cy="cart-item"
       direction="row"
       overflow="hidden"
       variant="outline"
@@ -66,7 +65,7 @@ export default function CartItem({ item }: CartItemProps) {
 
       <Stack width="100%">
         <CardBody flexDir="column" gap="3">
-          <Heading size="md" data-cy="product-title" textTransform="capitalize">
+          <Heading size="md" textTransform="capitalize">
             {item.title}
           </Heading>
           <Text py="2" fontSize="1rem">
@@ -79,11 +78,10 @@ export default function CartItem({ item }: CartItemProps) {
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          data-cy="quantity-controls"
           fontSize="1.3rem"
           width="100%"
         >
-          <Text fontSize="1rem" fontWeight="semibold" data-cy="product-price">
+          <Text fontSize="1rem" fontWeight="semibold">
             Total: {calculatePrice()} kr
           </Text>
 
@@ -92,12 +90,11 @@ export default function CartItem({ item }: CartItemProps) {
               bg="#D9D9D9"
               size="30px"
               onClick={() => removeFromCart(item)}
-              data-cy="decrease-quantity-button"
               _hover={{ cursor: 'pointer', transform: 'scale(1.1)' }}
             >
               <MinusIcon />
             </Square>
-            <Square bg="#f4f2f2" size="30px" data-cy="product-quantity">
+            <Square bg="#f4f2f2" size="30px">
               <Text>{item.quantity}</Text>
             </Square>
             <Square
@@ -105,7 +102,6 @@ export default function CartItem({ item }: CartItemProps) {
               size="30px"
               onClick={() => addToCart(item)}
               _hover={{ cursor: 'pointer', transform: 'scale(1.1)' }}
-              data-cy="increase-quantity-button"
             >
               <AddIcon />
             </Square>

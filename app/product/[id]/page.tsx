@@ -53,12 +53,7 @@ export default async function ProductDetail({ params }: PageProps) {
             >
               {product.title}
             </Heading>
-            <Text
-              data-cy="product-price"
-              color="gray.900"
-              fontWeight={300}
-              fontSize={'2xl'}
-            >
+            <Text color="gray.900" fontWeight={300} fontSize={'2xl'}>
               {product.price} SEK
             </Text>
           </Box>
@@ -69,9 +64,7 @@ export default async function ProductDetail({ params }: PageProps) {
             divider={<StackDivider borderColor="gray.600" />}
           >
             <VStack spacing={{ base: 4, sm: 6 }}>
-              <Text data-cy="product-description" fontSize={'lg'}>
-                {product.desc}
-              </Text>
+              <Text fontSize={'lg'}>{product.desc}</Text>
             </VStack>
           </Stack>
           <AddToCartButton product={product} />

@@ -9,7 +9,6 @@ export default async function AdminEditProductPage({ params }: PageProps) {
   const categories = await getAllCategorys();
   const param = Number(params.id);
   const product = products.find((p) => p.id === param);
-  console.log(product);
 
   if (!product) {
     return (

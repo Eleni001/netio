@@ -51,7 +51,6 @@ export default async function CategoryPage(props: Props) {
         >
           {products.map((product) => (
             <GridItem
-              data-cy="product-id"
               key={product.id}
               boxShadow="1px 1px 2px rgba(0,0,0,0.1)"
               transition={'transform 0.2s ease-in-out'}
@@ -74,14 +73,13 @@ export default async function CategoryPage(props: Props) {
                       mt="1.5rem"
                     >
                       <Text
-                        data-cy="product-title"
                         fontWeight="semibold"
                         textTransform="capitalize"
                         _hover={{ color: 'brown' }}
                       >
                         {product.title}
                       </Text>
-                      <Text data-cy="product-price" _hover={{ color: 'brown' }}>
+                      <Text _hover={{ color: 'brown' }}>
                         {product.price} kr
                       </Text>
                       {product.stock === 0 ? (
