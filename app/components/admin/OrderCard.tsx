@@ -1,3 +1,5 @@
+'use client';
+import { deleteOrder } from '@/app/actions/actions';
 import { OrderWithInformation } from '@/app/types';
 import {
   Button,
@@ -9,8 +11,11 @@ import {
   Th,
   Thead,
   Tr,
+  useToast,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useState } from 'react';
+import CustomToast from '../CustomToast';
 import OrderSentButton from './OrderSentButton';
 
 interface Props {
@@ -18,66 +23,41 @@ interface Props {
 }
 
 export default function OrderCard(props: Props) {
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      const response = await deleteOrder(Number(props.order.id));
+
+      if (response?.success) {
+        toast({
+          render: () => (
+            <CustomToast
+              toastSuccess={true}
+              toastTitle="Successfully deleted order"
+              toastContent="Order deleted successfully."
+            />
+          ),
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        alert('Failed to delete order: ' + response?.error);
+      }
+    } catch (error) {
+      <CustomToast
+        toastSuccess={false}
+        toastTitle="Error"
+        toastContent="An error occurred while deleting the order."
+      />;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    // <Card
-    //   direction={{ base: 'column', sm: 'row' }}
-    //   overflow="hidden"
-    //   variant="outline"
-    // >
-    //   <Stack>
-    //     <CardBody>
-    //       <Flex direction={'row'} justifyContent={'space-between'}>
-    //         <Heading size="md">
-    //           <Text>Ordernumber: {props.order.id}</Text>
-    //         </Heading>
-    //         <Text>Created at: {JSON.stringify(props.order.createdAt)}</Text>
-    //       </Flex>
-    //       {/* DAVID!!!! only plain objects can be passed to prisma.....> */}
-    //       <OrderSentButton order={props.order} />
-
-    //       <Flex direction={'column'}>
-    //         <Text py="2">Name: {props.order.user.name}</Text>
-    //         <Text>{props.order.shippingAddress.street}</Text>
-    //         <Text>{props.order.shippingAddress.zip}</Text>
-    //         <Text>{props.order.shippingAddress.city}</Text>
-    //         <Text>{props.order.shippingAddress.email}</Text>
-    //         <Text>{JSON.stringify(props.order.total)}kr</Text>
-
-    //         {props.order.orderRows.map((orderRow, index) => (
-    //           <Box
-    //             key={index}
-    //             mt={4}
-    //             p={2}
-    //             border="1px solid"
-    //             borderRadius="md"
-    //           >
-    //             <Image
-    //               src={orderRow.product.imageUrl}
-    //               width={50}
-    //               height={50}
-    //               alt="image"
-    //             />
-    //             <Text>Product Name: {orderRow.product.title}</Text>
-    //             <Text>Quantity: {orderRow.quantity}</Text>
-    //             <Text>Price: {orderRow.product.price} kr</Text>
-    //           </Box>
-    //         ))}
-    //       </Flex>
-    //     </CardBody>
-
-    //     <CardFooter justifyContent={'space-between'}>
-    //       {/* <Button variant="solid" colorScheme="blue">
-    //         Show details
-    //       </Button> */}
-    //       <Button variant="solid" colorScheme="red">
-    //         Delete order
-    //       </Button>
-    //       {/* <Button variant="solid" colorScheme="yellow">
-    //         Change shipping status
-    //       </Button> */}
-    //     </CardFooter>
-    //   </Stack>
-    // </Card>
     <TableContainer>
       <Table variant="simple">
         <Thead>
@@ -121,6 +101,8 @@ export default function OrderCard(props: Props) {
               <Button
                 colorScheme="red"
                 size="sm"
+                isLoading={loading}
+                onClick={handleDelete}
                 _hover={{
                   transform: 'translateY(2px)',
                   boxShadow: 'lg',

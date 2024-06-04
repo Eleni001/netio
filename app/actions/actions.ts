@@ -192,3 +192,29 @@ export const createOrder = async (
     throw error;
   }
 };
+
+export const deleteOrder = async (orderId: number) => {
+  try {
+    const session = await auth();
+    if (!session?.user.isAdmin) return null;
+
+    await db.orderRow.deleteMany({
+      where: {
+        orderId: orderId,
+      },
+    });
+
+    await db.order.delete({
+      where: {
+        id: orderId,
+      },
+    });
+    console.log('Order deleted successfully');
+    revalidatePath('/admin/orders');
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to delete order:', error);
+    return { success: false, error: error };
+  }
+};
+
