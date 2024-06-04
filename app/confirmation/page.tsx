@@ -20,8 +20,29 @@ import {
 } from '@chakra-ui/react';
 import { useCustomer } from '../contexts/CustomerContext';
 
+function generateRandomOrderNumber(length: number): string {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let orderNumber = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    orderNumber += characters[randomIndex];
+  }
+
+  return orderNumber;
+}
+
 export default function Confirmation() {
+  const orderNumber = generateRandomOrderNumber(12);
   const { customerData, orderItems } = useCustomer();
+
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+    orderItems.forEach((item) => {
+      totalPrice += item.price * item.quantity;
+    });
+    return totalPrice;
+  };
 
   return (
     <Container maxW="container.lg" py={10} px={0}>
@@ -32,18 +53,21 @@ export default function Confirmation() {
         <Text mb={6}>
           Order Number:{' '}
           <Text as="span" fontWeight="bold">
-            {customerData.order.id}
+            {orderNumber}
           </Text>
         </Text>
         <Text>Hello</Text>
         <Text mb={4}>Thank you for choosing to shop with us.</Text>
         <Text mb={6}>
+          {' '}
           We understand that you are just dying to get your new design favorite
           home, and we promise to do our best to ship your order as soon as we
           can. Our ambition is to help you create a home to love and to which
           you proudly open the door. We therefore hope that you will be
           completely satisfied with your order. Welcome back. Nest Desgin
         </Text>
+        <Text fontWeight="bold">Welcome Back.</Text>
+        <Text>Next Design </Text>
       </Box>
       <Table variant="simple" mt={6} mb={6}>
         <Thead bg="gray.200">
@@ -77,7 +101,7 @@ export default function Confirmation() {
             <Td fontWeight="bold" colSpan={2}>
               Total:
             </Td>
-            <Td fontWeight="bold">{customerData.order.total} kr</Td>
+            <Td fontWeight="bold">{calculateTotalPrice()} kr</Td>
           </Tr>
         </Tfoot>
       </Table>
