@@ -1,4 +1,5 @@
 import { CartItem } from '@/data';
+import { Order } from '@prisma/client';
 import {
   Dispatch,
   PropsWithChildren,
@@ -16,6 +17,7 @@ interface CustomerData {
   city: string;
   phone: string;
   postalCode: string;
+  order: Order;
 }
 
 interface CustomerContextValue {
@@ -37,6 +39,14 @@ function CustomerContextProvider(props: PropsWithChildren) {
     city: '',
     phone: '',
     postalCode: '',
+    order: {
+      id: 0,
+      total: 0,
+      createdAt: new Date(),
+      sentStatus: false,
+      shippingAddressId: 0,
+      userId: '',
+    },
   });
 
   return (

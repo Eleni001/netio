@@ -36,10 +36,11 @@ export default function CheckoutForm() {
           email: values.email,
         })) || 0;
 
-      setCustomerData(values);
       setOrderItems(cart);
 
-      await createOrder(cart, shippingAddressId);
+      const order = await createOrder(cart, shippingAddressId);
+      const valueWithOrder = { ...values, order: order };
+      setCustomerData(valueWithOrder);
 
       clearCartSilently();
       router.push('/confirmation');
