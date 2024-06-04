@@ -18,6 +18,7 @@ import { createProduct, updateProduct } from '../actions/actions';
 import { ProductWithCategories, ProductWithCategoriesIds } from '../types';
 import CategoryBox from './CategoryBox';
 import CustomToast from './CustomToast';
+import { revalidatePath } from 'next/cache';
 
 interface Props {
   product?: ProductWithCategories;
@@ -45,6 +46,7 @@ export default function ProductForm(props: Props) {
         isClosable: true,
       });
       router.push('/admin');
+      revalidatePath('/category');
     } else {
       await createProduct(values);
       toast({
@@ -59,6 +61,7 @@ export default function ProductForm(props: Props) {
         isClosable: true,
       });
       router.push('/admin');
+      revalidatePath('/category');
     }
   };
 
