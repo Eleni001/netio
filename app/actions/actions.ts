@@ -218,39 +218,3 @@ export const deleteOrder = async (orderId: number) => {
   }
 };
 
-// export const createOrderRow = async (
-//   orderId: number,
-//   productId: number,
-//   quantity: number,
-//   subTotal: number,
-// ) => {
-//   return runAction(async () => {
-//     const orderRow = await db.orderRow.create({
-//       data: {
-//         orderId: orderId,
-//         productId: productId,
-//         quantity: quantity,
-//         subTotal: subTotal,
-//       },
-//       include: {
-//         order: true,
-//         product: true,
-//       },
-//     });
-//     return orderRow;
-//   })
-// };
-
-// function runAction<T>(
-//   callback: () => Promise<T>,
-// ) {
-//   try {
-//     return callback();
-//   } catch (error: unknown) {
-//     // if (error instanceof z.ZodError)
-//     // Pinga Discord/Slack
-//     // process.env.NODE_ENV === 'development'
-//     console.error(error);
-//     throw error;
-//   }
-// }
