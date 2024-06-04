@@ -1,18 +1,7 @@
 'use client';
 import { deleteOrder } from '@/app/actions/actions';
 import { OrderWithInformation } from '@/app/types';
-import {
-  Button,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
-  useToast,
-} from '@chakra-ui/react';
+import { Button, Td, Tr, useToast } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import CustomToast from '../CustomToast';
@@ -58,74 +47,44 @@ export default function OrderCard(props: Props) {
   };
 
   return (
-    <TableContainer>
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Order Status</Th>
-            <Th>Order Number</Th>
-            <Th>Created at</Th>
-            <Th>Name</Th>
-            <Th>Address</Th>
-            <Th>Total price</Th>
-            <Th>Total Items</Th>
-            <Th isNumeric>Button</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          <Tr>
-            <Td>
-              <OrderSentButton order={props.order} />
-            </Td>
-            <Td>{props.order.id}</Td>
-            <Td>{JSON.stringify(props.order.createdAt)}</Td>
-            <Td>{props.order.user.name}</Td>
-            <Td>{props.order.shippingAddress.street}</Td>
-            <Td>{JSON.stringify(props.order.total)}kr</Td>
-            <Td></Td>
-            <Td isNumeric>
-              <Link href={`/admin/orders/details/${props.order.id}`}>
-                <Button
-                  bg="rgba(78, 199, 145, 1)"
-                  color="white"
-                  size="sm"
-                  mr="3px"
-                  _hover={{
-                    transform: 'translateY(2px)',
-                    boxShadow: 'lg',
-                  }}
-                >
-                  Details
-                </Button>
-              </Link>
-              <Button
-                colorScheme="red"
-                size="sm"
-                isLoading={loading}
-                onClick={handleDelete}
-                _hover={{
-                  transform: 'translateY(2px)',
-                  boxShadow: 'lg',
-                }}
-              >
-                Delete
-              </Button>
-            </Td>
-          </Tr>
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>Order Status</Th>
-            <Th>Order Number</Th>
-            <Th>Created at</Th>
-            <Th>Name</Th>
-            <Th>Address</Th>
-            <Th>Total price</Th>
-            <Th>Total Items</Th>
-            <Th isNumeric>Button</Th>
-          </Tr>
-        </Tfoot>
-      </Table>
-    </TableContainer>
+    <Tr>
+      <Td>
+        <OrderSentButton order={props.order} />
+      </Td>
+      <Td>{props.order.id}</Td>
+      <Td>{JSON.stringify(props.order.createdAt)}</Td>
+      <Td>{props.order.user.name}</Td>
+      <Td>{props.order.shippingAddress.street}</Td>
+      <Td>{JSON.stringify(props.order.total)}kr</Td>
+      <Td></Td>
+      <Td isNumeric>
+        <Link href={`/admin/orders/details/${props.order.id}`}>
+          <Button
+            bg="rgba(78, 199, 145, 1)"
+            color="white"
+            size="sm"
+            mr="3px"
+            _hover={{
+              transform: 'translateY(2px)',
+              boxShadow: 'lg',
+            }}
+          >
+            Details
+          </Button>
+        </Link>
+        <Button
+          colorScheme="red"
+          size="sm"
+          isLoading={loading}
+          onClick={handleDelete}
+          _hover={{
+            transform: 'translateY(2px)',
+            boxShadow: 'lg',
+          }}
+        >
+          Delete
+        </Button>
+      </Td>
+    </Tr>
   );
 }
