@@ -42,20 +42,22 @@ export default function NavIcons({ session }: Props) {
           </Icon>
         </NextLink>
       )}
-      <NextLink href="/user" color="black">
-        {' '}
-        <Icon
-          fontSize="1.7rem"
-          transition={'transform 0.2s ease-in-out'}
-          _hover={{
-            cursor: 'pointer',
-            color: 'brown',
-            transform: 'scale(1.2)',
-          }}
-        >
-          <IoPersonOutline size="1.6rem" />
-        </Icon>
-      </NextLink>
+      {session?.user && (
+        <NextLink href="/user" color="black">
+          <Icon
+            fontSize="1.7rem"
+            transition={'transform 0.2s ease-in-out'}
+            _hover={{
+              cursor: 'pointer',
+              color: 'brown',
+              transform: 'scale(1.2)',
+            }}
+          >
+            <IoPersonOutline size="1.6rem" />
+          </Icon>
+        </NextLink>
+      )}
+
       {session ? (
         <NextLink href="/signout" passHref color="black">
           <Icon
