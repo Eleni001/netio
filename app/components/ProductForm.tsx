@@ -10,7 +10,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { Category } from '@prisma/client';
-import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { createProduct, updateProduct } from '../actions/actions';
@@ -27,12 +27,8 @@ export default function ProductForm(props: Props) {
   const router = useRouter();
   const isEdit = Boolean(props.product);
 
-  const handleSubmit = async (
-    values: ProductWithCategoriesIds,
-    formikHelpers: FormikHelpers<ProductWithCategoriesIds>,
-  ) => {
+  const handleSubmit = async (values: ProductWithCategoriesIds) => {
     if (isEdit) {
-      console.log(values);
       await updateProduct(values);
       router.push('/admin');
     } else {
@@ -40,12 +36,6 @@ export default function ProductForm(props: Props) {
       router.push('/admin');
     }
   };
-
-  console.log(
-    props.categories,
-    props.product,
-    props.product?.categories.map((cat) => cat.id) || [],
-  );
 
   return (
     <Container>
@@ -75,7 +65,7 @@ export default function ProductForm(props: Props) {
             }
           };
           return (
-            <Form data-cy="product-form">
+            <Form>
               <Field name="title">
                 {({ field, form }: any) => (
                   <FormControl
@@ -85,13 +75,10 @@ export default function ProductForm(props: Props) {
                     <FormLabel>Title</FormLabel>
                     <Input
                       {...field}
-                      data-cy="product-title"
                       autoComplete="title"
                       focusBorderColor="brand.400"
                     />
-                    <FormErrorMessage data-cy="product-title-error">
-                      {form.errors.title}
-                    </FormErrorMessage>
+                    <FormErrorMessage>{form.errors.title}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -104,13 +91,10 @@ export default function ProductForm(props: Props) {
                     <FormLabel>Description</FormLabel>
                     <Input
                       {...field}
-                      data-cy="product-description"
                       autoComplete="desc"
                       focusBorderColor="brand.400"
                     />
-                    <FormErrorMessage data-cy="product-description-error">
-                      {form.errors.desc}
-                    </FormErrorMessage>
+                    <FormErrorMessage>{form.errors.desc}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -133,7 +117,7 @@ export default function ProductForm(props: Props) {
                         />
                       ))}
                     </Stack>
-                    <FormErrorMessage data-cy="product-categories-error">
+                    <FormErrorMessage>
                       {form.errors.categories}
                     </FormErrorMessage>
                   </FormControl>
@@ -148,13 +132,10 @@ export default function ProductForm(props: Props) {
                     <FormLabel>Image</FormLabel>
                     <Input
                       {...field}
-                      data-cy="product-image"
                       focusBorderColor="brand.400"
                       onChange={handleImageChange}
                     />
-                    <FormErrorMessage data-cy="product-image-error">
-                      {form.errors.imageUrl}
-                    </FormErrorMessage>
+                    <FormErrorMessage>{form.errors.imageUrl}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -167,13 +148,10 @@ export default function ProductForm(props: Props) {
                     <FormLabel>Price</FormLabel>
                     <Input
                       {...field}
-                      data-cy="product-price"
                       autoComplete="price"
                       focusBorderColor="brand.400"
                     />
-                    <FormErrorMessage data-cy="product-price-error">
-                      {form.errors.price}
-                    </FormErrorMessage>
+                    <FormErrorMessage>{form.errors.price}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -186,13 +164,10 @@ export default function ProductForm(props: Props) {
                     <FormLabel>Stock</FormLabel>
                     <Input
                       {...field}
-                      data-cy="product-price"
                       autoComplete="stock"
                       focusBorderColor="brand.400"
                     />
-                    <FormErrorMessage data-cy="product-price-error">
-                      {form.errors.stock}
-                    </FormErrorMessage>
+                    <FormErrorMessage>{form.errors.stock}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>

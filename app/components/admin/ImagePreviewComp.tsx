@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { DiProlog } from 'react-icons/di';
 
 export default function ImagePreviewComp() {
-  const [imagePreview, setImagePreview] = useState('');
+  const [imagePreview] = useState('');
   return (
     <Box
       bg="#FEF0D9"

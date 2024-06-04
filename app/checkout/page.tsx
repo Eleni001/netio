@@ -8,16 +8,15 @@ import {
   Flex,
   Text,
 } from '@chakra-ui/react';
+import { signIn, useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import CartItem from '../components/CartItem';
 import CheckoutForm from '../components/CheckoutForm';
 import { useCart } from '../contexts/CartContext';
-import { signIn, useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
 
 export default function CheckoutPage() {
   const { cart } = useCart();
-  console.log(cart);
   const calculateTotalPrice = () => {
     let totalPrice: number = 0; // Specify the type of totalPrice as number
     cart.forEach((item) => {
@@ -62,9 +61,7 @@ export default function CheckoutPage() {
           alignItems="end"
           p="1.5rem"
         >
-          <Text fontSize="1.5rem" data-cy="total-price">
-            Total: {calculateTotalPrice()}kr
-          </Text>
+          <Text fontSize="1.5rem">Total: {calculateTotalPrice()}kr</Text>
         </Card>
       </Flex>
       <Box position="relative" padding="10" mt="2rem">
