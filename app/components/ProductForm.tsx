@@ -8,6 +8,7 @@ import {
   FormLabel,
   Input,
   Stack,
+  useToast,
 } from '@chakra-ui/react';
 import { Category } from '@prisma/client';
 import { Field, Form, Formik } from 'formik';
@@ -16,6 +17,8 @@ import React from 'react';
 import { createProduct, updateProduct } from '../actions/actions';
 import { ProductWithCategories, ProductWithCategoriesIds } from '../types';
 import CategoryBox from './CategoryBox';
+import CustomToast from './CustomToast';
+import { revalidatePath } from 'next/cache';
 
 interface Props {
   product?: ProductWithCategories;
@@ -26,14 +29,39 @@ interface Props {
 export default function ProductForm(props: Props) {
   const router = useRouter();
   const isEdit = Boolean(props.product);
+  const toast = useToast();
 
   const handleSubmit = async (values: ProductWithCategoriesIds) => {
     if (isEdit) {
       await updateProduct(values);
+      toast({
+        render: () => (
+          <CustomToast
+            toastSuccess={true}
+            toastTitle="Successfully updated"
+            toastContent="Product have been updated"
+          />
+        ),
+        duration: 3000,
+        isClosable: true,
+      });
       router.push('/admin');
+      revalidatePath('/category');
     } else {
       await createProduct(values);
+      toast({
+        render: () => (
+          <CustomToast
+            toastSuccess={true}
+            toastTitle="Successfully created product"
+            toastContent="Product have been added"
+          />
+        ),
+        duration: 3000,
+        isClosable: true,
+      });
       router.push('/admin');
+      revalidatePath('/category');
     }
   };
 
