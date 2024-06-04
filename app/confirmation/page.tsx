@@ -23,14 +23,6 @@ import { useCustomer } from '../contexts/CustomerContext';
 export default function Confirmation() {
   const { customerData, orderItems } = useCustomer();
 
-  const calculateTotalPrice = () => {
-    let totalPrice = 0;
-    orderItems.forEach((item) => {
-      totalPrice += item.price * item.quantity;
-    });
-    return totalPrice;
-  };
-
   return (
     <Container maxW="container.lg" py={10} px={0}>
       <Box mb={4}>
