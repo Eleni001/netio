@@ -6,7 +6,11 @@ import {
   Button,
   Checkbox,
   Flex,
-  Link,
+  Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -26,6 +30,7 @@ import {
 import { Product } from '@prisma/client';
 import Image from 'next/image';
 import { useState } from 'react';
+import { BsThreeDots } from 'react-icons/bs';
 
 interface Props {
   products: ProductWithCategories[];
@@ -158,7 +163,44 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                   <Td>{product.price}</Td>
                   <Td>
                     {!product.isArchived && (
-                      <Flex justify="center" alignItems="center" height="100%">
+                      <Menu>
+                        <MenuButton
+                          as={Button}
+                          rounded={'full'}
+                          variant={'link'}
+                          cursor={'pointer'}
+                          minW={0}
+                        >
+                          <Icon color="black">
+                            <BsThreeDots />
+                          </Icon>
+                        </MenuButton>
+                        <MenuList>
+                          <MenuItem as="a" href={`product/${product.id}`}>
+                            <Button colorScheme="green">Edit</Button>
+                          </MenuItem>
+                          <MenuItem
+                            as="div"
+                            onClick={() => handleDeleteClick(product)}
+                          >
+                            <Button colorScheme="red">Delete</Button>
+                          </MenuItem>
+                        </MenuList>
+                      </Menu>
+                    )}
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </>
+  );
+}
+
+{
+  /* <Flex justify="center" alignItems="center" height="100%">
                         <Link
                           href={`product/${product.id}`}
                           _hover={{ textDecoration: 'none' }}
@@ -187,15 +229,5 @@ export default function AdminDashboard({ products: newProducts }: Props) {
                         >
                           Delete
                         </Button>
-                      </Flex>
-                    )}
-                  </Td>
-                </Tr>
-              );
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </>
-  );
+                      </Flex> */
 }
