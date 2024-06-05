@@ -22,7 +22,7 @@ export default async function CategoryPage(props: Props) {
   const { category, products } = await getProductsByCategorySlug(
     props.params.slug,
   );
-
+  const activeProducts = products.filter((product) => !product.isArchived);
   return (
     <Box>
       <Heading
@@ -41,7 +41,7 @@ export default async function CategoryPage(props: Props) {
       >
         {category?.name}
       </Heading>
-      {products.length > 0 ? (
+      {activeProducts.length > 0 ? (
         <SimpleGrid
           id="products-grid"
           width="80%"
@@ -49,7 +49,7 @@ export default async function CategoryPage(props: Props) {
           columns={{ base: 1, md: 3, lg: 4 }}
           gap={5}
         >
-          {products.map((product) => (
+          {activeProducts.map((product) => (
             <GridItem
               key={product.id}
               boxShadow="1px 1px 2px rgba(0,0,0,0.1)"
