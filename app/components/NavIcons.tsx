@@ -37,7 +37,6 @@ export default function NavIcons({ session }: Props) {
               transform: 'scale(1.2)',
             }}
           >
-            <IoPersonOutline size="1.6rem" />
             <RiAdminLine size="1.6rem" />
           </Icon>
         </NextLink>
