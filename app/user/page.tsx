@@ -1,3 +1,4 @@
+import { auth } from '@/auth';
 import { db } from '@/prisma/db';
 import {
   Box,
@@ -15,17 +16,27 @@ import {
 import UserOrderCard from '../components/admin/UserOrderCard';
 
 export default async function UserPage() {
+  const session = await auth();
+
+  if (!session || !session.user) {
+    return 'You must log in';
+  }
+
   const orders = await db.order.findMany({
+    where: {
+      userId: session.user.id,
+    },
     include: {
       user: true,
       shippingAddress: true,
       orderRows: { include: { product: true } },
     },
   });
+
   return (
     <Flex padding={10} flexDirection={'column'} gap={5}>
       <Center>
-        <Heading fontSize={30}>All Orders</Heading>
+        <Heading fontSize={30}>Your Orders</Heading>
       </Center>
       <Box overflowX="auto">
         <TableContainer>
@@ -39,13 +50,14 @@ export default async function UserPage() {
                 <Th>Address</Th>
                 <Th>Total price</Th>
                 <Th>Total Items</Th>
-                <Th isNumeric>Button</Th>
+                <Th isNumeric>Details</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {orders.map((order) => (
-                <UserOrderCard key={order.id} order={order} />
-              ))}
+              {session.user &&
+                orders.map((order) => (
+                  <UserOrderCard key={order.id} order={order} />
+                ))}
             </Tbody>
             <Tfoot>
               <Tr>
@@ -56,7 +68,7 @@ export default async function UserPage() {
                 <Th>Address</Th>
                 <Th>Total price</Th>
                 <Th>Total Items</Th>
-                <Th isNumeric>Button</Th>
+                <Th isNumeric>Details</Th>
               </Tr>
             </Tfoot>
           </Table>
