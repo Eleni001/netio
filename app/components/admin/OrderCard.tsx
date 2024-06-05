@@ -68,11 +68,11 @@ export default function OrderCard(props: Props) {
         <OrderSentButton order={props.order} />
       </Td>
       <Td>{props.order.id}</Td>
-      <Td>{JSON.stringify(props.order.createdAt)}</Td>
+      <Td>{formattedDate}</Td>
       <Td>{props.order.user.name}</Td>
       <Td>{props.order.shippingAddress.street}</Td>
       <Td>{JSON.stringify(props.order.total)}kr</Td>
-      <Td></Td>
+      <Td>{totalItems}</Td>
       <Td isNumeric>
         <Link href={`/admin/orders/details/${props.order.id}`}>
           <Button
