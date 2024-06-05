@@ -2,7 +2,7 @@
 
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
-import { Adress, Category, Product } from '@prisma/client';
+import { Category, Prisma, Product } from '@prisma/client';
 import console from 'console';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -134,7 +134,7 @@ export const editSendStatus = async (values: OrderWithInformation) => {
   revalidatePath('/admin/orders');
 };
 
-export const saveAddress = async (adressData: Adress) => {
+export const saveAddress = async (adressData: Prisma.AdressCreateInput) => {
   const session = await auth();
   if (!session?.user) return null;
 
@@ -217,4 +217,3 @@ export const deleteOrder = async (orderId: number) => {
     return { success: false, error: error };
   }
 };
-
