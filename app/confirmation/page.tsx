@@ -24,7 +24,7 @@ export default function Confirmation() {
   const { customerData, orderItems } = useCustomer();
 
   return (
-    <Container maxW="container.lg" py={10} px={0}>
+    <Container maxW="container.lg" padding={15}>
       <Box mb={4}>
         <Heading as="h1" mb={6}>
           Order Confirmation

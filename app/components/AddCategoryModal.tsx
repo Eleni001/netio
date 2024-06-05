@@ -1,12 +1,10 @@
 'use client';
 import { NewCategorySchema } from '@/data';
-import { AddIcon } from '@chakra-ui/icons';
 import {
   Box,
   FormControl,
   FormHelperText,
   FormLabel,
-  Icon,
   Input,
   Modal,
   ModalBody,
@@ -15,11 +13,13 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
 import { Category } from '@prisma/client';
 import { useFormik } from 'formik';
+import { GoPlus } from 'react-icons/go';
 import { createCategory } from '../actions/actions';
 import CustomToast from './CustomToast';
 
@@ -74,10 +74,12 @@ export default function AddCategoryButton() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        bg="gray.700"
+        bg="gray.800"
         color="white"
         borderRadius="md"
         padding="4"
+        gap={'2'}
+        width={'100%'}
         _hover={{
           bg: 'gray.600',
           transform: 'translateY(-2px)',
@@ -85,8 +87,8 @@ export default function AddCategoryButton() {
         }}
         onClick={onOpen}
       >
-        <Icon as={AddIcon} marginRight="2" />
-        Add Category
+        <GoPlus />
+        <Text>Add Category</Text>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
