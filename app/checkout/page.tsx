@@ -14,7 +14,7 @@ export default async function CheckoutPage() {
         <Divider />
         <AbsoluteCenter bg="white" px="4">
           <Text fontSize={{ base: '1.4rem', md: '2rem' }}>
-            {!session ? '????' : 'Customer Information'}
+            {!session ? 'Please login to continue' : 'Customer Information'}
           </Text>
         </AbsoluteCenter>
       </Box>
