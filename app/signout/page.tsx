@@ -63,14 +63,14 @@ export default function SignOut() {
             spacing={4}
             w={'full'}
             maxW={'md'}
-            bg="white" /* {useColorModeValue('white', 'gray.700')} */
+            bg="white"
             rounded={'xl'}
             boxShadow={'lg'}
             p={6}
             my={12}
           >
             <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
-              Sign in to your account
+              Sign out from your account
             </Heading>
             <Stack spacing={6}>
               <Button
