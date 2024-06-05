@@ -10,6 +10,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: '/signin',
     signOut: '/signout',
   },
+  trustHost: true,
 });
 
 declare module 'next-auth' {

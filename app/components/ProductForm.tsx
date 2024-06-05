@@ -12,13 +12,13 @@ import {
 } from '@chakra-ui/react';
 import { Category } from '@prisma/client';
 import { Field, Form, Formik } from 'formik';
+import { revalidatePath } from 'next/cache';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { createProduct, updateProduct } from '../actions/actions';
 import { ProductWithCategories, ProductWithCategoriesIds } from '../types';
 import CategoryBox from './CategoryBox';
 import CustomToast from './CustomToast';
-import { revalidatePath } from 'next/cache';
 
 interface Props {
   product?: ProductWithCategories;
