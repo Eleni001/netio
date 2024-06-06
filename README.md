@@ -1,45 +1,81 @@
 # NEXT DESIGN
 
-## Introduktion
+## Introduction
 
-Detta är ett skolprojekt i javascript kurs på Medieinstitutet Göteborg. Projektet går ut på att vi skapar en webbshop med hjälp av React, NextJS, Typescript och ett designsystem av vårt val vilket blev ChakraUI. Designen och färgtemat av `NEXT DESIGN` är inspirerat av en existerade inredningsbutiken `NORDIC NEST`.
+This is a school project for the Frontend course at Medieinstitutet Göteborg. The objective of this project is to create a fully functional web shop using React, NextJS, TypeScript, and ChakraUI as our design system. The design and color theme of `NEXT DESIGN` are inspired by the existing interior store `NORDIC NEST`.
 
-## Beskrivning
+## Description
 
-Enligt uppgiftskravet ska webbshopen bestå av minst fyra stycken sidor med en startsida, en produktsida, en kassasida och en bekräftelsesida.
+According to the project requirements, the web shop must consist of at least four pages: a home page, a product page, a checkout page, and a confirmation page.
 
-### Startsida
+### Home Page
 
-Startsidan presenterar alla produkter. Det är möjligt att klicka på en produkt för gå till produktsidan eller så kan man direkt lägga till produkten i varukorgen.
+The home page displays all available products categories. Users can click on a category to navigate to the products page.
 
-### Produktsida
+### Product Page
 
-Här kan användaren läsa beskrivningen om den valda produkten och lägga till den i varukorgen.
+On the product page, users can read the description of the selected product and add it to their shopping cart.
 
-### Kassasidan
+### Checkout Page
 
-#### Kundvagn
+The checkout page is divided into two main sections:
 
-Listar tillagda produkter (bild & titel) dess antal, pris, kundvagnens totalpris och man kan uppdatera kundvagnen genom att ändra antalet eller ta bort.
+#### Shopping Cart
 
-#### Leveransuppgifter
+- Lists added products with their image, title, quantity, and price.
+- Displays the total price of the cart.
+- Allows users to update the cart by changing the quantity or removing products.
 
-Här fyller användaren formuläret med namn, mail, telefonnummer och adress. Fälten i formuläret går automatisk i fyllas.
+#### Delivery Information
 
-#### Bekräftelsesidan
+- Users must be logged in to view and fill out the delivery information form.
+- The form includes fields for name, email, phone number, and address.
+- The form fields are automatically populated where possible for convenience.
 
-När användaren har fyllt i alla delar av formuläret på kassasidan och slutför köpet, kommer det en bekräftelse på köpet tillsammans med ett unikt ordernummer.
+### Confirmation Page
 
-Spelprojektet har utfört av [Catalina](https://github.com/CatAvadani), [Eleni](https://github.com/Eleni001) och [Tomoyo](https://github.com/toal13) som är FED23G studenter.
+Once the user has completed the checkout process, the confirmation page displays a confirmation message along with a unique order number.
 
-## Länk till webshoppen:
+## Installation
 
-[NEXT DESIGN](link)
+To set up the project locally, follow these steps:
 
-### Installation
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/Eleni001/netio.git
+   cd netio
+   ```
 
-Kör kommandot `npm install` för att installera nödvändiga moduler.
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
 
-### Starta projektet
+3. **Run the development server:**
+   ```sh
+   npm run dev
+   ```
 
-Kör kommandot `npm run dev` för att starta projektet och se ändringar live i din webbläsare!
+4. **Open your browser and navigate to:**
+   ```
+   http://localhost:5173
+   ```
+
+## Usage
+
+To use the web shop, follow these steps:
+
+1. **Browse Products:** Navigate to the home page to view all available categories.
+2. **View Product Details:** Click on a product to go to the product page and read more about it.
+3. **Add to Cart:** Add products to your shopping cart either from the home page or the product page.
+4. **Login:** Ensure you are logged in to proceed to checkout.
+5. **Checkout:** Navigate to the checkout page, review your cart, and fill out the delivery information.
+6. **Confirm Order:** Complete the purchase to receive a confirmation message with your order number.
+
+## Design System
+
+The web shop utilizes ChakraUI for its design system, providing a consistent and responsive design. ChakraUI components ensure a cohesive look and feel across all pages.
+
+## Contributors
+This project was created by Eleni, Igor Pieropan, Tomoyo, Nathalie and Oskar who are FED23G students.
+
