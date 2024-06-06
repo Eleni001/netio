@@ -41,7 +41,7 @@ export default function NavIcons({ session }: Props) {
           </Icon>
         </NextLink>
       )}
-      {session?.user && !session.user.isAdmin && (
+      {session?.user && (
         <NextLink href="/user" color="black">
           <Icon
             fontSize="1.7rem"
