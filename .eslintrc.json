@@ -7,5 +7,6 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     // Add any additional rules or override defaults here
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
