@@ -18,40 +18,6 @@ interface Props {
 }
 
 export default function OrderCard(props: Props) {
-  /* const [loading, setLoading] = useState(false);
-  const toast = useToast();
-
-  const handleDelete = async () => {
-    setLoading(true);
-    try {
-      const response = await deleteOrder(Number(props.order.id));
-
-      if (response?.success) {
-        toast({
-          render: () => (
-            <CustomToast
-              toastSuccess={true}
-              toastTitle="Successfully deleted order"
-              toastContent="Order deleted successfully."
-            />
-          ),
-          duration: 3000,
-          isClosable: true,
-        });
-      } else {
-        alert('Failed to delete order: ' + response?.error);
-      }
-    } catch (error) {
-      <CustomToast
-        toastSuccess={false}
-        toastTitle="Error"
-        toastContent="An error occurred while deleting the order."
-      />;
-    } finally {
-      setLoading(false);
-    }
-  }; */
-
   const formattedDate = new Date(props.order.createdAt).toLocaleString(
     'sv-SE',
     {

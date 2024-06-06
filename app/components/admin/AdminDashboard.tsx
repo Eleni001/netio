@@ -198,36 +198,3 @@ export default function AdminDashboard({ products: newProducts }: Props) {
     </>
   );
 }
-
-{
-  /* <Flex justify="center" alignItems="center" height="100%">
-                        <Link
-                          href={`product/${product.id}`}
-                          _hover={{ textDecoration: 'none' }}
-                        >
-                          <Button
-                            bg="rgba(78, 199, 145, 1)"
-                            color="white"
-                            size="sm"
-                            mr="3px"
-                            _hover={{
-                              transform: 'translateY(2px)',
-                              boxShadow: 'lg',
-                            }}
-                          >
-                            Edit
-                          </Button>
-                        </Link>
-                        <Button
-                          colorScheme="red"
-                          size="sm"
-                          _hover={{
-                            transform: 'translateY(2px)',
-                            boxShadow: 'lg',
-                          }}
-                          onClick={() => handleDeleteClick(product)}
-                        >
-                          Delete
-                        </Button>
-                      </Flex> */
-}
