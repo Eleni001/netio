@@ -1,10 +1,16 @@
 'use client';
-import { deleteOrder } from '@/app/actions/actions';
 import { OrderWithInformation } from '@/app/types';
-import { Button, Td, Tr, useToast } from '@chakra-ui/react';
-import Link from 'next/link';
-import { useState } from 'react';
-import CustomToast from '../CustomToast';
+import {
+  Button,
+  Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Td,
+  Tr,
+} from '@chakra-ui/react';
+import { BsThreeDots } from 'react-icons/bs';
 import OrderSentButton from './OrderSentButton';
 
 interface Props {
@@ -12,40 +18,6 @@ interface Props {
 }
 
 export default function OrderCard(props: Props) {
-  const [loading, setLoading] = useState(false);
-  const toast = useToast();
-
-  const handleDelete = async () => {
-    setLoading(true);
-    try {
-      const response = await deleteOrder(Number(props.order.id));
-
-      if (response?.success) {
-        toast({
-          render: () => (
-            <CustomToast
-              toastSuccess={true}
-              toastTitle="Successfully deleted order"
-              toastContent="Order deleted successfully."
-            />
-          ),
-          duration: 3000,
-          isClosable: true,
-        });
-      } else {
-        alert('Failed to delete order: ' + response?.error);
-      }
-    } catch (error) {
-      <CustomToast
-        toastSuccess={false}
-        toastTitle="Error"
-        toastContent="An error occurred while deleting the order."
-      />;
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const formattedDate = new Date(props.order.createdAt).toLocaleString(
     'sv-SE',
     {
@@ -74,32 +46,24 @@ export default function OrderCard(props: Props) {
       <Td>{JSON.stringify(props.order.total)}kr</Td>
       <Td>{totalItems}</Td>
       <Td isNumeric>
-        <Link href={`/admin/orders/details/${props.order.id}`}>
-          <Button
-            bg="rgba(78, 199, 145, 1)"
-            color="white"
-            size="sm"
-            mr="3px"
-            _hover={{
-              transform: 'translateY(2px)',
-              boxShadow: 'lg',
-            }}
+        <Menu>
+          <MenuButton
+            as={Button}
+            rounded={'full'}
+            variant={'link'}
+            cursor={'pointer'}
+            minW={0}
           >
-            Details
-          </Button>
-        </Link>
-        <Button
-          colorScheme="red"
-          size="sm"
-          isLoading={loading}
-          onClick={handleDelete}
-          _hover={{
-            transform: 'translateY(2px)',
-            boxShadow: 'lg',
-          }}
-        >
-          Delete
-        </Button>
+            <Icon color="black">
+              <BsThreeDots />
+            </Icon>
+          </MenuButton>
+          <MenuList>
+            <MenuItem as="a" href={`/admin/orders/details/${props.order.id}`}>
+              <Button colorScheme="green">Details</Button>
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Td>
     </Tr>
   );
