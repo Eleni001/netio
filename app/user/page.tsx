@@ -13,7 +13,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import UserOrderCard from '../components/admin/UserOrderCard';
+import UserOrderCard from '../components/UserOrderCard';
 
 export default async function UserPage() {
   const session = await auth();

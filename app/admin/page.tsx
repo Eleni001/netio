@@ -1,7 +1,11 @@
-'use client';
+import { auth } from '@/auth';
 import { Flex, Heading, Image } from '@chakra-ui/react';
+import { redirect } from 'next/navigation';
 
-export default function AdminHomePage() {
+export default async function AdminHomePage() {
+  const session = await auth();
+
+  if (!session?.user.isAdmin) redirect('/');
   return (
     <Flex
       direction="column"

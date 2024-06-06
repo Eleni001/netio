@@ -1,4 +1,5 @@
 import OrderSentButton from '@/app/components/admin/OrderSentButton';
+import { auth } from '@/auth';
 import { db } from '@/prisma/db';
 import { Box, Center, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import Image from 'next/image';
@@ -9,8 +10,12 @@ interface Props {
   params: { id: string };
 }
 
-export default async function EditProductPage({ params }: Props) {
+export default async function UserOrderDetails({ params }: Props) {
+  const session = await auth();
   const orders = await db.order.findMany({
+    where: {
+      userId: session?.user.id,
+    },
     include: {
       user: true,
       shippingAddress: true,
@@ -55,7 +60,7 @@ export default async function EditProductPage({ params }: Props) {
       bg="white"
       position="relative"
     >
-      <Link href="/admin/orders">
+      <Link href="/user">
         <IoIosArrowRoundBack size={35} />
       </Link>
       <Heading as="h2" size="lg" mb={4} textAlign="center" color="teal.500">

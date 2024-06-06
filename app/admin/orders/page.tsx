@@ -1,4 +1,6 @@
 import OrderCard from '@/app/components/admin/OrderCard';
+
+import { auth } from '@/auth';
 import { db } from '@/prisma/db';
 import {
   Box,
@@ -13,8 +15,13 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
+import { redirect } from 'next/navigation';
 
 export default async function OrdersPage() {
+  const session = await auth();
+
+  if (!session?.user.isAdmin) redirect('/');
+
   const orders = await db.order.findMany({
     include: {
       user: true,

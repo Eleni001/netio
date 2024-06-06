@@ -18,6 +18,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'nordicnest.se',
       },
+      {
+        protocol: 'https',
+        hostname: 'nordicnest.com',
+      },
     ],
   },
   experimental: {

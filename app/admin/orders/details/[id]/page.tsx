@@ -1,8 +1,10 @@
 import OrderSentButton from '@/app/components/admin/OrderSentButton';
+import { auth } from '@/auth';
 import { db } from '@/prisma/db';
 import { Box, Center, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 
 interface Props {
@@ -10,6 +12,10 @@ interface Props {
 }
 
 export default async function EditProductPage({ params }: Props) {
+  const session = await auth();
+
+  if (!session?.user.isAdmin) redirect('/');
+
   const orders = await db.order.findMany({
     include: {
       user: true,

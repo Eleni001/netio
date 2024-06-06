@@ -43,7 +43,7 @@ export default function UserOrderCard(props: Props) {
       <Td>{JSON.stringify(props.order.total)}kr</Td>
       <Td>{totalItems}</Td>
       <Td isNumeric>
-        <Link href={`/admin/orders/details/${props.order.id}`}>
+        <Link href={`/user/details/${props.order.id}`}>
           <Button
             bg="rgba(78, 199, 145, 1)"
             color="white"
