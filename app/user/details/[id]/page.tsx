@@ -1,4 +1,3 @@
-import OrderSentButton from '@/app/components/admin/OrderSentButton';
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
 import { Box, Center, Divider, Flex, Heading, Text } from '@chakra-ui/react';
@@ -124,8 +123,23 @@ export default async function UserOrderDetails({ params }: Props) {
         justifyContent={'space-between'}
         color="teal.600"
       >
-        <OrderSentButton order={order} />
         Total Price: {total} kr
+      </Text>
+      <Text
+        fontWeight="bold"
+        fontSize="lg"
+        display={'flex'}
+        justifyContent={'space-between'}
+        color="teal.600"
+      >
+        Status of your order:
+      </Text>
+      <Text>
+        {order.sentStatus === true ? (
+          <Text color="green">Sent</Text>
+        ) : (
+          <Text color="red">Not Sent</Text>
+        )}
       </Text>
     </Flex>
   );
