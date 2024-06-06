@@ -16,11 +16,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'nordicnest.se',
+        hostname: 'www.nordicnest.se',
       },
       {
         protocol: 'https',
-        hostname: 'nordicnest.com',
+        hostname: 'www.nordicnest.com',
       },
     ],
   },
