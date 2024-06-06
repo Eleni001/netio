@@ -40,7 +40,6 @@ export default async function OrdersPage() {
                 <Th>Address</Th>
                 <Th>Total price</Th>
                 <Th>Total Items</Th>
-                <Th isNumeric>Button</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -57,7 +56,6 @@ export default async function OrdersPage() {
                 <Th>Address</Th>
                 <Th>Total price</Th>
                 <Th>Total Items</Th>
-                <Th isNumeric>Button</Th>
               </Tr>
             </Tfoot>
           </Table>
