@@ -14,7 +14,7 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   const pathname = usePathname();
-  console.log(pathname);
+
   return (
     <>
       <Grid

@@ -17,7 +17,7 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
-import { Category } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { useFormik } from 'formik';
 import { GoPlus } from 'react-icons/go';
 import { createCategory } from '../actions/actions';
@@ -31,11 +31,10 @@ export default function AddCategoryButton() {
     initialValues: {
       name: '',
       slug: '',
-      id: 0,
       imageUrl: '',
     },
     validationSchema: NewCategorySchema,
-    onSubmit: async (values: Category, { resetForm }) => {
+    onSubmit: async (values: Prisma.CategoryCreateInput, { resetForm }) => {
       try {
         await createCategory(values);
         toast({

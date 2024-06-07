@@ -2,7 +2,7 @@
 
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
-import { Category, Prisma, Product } from '@prisma/client';
+import { Prisma, Product } from '@prisma/client';
 import console from 'console';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -109,7 +109,7 @@ export const updateStock = async (productId: number, quantity: number) => {
   }
 };
 
-export const createCategory = async (values: Category) => {
+export const createCategory = async (values: Prisma.CategoryCreateInput) => {
   const session = await auth();
   if (!session?.user.isAdmin) return null;
 
