@@ -21,7 +21,7 @@ export function MiddleFooter() {
             mt={6}
             fontSize={{ base: '1rem', md: '1.4rem' }}
           >
-            NEXT DESIGN
+            NETIO DESIGN
           </Heading>
         </center>
         <Container as={Stack} maxW={'6xl'} py={10}>
@@ -45,11 +45,11 @@ export function MiddleFooter() {
               <Heading fontWeight="bold" fontSize={'xl'} mb={2}>
                 ASSORTMENT
               </Heading>
-              <Box>Setting & serving</Box>
-              <Box>Kitchen & cooking</Box>
-              <Box>Furnishings</Box>
               <Box>Lighting</Box>
-              <Box>Carpets & textiles</Box>
+              <Box>Indoor & Furniture</Box>
+              <Box>Kitchen</Box>
+              <Box>Furniture</Box>
+              <Box>Outdoor</Box>
             </Stack>
             <Stack align={'flex-start'}>
               <Heading fontWeight="bold" fontSize={'xl'} mb={2}>
@@ -74,7 +74,7 @@ export function MiddleFooter() {
             </Stack>
             <Stack align={'flex-start'}>
               <Heading fontWeight="bold" fontSize={'xl'} mb={2}>
-                ABOUT NEXT DESIGN
+                ABOUT NETIO
               </Heading>
               <NextLink href="/about">
                 <Text
