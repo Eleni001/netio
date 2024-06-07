@@ -93,7 +93,7 @@ export async function deleteProduct(productId: number) {
 
 export const updateStock = async (productId: number, quantity: number) => {
   const session = await auth();
-  if (!session?.user.isAdmin) return null;
+  if (!session?.user) return null;
 
   try {
     const product = await db.product.findUnique({ where: { id: productId } });
@@ -193,7 +193,7 @@ export const createOrder = async (
     });
 
     await Promise.all(cart.map((item) => updateStock(item.id, item.quantity))); // parallelt
-
+    revalidatePath('/category');
     return order;
   } catch (error) {
     console.error('Error creating order:', error);
@@ -201,30 +201,30 @@ export const createOrder = async (
   }
 };
 
-export const deleteOrder = async (orderId: number) => {
-  const session = await auth();
-  if (!session?.user.isAdmin) return null;
+// export const deleteOrder = async (orderId: number) => {
+//   const session = await auth();
+//   if (!session?.user.isAdmin) return null;
 
-  try {
-    const session = await auth();
-    if (!session?.user.isAdmin) return null;
+//   try {
+//     const session = await auth();
+//     if (!session?.user.isAdmin) return null;
 
-    await db.orderRow.deleteMany({
-      where: {
-        orderId: orderId,
-      },
-    });
+//     await db.orderRow.deleteMany({
+//       where: {
+//         orderId: orderId,
+//       },
+//     });
 
-    await db.order.delete({
-      where: {
-        id: orderId,
-      },
-    });
-    console.log('Order deleted successfully');
-    revalidatePath('/admin/orders');
-    return { success: true };
-  } catch (error) {
-    console.error('Failed to delete order:', error);
-    return { success: false, error: error };
-  }
-};
+//     await db.order.delete({
+//       where: {
+//         id: orderId,
+//       },
+//     });
+//     console.log('Order deleted successfully');
+//     revalidatePath('/admin/orders');
+//     return { success: true };
+//   } catch (error) {
+//     console.error('Failed to delete order:', error);
+//     return { success: false, error: error };
+//   }
+// };
