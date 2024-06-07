@@ -28,6 +28,9 @@ export async function getProductsByCategorySlug(slug: string) {
 }
 
 export const createProduct = async (values: ProductWithCategoriesIds) => {
+  const session = await auth();
+  if (!session?.user.isAdmin) return null;
+
   await db.product.create({
     data: {
       title: values.title,
@@ -74,6 +77,9 @@ export const updateProduct = async (values: ProductWithCategoriesIds) => {
 };
 
 export async function deleteProduct(productId: number) {
+  const session = await auth();
+  if (!session?.user.isAdmin) return null;
+
   try {
     await db.product.delete({
       where: {
@@ -86,6 +92,9 @@ export async function deleteProduct(productId: number) {
 }
 
 export const updateStock = async (productId: number, quantity: number) => {
+  const session = await auth();
+  if (!session?.user) return null;
+
   try {
     const product = await db.product.findUnique({ where: { id: productId } });
 
@@ -159,7 +168,6 @@ export const createOrder = async (
   shippingAddressId: number,
 ) => {
   const session = await auth();
-
   if (!session) return redirect('/signin');
 
   try {
@@ -185,35 +193,10 @@ export const createOrder = async (
     });
 
     await Promise.all(cart.map((item) => updateStock(item.id, item.quantity))); // parallelt
-
+    revalidatePath('/category');
     return order;
   } catch (error) {
     console.error('Error creating order:', error);
     throw error;
-  }
-};
-
-export const deleteOrder = async (orderId: number) => {
-  try {
-    const session = await auth();
-    if (!session?.user.isAdmin) return null;
-
-    await db.orderRow.deleteMany({
-      where: {
-        orderId: orderId,
-      },
-    });
-
-    await db.order.delete({
-      where: {
-        id: orderId,
-      },
-    });
-    console.log('Order deleted successfully');
-    revalidatePath('/admin/orders');
-    return { success: true };
-  } catch (error) {
-    console.error('Failed to delete order:', error);
-    return { success: false, error: error };
   }
 };
