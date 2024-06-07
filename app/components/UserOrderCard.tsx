@@ -2,15 +2,12 @@
 import { OrderWithInformation } from '@/app/types';
 import { Button, Td, Text, Tr } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useState } from 'react';
 
 interface Props {
   order: OrderWithInformation;
 }
 
 export default function UserOrderCard(props: Props) {
-  const [loading] = useState(false);
-
   const formattedDate = new Date(props.order.createdAt).toLocaleString(
     'sv-SE',
     {
