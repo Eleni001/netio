@@ -1,45 +1,115 @@
 # NEXT DESIGN
 
-## Introduktion
+## Introduction
 
-Detta är ett skolprojekt i javascript kurs på Medieinstitutet Göteborg. Projektet går ut på att vi skapar en webbshop med hjälp av React, NextJS, Typescript och ett designsystem av vårt val vilket blev ChakraUI. Designen och färgtemat av `NEXT DESIGN` är inspirerat av en existerade inredningsbutiken `NORDIC NEST`.
+This is a school project for the Frontend course at Medieinstitutet Göteborg. The objective of this project is to create a fully functional web shop using React, NextJS, TypeScript, and ChakraUI as our design system. The design and color theme of `NEXT DESIGN` are inspired by the existing interior store `NORDIC NEST`.
 
-## Beskrivning
+## Description
 
-Enligt uppgiftskravet ska webbshopen bestå av minst fyra stycken sidor med en startsida, en produktsida, en kassasida och en bekräftelsesida.
+According to the project requirements, the web shop must consist of at least four pages: a home page, a product page, a checkout page, and a confirmation page.
 
-### Startsida
+### Home Page
 
-Startsidan presenterar alla produkter. Det är möjligt att klicka på en produkt för gå till produktsidan eller så kan man direkt lägga till produkten i varukorgen.
+The home page displays all available products categories. Users can click on a category to navigate to the products page.
 
-### Produktsida
+### Product Page
 
-Här kan användaren läsa beskrivningen om den valda produkten och lägga till den i varukorgen.
+On the product page, users can read the description of the selected product and add it to their shopping cart. If the product is out of stock then it is not possible to add to cart.
 
-### Kassasidan
+### Checkout Page
 
-#### Kundvagn
+The checkout page is divided into two main sections:
 
-Listar tillagda produkter (bild & titel) dess antal, pris, kundvagnens totalpris och man kan uppdatera kundvagnen genom att ändra antalet eller ta bort.
+#### Shopping Cart
 
-#### Leveransuppgifter
+- Lists added products with their image, title, quantity, and price.
+- Displays the total price of the cart.
+- Allows users to update the cart by changing the quantity or removing products.
 
-Här fyller användaren formuläret med namn, mail, telefonnummer och adress. Fälten i formuläret går automatisk i fyllas.
+#### Delivery Information
 
-#### Bekräftelsesidan
+- Users must be logged in to view and fill out the delivery information form.
+- The form includes fields for name, email, phone number, and address.
+- The form fields are automatically populated where possible for convenience.
 
-När användaren har fyllt i alla delar av formuläret på kassasidan och slutför köpet, kommer det en bekräftelse på köpet tillsammans med ett unikt ordernummer.
+### Confirmation Page
 
-Spelprojektet har utfört av [Catalina](https://github.com/CatAvadani), [Eleni](https://github.com/Eleni001) och [Tomoyo](https://github.com/toal13) som är FED23G studenter.
+Once the user has completed the checkout process, the confirmation page displays a confirmation message along with a unique order number.
 
-## Länk till webshoppen:
+### Admin-page
 
-[NEXT DESIGN](link)
+- Add / edit / delete products
+- See all orders
+- Add categorys
+- Change state of order to sent status.
 
-### Installation
+# The backend
 
-Kör kommandot `npm install` för att installera nödvändiga moduler.
+The project databaseis configured through Neon using Prisma to create a schema and populate database which is cloudbased PostgeSql.
 
-### Starta projektet
+# Assignment requirements
 
-Kör kommandot `npm run dev` för att starta projektet och se ändringar live i din webbläsare!
+- [x] Arbetet ska implementeras med NextJS. (G)
+- [x] Beskriv er företagsidé i en kort textuell presentation, detta ska ha visats vid idégodkännandet (G)
+- [x] Skapa ett ER diagram som ska ha visats vid idégodkännandet (G)
+
+- [x] När man är inloggad som kund ska man kunna se sina gjorda beställning och om det är skickade eller inte (G)
+- [x] Backenden ska ha validering på samtliga endpoints (även Server Actions). (G)
+  - Auth.js used to validate the user when doing actions.
+- [x] Alla Sidor ska vara responsiva
+  - Used chakra template with incorpriated responsivity.
+- [x] Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält (G)
+  - Validation with FORMIK + YUP
+- [x] Administratörer ska kunna markera beställningar som skickade (G)
+- [x] Administratörer ska kunna lägga till och ta bort produkter (G)
+- [x] Administratörer ska kunna redigera produkt (G)
+- [x] En besökare som gör en beställning ska få möjligheten att registrera sig samt logga in och måste vara inloggad som kund innan beställningen skapas (G)
+  - Used Auth.js to use Oauth through GitHub.
+- [x] Besökare ska kunna lägga produkterna i en kundkorg, som är sparad i local-storage på klienten (G)
+- [x] Från hemsidan ska man kunna se en lista över alla produkter, och man ska kunna lista bara dom produkter som tillhör en kategori (G)
+- [x] Sidans produkter ska delas upp i kategorier, en produkt ska tillhöra minst en kategori, men kan tillhöra flera (G)
+- [x] Administratörer ska kunna se en lista på alla gjorda beställningar (G)
+- [x] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan (G)
+- [x] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen (G)
+- [x] Inga Lösenord får sparas i klartext i databasen (G)
+  - Auth.js used, does not require any password / credentials
+- [x] Man ska kunna logga in som administratör i systemet (G)
+  - Based on a isAdmin boolean within user-model.
+- [x] All data som programmet utnyttjar ska vara sparat i en SQL databas (produkter, beställningar, konton, mm) med undantaget av bilder. (G)
+  - Using cloudbased postgresql hosted on Neon.
+
+## Installation
+
+To set up the project locally, follow these steps:
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/Eleni001/netio.git
+   cd netio
+   ```
+
+2. **Install dependencies:**
+
+   ```sh
+   npm install
+   ```
+
+3. **Run the development server:**
+
+   ```sh
+   npm run dev
+   ```
+
+4. **Open your browser and navigate to:**
+   ```
+   http://localhost:5173
+   ```
+
+## Design System
+
+The web shop utilizes ChakraUI for its design system, providing a consistent and responsive design. ChakraUI components ensure a cohesive look and feel across all pages.
+
+## Contributors
+
+This project was created by Eleni, Igor Pieropan, Tomoyo, Nathalie and Oscar who are FED23G students.
