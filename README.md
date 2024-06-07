@@ -36,30 +36,67 @@ The checkout page is divided into two main sections:
 
 Once the user has completed the checkout process, the confirmation page displays a confirmation message along with a unique order number.
 
+### Admin-page
+
+- Add / edit / delete products
+- See all orders
+- Add categorys
+- Change state of order to sent status.
+
 # The backend
 
-The project databaseis configured through Neon using Prisma to create a schema and populate database which is cloud based PostgeSql. 
+The project databaseis configured through Neon using Prisma to create a schema and populate database which is cloudbased PostgeSql.
 
 # Assignment requirements
 
+- [x] Arbetet ska implementeras med NextJS. (G)
+- [x] Beskriv er företagsidé i en kort textuell presentation, detta ska ha visats vid idégodkännandet (G)
+- [x] Skapa ett ER diagram som ska ha visats vid idégodkännandet (G)
 
+- [x] När man är inloggad som kund ska man kunna se sina gjorda beställning och om det är skickade eller inte (G)
+- [x] Backenden ska ha validering på samtliga endpoints (även Server Actions). (G)
+  - Auth.js used to validate the user when doing actions.
+- [x] Alla Sidor ska vara responsiva
+  - Used chakra template with incorpriated responsivity.
+- [x] Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält (G)
+  - Validation with FORMIK + YUP
+- [x] Administratörer ska kunna markera beställningar som skickade (G)
+- [x] Administratörer ska kunna lägga till och ta bort produkter (G)
+- [x] Administratörer ska kunna redigera produkt (G)
+- [x] En besökare som gör en beställning ska få möjligheten att registrera sig samt logga in och måste vara inloggad som kund innan beställningen skapas (G)
+  - Used Auth.js to use Oauth through GitHub.
+- [x] Besökare ska kunna lägga produkterna i en kundkorg, som är sparad i local-storage på klienten (G)
+- [x] Från hemsidan ska man kunna se en lista över alla produkter, och man ska kunna lista bara dom produkter som tillhör en kategori (G)
+- [x] Sidans produkter ska delas upp i kategorier, en produkt ska tillhöra minst en kategori, men kan tillhöra flera (G)
+- [x] Administratörer ska kunna se en lista på alla gjorda beställningar (G)
+- [x] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan (G)
+- [x] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen (G)
+- [x] Inga Lösenord får sparas i klartext i databasen (G)
+  - Auth.js used, does not require any password / credentials
+- [x] Man ska kunna logga in som administratör i systemet (G)
+  - Based on a isAdmin boolean within user-model.
+- [x] All data som programmet utnyttjar ska vara sparat i en SQL databas (produkter, beställningar, konton, mm) med undantaget av bilder. (G)
+  - Using cloudbased postgresql hosted on Neon.
 
 ## Installation
 
 To set up the project locally, follow these steps:
 
 1. **Clone the repository:**
+
    ```sh
    git clone https://github.com/Eleni001/netio.git
    cd netio
    ```
 
 2. **Install dependencies:**
+
    ```sh
    npm install
    ```
 
 3. **Run the development server:**
+
    ```sh
    npm run dev
    ```
@@ -69,21 +106,10 @@ To set up the project locally, follow these steps:
    http://localhost:5173
    ```
 
-## Usage
-
-To use the web shop, follow these steps:
-
-1. **Browse Products:** Navigate to the home page to view all available categories.
-2. **View Product Details:** Click on a product to go to the product page and read more about it.
-3. **Add to Cart:** Add products to your shopping cart either from the home page or the product page.
-4. **Login:** Ensure you are logged in to proceed to checkout.
-5. **Checkout:** Navigate to the checkout page, review your cart, and fill out the delivery information.
-6. **Confirm Order:** Complete the purchase to receive a confirmation message with your order number.
-
 ## Design System
 
 The web shop utilizes ChakraUI for its design system, providing a consistent and responsive design. ChakraUI components ensure a cohesive look and feel across all pages.
 
 ## Contributors
-This project was created by Eleni, Igor Pieropan, Tomoyo, Nathalie and Oskar who are FED23G students.
 
+This project was created by Eleni, Igor Pieropan, Tomoyo, Nathalie and Oscar who are FED23G students.
