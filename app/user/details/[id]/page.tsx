@@ -1,22 +1,20 @@
-import OrderSentButton from '@/app/components/admin/OrderSentButton';
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
 import { Box, Center, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 
 interface Props {
   params: { id: string };
 }
 
-export default async function EditProductPage({ params }: Props) {
+export default async function UserOrderDetails({ params }: Props) {
   const session = await auth();
-
-  if (!session?.user.isAdmin) redirect('/');
-
   const orders = await db.order.findMany({
+    where: {
+      userId: session?.user.id,
+    },
     include: {
       user: true,
       shippingAddress: true,
@@ -61,7 +59,7 @@ export default async function EditProductPage({ params }: Props) {
       bg="white"
       position="relative"
     >
-      <Link href="/admin/orders">
+      <Link href="/user">
         <IoIosArrowRoundBack size={35} />
       </Link>
       <Heading as="h2" size="lg" mb={4} textAlign="center" color="teal.500">
@@ -125,8 +123,23 @@ export default async function EditProductPage({ params }: Props) {
         justifyContent={'space-between'}
         color="teal.600"
       >
-        <OrderSentButton order={order} />
         Total Price: {total} kr
+      </Text>
+      <Text
+        fontWeight="bold"
+        fontSize="lg"
+        display={'flex'}
+        justifyContent={'space-between'}
+        color="teal.600"
+      >
+        Status of your order:
+      </Text>
+      <Text>
+        {order.sentStatus === true ? (
+          <Text color="green">Sent</Text>
+        ) : (
+          <Text color="red">Not Sent</Text>
+        )}
       </Text>
     </Flex>
   );

@@ -1,10 +1,16 @@
 import { getAllCategorys, getAllProducts } from '@/app/actions/actions';
 import ProductForm from '@/app/components/ProductForm';
+import { auth } from '@/auth';
 import { Flex, Heading } from '@chakra-ui/react';
+import { redirect } from 'next/navigation';
 
 type PageProps = { params: { id: string } };
 
 export default async function AdminEditProductPage({ params }: PageProps) {
+  const session = await auth();
+
+  if (!session?.user.isAdmin) redirect('/');
+
   const products = await getAllProducts();
   const categories = await getAllCategorys();
   const param = Number(params.id);
