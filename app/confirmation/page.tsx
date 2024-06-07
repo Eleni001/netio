@@ -42,7 +42,7 @@ export default function Confirmation() {
           home, and we promise to do our best to ship your order as soon as we
           can. Our ambition is to help you create a home to love and to which
           you proudly open the door. We therefore hope that you will be
-          completely satisfied with your order. Welcome back. Nest Desgin
+          completely satisfied with your order.
         </Text>
       </Box>
       <Table variant="simple" mt={6} mb={6}>
