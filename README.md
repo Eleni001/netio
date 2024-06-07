@@ -14,7 +14,7 @@ The home page displays all available products categories. Users can click on a c
 
 ### Product Page
 
-On the product page, users can read the description of the selected product and add it to their shopping cart.
+On the product page, users can read the description of the selected product and add it to their shopping cart. If the product is out of stock then it is not possible to add to cart.
 
 ### Checkout Page
 
@@ -35,6 +35,14 @@ The checkout page is divided into two main sections:
 ### Confirmation Page
 
 Once the user has completed the checkout process, the confirmation page displays a confirmation message along with a unique order number.
+
+# The backend
+
+The project databaseis configured through Neon using Prisma to create a schema and populate database which is cloud based PostgeSql. 
+
+# Assignment requirements
+
+
 
 ## Installation
 
